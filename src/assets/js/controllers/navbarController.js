@@ -25,7 +25,7 @@ export class NavbarController extends Controller{
         this.#navbarView = await super.loadHtmlIntoNavigation("html_views/navbar.html")
 
         //from here we can safely get elements from the view via the right getter
-        const anchors = this.#navbarView.querySelectorAll("a.nav-link");
+        const anchors = this.#navbarView.querySelectorAll("a.nav-links");
 
         //set click listener on each anchor
         anchors.forEach(anchor => anchor.addEventListener("click", (event) => this.#handleClickNavigationItem(event)))
@@ -47,7 +47,12 @@ export class NavbarController extends Controller{
             return false;
         }
 
-        //TODO: You should add highlighting of correct anchor when page is active :)
+  
+        this.#navbarView.querySelectorAll(".nav-links").forEach((navLink) => {
+            navLink.classList.remove("active-link");
+        });
+
+        clickedAnchor.classList.add("active-link")
 
         //Pass the action to a new function for further processing
         App.loadController(controller);
