@@ -1,0 +1,12 @@
+@import "/assets/css/defaults.css";
+.card-content {
+    display: flex;
+}
+
+.color-high {
+    color: var(--card-high-percentage);
+}
+
+.container {
+
+}
