@@ -1,3 +1,9 @@
 span.name {
     color: #2F72B9;
 }
+
+.start-section, 
+.mid-section, 
+.end-section {
+    height: 80vh;
+}

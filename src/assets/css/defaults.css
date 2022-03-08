@@ -1,3 +1,45 @@
+.light-mode {
+    --main-bg-color-white: #FFFFFF;
+    --main-bg-color-light-blue: rgba(0, 99, 195, 0.23);
+    --main-title: #009DFF;
+    --main-text-color: rgba(0, 0, 0, 0.38);
+    --main-green: #A5C023;
+    --main-button1: #0063C3;
+    --main-button2: rgba(0, 99, 195, 0.25);
+    --header-bg-color: #00102b;
+    --light-blue: #009dff;
+    --buttons: #0063C3;
+    --main-text: #0063c3;
+    --card-numbers: #555555;
+    --card-low-percentage: #F4361D;
+    --card-high-percentage: #2CDDC7;
+    --table-background-color: #FFFFFF;
+    --table-top-color: #0063C3;
+    --table-row-color: rgba(0, 80, 158, 0.2);
+    --table-export-buttons: #006F38;
+}
+
+.dark-mode {
+    --main-bg-color-dark: #252836;
+    --main-bg-color-light-blue: rgba(0, 99, 195, 0.23);
+    --main-title: #009DFF;
+    --main-text-color: rgba(0, 0, 0, 0.38);
+    --main-green: #A5C023;
+    --main-button1: #0063C3;
+    --main-button2: rgba(0, 99, 195, 0.25);
+    --header-bg-color: #00102b;
+    --light-blue: #009dff;
+    --buttons: #0063C3;
+    --main-text: #0063c3;
+    --card-numbers: #FFFFFF;
+    --card-low-percentage: #F4361D;
+    --card-high-percentage: #2CDDC7;
+    --table-background-color: #1F1D2B;
+    --table-top-color: rgba(0, 80, 158, 0.2);
+    --table-row-color: rgba(0, 80, 158, 0.2);
+    --table-export-buttons: #006F38;
+}
+
 footer {
     position: fixed;
     left: 0;
