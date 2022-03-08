@@ -2,6 +2,31 @@
     font-family: 'Inter', sans-serif;
 }
 
+#switchTable{
+    padding: 10px;
+}
+
+a{
+    color: #849AA9;
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: none;
+    color: white;
+    background-color: #00509E;
+}
+
+#line{
+    color: black;
+    height: 5px;
+    width: 100%;
+}
+
+th{
+    width: calc(100% / 7);
+}
+
 #tableHeader{
     color: white;
     background-color: #0063C3;
