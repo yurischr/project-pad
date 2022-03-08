@@ -9,8 +9,52 @@ span.name {
     gap: 75px;
 }
 
-.start-section, 
-.mid-section, 
+.start-section {
+    background: rgba(0, 80, 158, 0.23);
+}
+
+.header-text {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    margin-top: 85px;
+    color: #00509E;
+}
+
+.header-info {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.green-word {
+    color: #ABC54F;
+}
+
+.viewButton{
+    width: 150px;
+    height: 40px;
+    background: #00509E;
+    border-radius: 10px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.infoButton {
+    margin-left: 20px;
+    width: 150px;
+    height: 40px;
+    background: rgba(0, 80, 158, 0.25);
+    border-radius: 10px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+}
+
+.mid-section,
 .end-section {
     height: 80vh;
 }
@@ -76,4 +120,27 @@ span.name {
 
 .section-title h2{
     color: var(--main-text);
+}
+
+.end-section {
+    background-color: rgba(0, 80, 157, 0.23);
+}
+
+.end {
+    display: flex;
+    flex-direction: column;
+}
+
+#end-title {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    color: #14378A;
+}
+
+#end-text {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    color: #0063c3;
 }
