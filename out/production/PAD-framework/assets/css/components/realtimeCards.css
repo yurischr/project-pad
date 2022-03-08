@@ -1,0 +1,7 @@
+.card-content {
+    display: flex;
+}
+
+.color {
+    color: var(--main-bg-color-light-blue);
+}
