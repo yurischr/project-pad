@@ -121,3 +121,26 @@ span.name {
 .section-title h2{
     color: var(--main-text);
 }
+
+.end-section {
+    background-color: rgba(0, 80, 157, 0.23);
+}
+
+.end {
+    display: flex;
+    flex-direction: column;
+}
+
+#end-title {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    color: #14378A;
+}
+
+#end-text {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    color: #0063c3;
+}
