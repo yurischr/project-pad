@@ -135,16 +135,27 @@ span.name {
     flex-direction: column;
 }
 
-#end-title {
+.end-title {
     display: flex;
     justify-content: center;
-    padding: 20px;
-    color: #14378A;
+    padding: 15px;
+    color: #00509E;
 }
 
-#end-text {
+.end-text {
     display: flex;
     justify-content: center;
-    padding: 20px;
-    color: #0063c3;
+    width: 45%;
+    margin: 0 auto;
+    padding: 15px;
+    color: rgba(0,79, 158, 0.7);
+}
+
+.end-img {
+    display: flex;
+    justify-content: center;
+}
+
+#imgendsection {
+    width: 53%;
 }
