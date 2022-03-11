@@ -1,4 +1,4 @@
-@import url("../defaults.css");
+@import "../defaults.css";
  
 span.name {
     color: #2F72B9;
@@ -61,7 +61,7 @@ span.name {
 
 .title h3 {
     font-weight: bold;
-    font-size: 25px;
+    font-size: 22px;
 }
 
 .custom-card:hover {
@@ -80,13 +80,13 @@ span.name {
     transition: 450ms ease-in;
 }
 
-.left-card,
+/* .left-card,
 .right-card {
     margin-top: 8%;
-}
+} */
 
 .mid-card {
-    background-color: var(--main-bg-color-light-blue);
+    background-color:rgba(0, 80, 158, 0.7);
 }
 
 .mid-card {
@@ -99,6 +99,10 @@ span.name {
 
 .left-card .card-body .card-content img{
     width: 200px;
+}
+
+.left-card .card-body .card-content {
+    margin-top: 35px;
 }
 
 .mid-card .card-body .card-content,
@@ -131,16 +135,27 @@ span.name {
     flex-direction: column;
 }
 
-#end-title {
+.end-title {
     display: flex;
     justify-content: center;
-    padding: 20px;
-    color: #14378A;
+    padding: 15px;
+    color: #00509E;
 }
 
-#end-text {
+.end-text {
     display: flex;
     justify-content: center;
-    padding: 20px;
-    color: #0063c3;
+    width: 45%;
+    margin: 0 auto;
+    padding: 15px;
+    color: rgba(0,79, 158, 0.7);
+}
+
+.end-img {
+    display: flex;
+    justify-content: center;
+}
+
+#imgendsection {
+    width: 53%;
 }
