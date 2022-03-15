@@ -1,20 +1,28 @@
 /**
- * Repository responsible for all user data from server - CRUD
- * Make sure all functions are using the async keyword when interacting with network!
+ * Repository responsible for all Electricity data from server - CRUD
  *
- * @author Harmohat Khangura,
+ * @author Harmohat Khangura,....
  */
 
 import { NetworkManager } from "../framework/utils/networkManager.js";
 
-export class ElectraRepository {
+export class ElectricityRepository {
     //# is a private field in Javascript
     #route
     #networkManager
 
     constructor() {
-        this.#route = "/electra"
+        this.#route = "/electricity"
         this.#networkManager = new NetworkManager();
+    }
+
+    /**
+     * Async function to get the weekly electricity data via network manager
+     *
+     * @returns {Promise<void>}
+     */
+    async getWeeklyData(){
+
     }
 
 }
