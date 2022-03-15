@@ -1,73 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link href="../assets/vendors/bootstrap/bootstrap.min.css" rel="stylesheet"/>
-    <script src="../assets/vendors/bootstrap/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/components/table.css">
-</head>
-<body>
+<link href="../assets/vendors/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+<script src="../assets/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="../assets/css/defaults.css">
+<link rel="stylesheet" href="../assets/css/components/table.css">
+<script src="../assets/js/controllers/tableController.js"></script>
+<div class="buttons light-mode">
+    <button href="#" id="selectDay">Dag</button>
+    <button href="#" id="selectWeek">Week</button>
+    <button href="#" id="selectMonth">Maand</button>
+    <button href="#" id="selectYear">Jaar</button>
+</div>
+<hr id="line">
 <template id="useTable">
-<table class="table table-striped">
-    <thead>
-    <tr id="tableHeader">
-        <th scope="col"><span id="timePeriod"></span></th>
-        <th scope="col">TITLE</th>
-        <th scope="col">TITLE</th>
-        <th scope="col">TITLE</th>
-        <th scope="col">TITLE</th>
-        <th scope="col">TITLE</th>
-        <th scope="col">TITLE</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <th scope="row" id="date"><span id="dateOne"></span></th>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-    </tr>
-    <tr>
-        <th scope="row"><span id="dateTwo"></span></th>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-    </tr>
-    <tr>
-        <th scope="row"><span id="dateThree"></span></th>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-    </tr>
-    <tr>
-        <th scope="row"><span id="dateFour"></span></th>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-    </tr>
-    <tr>
-        <th scope="row"><span id="dateFive"></span></th>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-        <td>text</td>
-    </tr>
-    </tbody>
-</table>
+    <div class="container light-mode">
+        <table class="table table-striped">
+            <thead>
+            <tr id="tableHeader">
+                <th scope="col"><span id="timePeriod"></span></th>
+                <th scope="col">TITLE</th>
+                <th scope="col">TITLE</th>
+                <th scope="col">TITLE</th>
+                <th scope="col">TITLE</th>
+                <th scope="col">TITLE</th>
+                <th scope="col">TITLE</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row" id="date"><span id="dateOne"></span></th>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+            </tr>
+            <tr>
+                <th scope="row"><span id="dateTwo"></span></th>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+            </tr>
+            <tr>
+                <th scope="row"><span id="dateThree"></span></th>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+            </tr>
+            <tr>
+                <th scope="row"><span id="dateFour"></span></th>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+            </tr>
+            <tr>
+                <th scope="row"><span id="dateFive"></span></th>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+                <td>text</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
-</body>
-</table>
-</html>
