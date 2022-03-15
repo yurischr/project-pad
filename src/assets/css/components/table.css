@@ -6,20 +6,14 @@
     padding: 10px;
 }
 
-a{
+button{
     color: #849AA9;
-    text-decoration: none;
-}
-
-a:hover{
-    text-decoration: none;
-    color: white;
-    background-color: #00509E;
+    background-color: white;
 }
 
 #line{
     color: black;
-    height: 5px;
+    height: 1px;
     width: 100%;
 }
 
@@ -29,11 +23,11 @@ th{
 
 #tableHeader{
     color: white;
-    background-color: #0063C3;
+    background-color: var(--table-top-color);
 }
 
 /* Setting the colors for our striped table*/
 .table-striped>tbody>tr:nth-child(even)>td,
 .table-striped>tbody>tr:nth-child(even)>th {
-    background-color: rgb(0, 80, 158, 0.2);
+    background-color: var(--table-row-color);
 }
