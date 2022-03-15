@@ -55,14 +55,15 @@ footer {
     background-color: #2F72B9;
 }
 
+.navigation {
+    margin-bottom: 5em;
+}
+
 .bd-navbar .navbar-nav .nav-link {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
     color: #cbbde2;
 }
-
-
-
 
 a {
     text-decoration: none;
