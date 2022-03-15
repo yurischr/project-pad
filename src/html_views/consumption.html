@@ -1,0 +1,131 @@
+<section class="realtime-section container">
+    <div class="row justify-content-md-center">
+        <div class="mt-4">
+            <h3>Vandaag</h3>
+            <p class="mb-2 fs-6 current-date">07/03/2022</p>
+            <hr>
+        </div>
+
+        <div class="row g-4 row-cols-1 row-cols-lg-4 realtime-cards">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-custom-header">
+                    <div class="card-custom-title">
+                        <h4>Meter1</h4>
+                    </div>
+                    <div class="card-info-icon">
+                        <i class="bi bi-info-circle-fill info-icon" ></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-energy-amount">
+                        <h5>13,400</h5>
+                    </div>
+                    <div class="card-percentage">
+                        <span class="percentage negative-percentage">-2,8%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="card-custom-header">
+                    <div class="card-custom-title">
+                        <h4>Meter1</h4>
+                    </div>
+                    <div class="card-info-icon">
+                        <i class="bi bi-info-circle-fill info-icon"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-energy-amount">
+                        <h5>13,400</h5>
+                    </div>
+                    <div class="card-percentage">
+                        <span class="percentage positive-percentage">+20%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="card-custom-header">
+                    <div class="card-custom-title">
+                        <h4>Meter1</h4>
+                    </div>
+                    <div class="card-info-icon">
+                        <i class="bi bi-info-circle-fill info-icon"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-energy-amount">
+                        <h5>13,400</h5>
+                    </div>
+                    <div class="card-percentage">
+                        <span class="percentage positive-percentage">+10%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="card-custom-header">
+                    <div class="card-custom-title">
+                        <h4>Meter1</h4>
+                    </div>
+                    <div class="card-info-icon">
+                        <i class="bi bi-info-circle-fill info-icon"></i>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-energy-amount">
+                        <h5>13,400</h5>
+                    </div>
+                    <div class="card-percentage">
+                        <span class="percentage negative-percentage">-55%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="historical-data-section container">
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="tab-link tab-active" aria-current="page" href="#">Dag</a>
+        </li>
+        <li class="nav-item">
+            <a class="tab-link" href="#">Week</a>
+        </li>
+        <li class="nav-item">
+            <a class="tab-link" href="#">Maand</a>
+        </li>
+        <li class="nav-item">
+            <a class="tab-link " href="#">Jaar</a>
+        </li>
+    </ul>
+    <hr>
+
+    <div class="container table-overview">
+        <table class="table" id="table-data">
+            <thead>
+                <tr>
+                    <th>Tijdstip</th>
+                    <th>Verbruik(kWh)</th>
+                </tr>
+            </thead>
+            <tbody class="table-body">
+                <template id="row-template">
+                    <tr>
+                        <td class="time"></td>
+                        <td class="consumption"></td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </div>
+</section>
