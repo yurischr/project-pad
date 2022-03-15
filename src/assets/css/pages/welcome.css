@@ -80,10 +80,10 @@ span.name {
     transition: 450ms ease-in;
 }
 
-/* .left-card,
+.left-card,
 .right-card {
     margin-top: 8%;
-} */
+}
 
 .mid-card {
     background-color:rgba(0, 80, 158, 0.7);

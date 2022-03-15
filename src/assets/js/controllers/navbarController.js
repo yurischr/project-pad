@@ -47,7 +47,7 @@ export class NavbarController extends Controller{
             return false;
         }
 
-  
+        console.log(clickedAnchor)
         this.#navbarView.querySelectorAll(".nav-links").forEach((navLink) => {
             navLink.classList.remove("active-link");
         });
