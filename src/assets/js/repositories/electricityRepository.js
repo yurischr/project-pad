@@ -22,7 +22,8 @@ export class ElectricityRepository {
      * @returns {Promise<void>}
      */
     async getWeeklyData(){
-
+        return await this.#networkManager
+            .doRequest(`${this.#route}/weekly`, "GET", null);
     }
 
 }
