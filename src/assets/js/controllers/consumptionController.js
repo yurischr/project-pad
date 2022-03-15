@@ -20,8 +20,8 @@ export class ConsumptionController extends Controller{
     async #setupView() {
         //await for when HTML is loaded, never skip this method call in a controller
         this.#consumptionView = await super.loadHtmlIntoContent("html_views/consumption.html")
-
-    }
+        this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/realtimeCards.html", document.querySelector("#realtime-cards"))
+z    }
 
 
 }

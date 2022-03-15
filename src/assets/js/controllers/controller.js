@@ -21,7 +21,6 @@ export class Controller {
      */
     async loadHtmlIntoNavigation(htmlFile) {
         return await this.#fetchHtmlView(htmlFile, true)
-
     }
 
     /**
