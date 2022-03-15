@@ -1,8 +1,9 @@
+/* Setting our default font*/
 *{
     font-family: 'Inter', sans-serif;
 }
 
-
+/* Default button layout */
 button{
     color: #849AA9;
     background-color: white;

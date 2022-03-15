@@ -14,11 +14,19 @@ window.addEventListener('load', () => {
     const year = document.querySelector("#selectYear");
     const buttons = [day, week, month, year];
 
+    /**
+     * This function appends the table to the view.
+     * @param timePeriod which time period the table provides.
+     */
     function appendTable(timePeriod){
         period.innerHTML = timePeriod;
         tableBody.appendChild(clone);
     }
 
+    /**
+     * This function highlights the selected button.
+     * @param toBeSelected the button that is selected.
+     */
     function setSelected(toBeSelected){
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].style.background = "#FFFFFF"
