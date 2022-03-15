@@ -2,7 +2,6 @@
  * Controller responsible for table on dashboard
  * @author Ares Kok
  */
-window.addEventListener('load', () => {
     const tableBody = document.body;
     const tableTemplate = document.querySelector("#useTable");
     const clone = tableTemplate.content.cloneNode(true);
@@ -55,5 +54,4 @@ window.addEventListener('load', () => {
     year.addEventListener("click", function () {
         appendTable("Jaar");
         setSelected(this);
-    })
-});
+    });
