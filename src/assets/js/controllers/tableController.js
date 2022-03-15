@@ -22,7 +22,7 @@ window.addEventListener('load', () => {
     function setSelected(toBeSelected){
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].style.background = "#FFFFFF"
-            buttons[i].style.color = "#000000"
+            buttons[i].style.color = "#849AA9"
         }
         toBeSelected.style.background = "#0063c3";
         toBeSelected.style.color = "#FFFFFF"

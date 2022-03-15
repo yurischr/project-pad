@@ -2,14 +2,17 @@
     font-family: 'Inter', sans-serif;
 }
 
-#switchTable{
-    padding: 10px;
-}
 
 button{
     color: #849AA9;
     background-color: white;
-    all: unset;
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+}
+
+#buttons{
+    padding: 10px;
 }
 
 #line{
