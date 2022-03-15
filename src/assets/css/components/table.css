@@ -9,6 +9,7 @@
 button{
     color: #849AA9;
     background-color: white;
+    all: unset;
 }
 
 #line{

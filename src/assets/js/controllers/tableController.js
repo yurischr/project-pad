@@ -12,32 +12,40 @@ window.addEventListener('load', () => {
     const week = document.querySelector("#selectWeek");
     const month = document.querySelector("#selectMonth");
     const year = document.querySelector("#selectYear");
+    const buttons = [day, week, month, year];
+
+    function appendTable(timePeriod){
+        period.innerHTML = timePeriod;
+        tableBody.appendChild(clone);
+    }
+
+    function setSelected(toBeSelected){
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].style.background = "#FFFFFF"
+            buttons[i].style.color = "#000000"
+        }
+        toBeSelected.style.background = "#0063c3";
+        toBeSelected.style.color = "#FFFFFF"
+    }
+
 
     day.addEventListener("click", function () {
-        day.style.background = "#0063c3";
-        day.style.color = "#FFFFFF";
-        period.innerHTML = "Dag";
-        tableBody.appendChild(clone);
+        appendTable("Dag")
+        setSelected(this);
     });
 
     week.addEventListener("click", function () {
-        week.style.background = "#0063c3";
-        week.style.color = "#FFFFFF";
-        period.innerHTML = "Week";
-        tableBody.appendChild(clone);
+        appendTable("Week");
+        setSelected(this);
     })
 
     month.addEventListener("click", function () {
-        month.style.background = "#0063c3";
-        month.style.color = "#FFFFFF";
-        period.innerHTML = "Month";
-        tableBody.appendChild(clone);
+        appendTable("Maand");
+        setSelected(this);
     })
 
     year.addEventListener("click", function () {
-        year.style.background = "#0063c3";
-        year.style.color = "#FFFFFF";
-        period.innerHTML = "Jaar";
-        tableBody.appendChild(clone);
+        appendTable("Jaar");
+        setSelected(this);
     })
-})
+});
