@@ -2,14 +2,17 @@
  * Controller responsible for all events in the consumption view
  */
 
+import {ElectricityRepository} from "../repositories/electricityRepository.js";
 import { Controller } from "./controller.js";
 
 export class ConsumptionController extends Controller{
+    #electricityRepository
     #consumptionView
 
     constructor() {
         super();
         document.title = "Consumption";
+        this.#electricityRepository = new ElectricityRepository();
         this.#setupView()
     }
 
@@ -25,7 +28,18 @@ export class ConsumptionController extends Controller{
         this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/table.html"
             , document.querySelector("#tableSpace"));
 
+
+         await this.#fetchWeeklyData()
     }
 
+    async #fetchWeeklyData() {
+        try {
+            //await keyword 'stops' code until data is returned - can only be used in async function
+            const data = await this.#electricityRepository.getWeeklyData();
+
+        } catch (e) {
+            console.log("error while fetching the weekly electricity data", e);
+        }
+    }
 
 }
