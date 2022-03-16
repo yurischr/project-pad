@@ -35,4 +35,13 @@ export class ElectricityRepository {
             .doRequest(`${this.#route}/daily`, "GET")
     }
 
+
+    /**
+     * Async function to get the yearly electricity data via network manager
+     * @returns {Promise<*>}
+     */
+    async getYearlyData() {
+        return await this.#networkManager
+            .doRequest(`${this.#route}/yearly`, "GET")
+    }
 }

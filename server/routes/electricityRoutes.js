@@ -224,7 +224,7 @@ class ElectricityRoutes {
         this.#app.get("/electricity/yearly", async (req, res) => {
             try {
                 const data = await this.#db.handleQuery({
-                    query: 'SELECT time AS year, sum(consumption) / 4 AS consumption FROM electricity WHERE time BETWEEN \'2018-01-01 00:00:00\' AND \'2022-03-08 23:45:00\' GROUP BY YEAR(time) ORDER BY time'
+                    query: 'SELECT YEAR(time) AS year, sum(consumption) / 4 AS consumption FROM electricity WHERE time BETWEEN \'2018-01-01 00:00:00\' AND \'2022-03-08 23:45:00\' GROUP BY YEAR(time) ORDER BY time'
                 })
                 if (data.length > 0) {
                     res.status(this.#errCodes.HTTP_OK_CODE).json({data});

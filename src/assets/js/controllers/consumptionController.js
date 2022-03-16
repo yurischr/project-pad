@@ -58,7 +58,7 @@ export class ConsumptionController extends Controller {
                 // Call the month method here
                 break;
             case "year":
-                // Call the year method here
+                await this.#fetchYearlyData()
                 break;
         }
     }
@@ -80,6 +80,30 @@ export class ConsumptionController extends Controller {
             }
         } catch (e) {
             console.log("error while fetching the weekly electricity data", e);
+        }
+    }
+
+    /**
+     * Get the yearly electricity data via the repository
+     * @returns {Promise<void>}
+     */
+    async #fetchYearlyData() {
+        try {
+            //await keyword 'stops' code until data is returned - can only be used in async function
+            const data = await this.#electricityRepository.getYearlyData();
+
+            let template = document.querySelector("#row-template");
+
+            console.log(template)
+            for (let row in data.data) {
+                let clone = template.content.cloneNode(true);
+
+                clone.querySelector(".time").textContent = data.data[row]['year'];
+                clone.querySelector(".data").textContent = data.data[row]['consumption'];
+                document.querySelector(".table-body").appendChild(clone)
+            }
+        } catch (e) {
+            console.log("error while fetching the yearly electricity data", e);
         }
     }
 
