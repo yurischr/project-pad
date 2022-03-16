@@ -40,7 +40,6 @@ export class ConsumptionController extends Controller {
         const anchors = document.querySelectorAll("a.tab-link");
         anchors.forEach(anchor => anchor.addEventListener("click", (event) => this.#handleTableView(event)))
 
-        await this.#fetchDailyData()
     }
 
     async #handleTableView(event) {
@@ -49,7 +48,7 @@ export class ConsumptionController extends Controller {
 
         switch (event.target.dataset.table) {
             case "day":
-                // Call the day method here
+                await this.#fetchDailyData()
                 break;
             case "week":
                 await this.#fetchWeeklyData()
@@ -113,13 +112,28 @@ export class ConsumptionController extends Controller {
      */
     async #fetchDailyData() {
         try {
+            document.querySelector(".time-column").innerHTML = 'Dag';
+            document.querySelector(".data-column").innerHTML = 'Verbruik (kWh)';
             const dailyData = await this.#electricityRepository.getDailyData();
+
+            let template = document.querySelector("#row-template");
+            
+            // let clone = template.content.cloneNode(true);
+            for (let i = 0; i < dailyData.length; i++) {
+                for (let j = 0; j < dailyData[i].length; j++) {
+                    let clone = template.content.cloneNode(true);
+
+                    clone.querySelector(".time").textContent = dailyData[i][j]['day'];
+                    clone.querySelector(".data").textContent = dailyData[i][j]['consumption'];
+                    document.querySelector(".table-body").appendChild(clone)
+                }
+            }
         } catch (e) {
-            console.log("error while fetching the weekly electricity data", e);
+            console.log("error while fetching the daily electricity data", e);
         }
     }
 
-    async #setDatable(){
+    async #setDatable() {
         $('#table-data').DataTable({
             aLengthMenu: [
                 [10, 25, 50, 100, 150, -1],

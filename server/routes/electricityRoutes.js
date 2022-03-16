@@ -145,7 +145,7 @@ class ElectricityRoutes {
         const dailyStartTime2021 = "2021-01-01 00:00:00";
         const dailyStartTime2022 = "2022-01-01 00:00:00";
         const dailyEndTime = "2022-03-08 23:45:00";
-        const query = `SELECT time AS day, SUM (consumption / 4) AS consumption
+        const query = `SELECT DATE_FORMAT(time, '%d-%m-%Y') AS day, SUM (consumption / 4) AS consumption
                        FROM electricity
                        WHERE time BETWEEN ? AND ?
                        GROUP BY DAYOFYEAR(time)
