@@ -43,6 +43,10 @@ export class ConsumptionController extends Controller {
         }
     }
 
+    /**
+     * Get the daily electricity data via the repository
+     * @returns {Promise<void>}
+     */
     async #fetchDailyData() {
         try {
             const dailyData = await this.#electricityRepository.getDailyData();
