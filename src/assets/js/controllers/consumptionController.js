@@ -28,15 +28,20 @@ export class ConsumptionController extends Controller{
         this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/table.html"
             , document.querySelector("#tableSpace"));
 
-
-         await this.#fetchWeeklyData()
+        await this.#fetchWeeklyData()
     }
 
     async #fetchWeeklyData() {
         try {
+            // let template = this.#consumptionView.querySelector('#realtime-cards')
+            // console.log(template)
+
             //await keyword 'stops' code until data is returned - can only be used in async function
             const data = await this.#electricityRepository.getWeeklyData();
 
+            // for (let row in data.data) {
+            //     console.log(data.data[row].week)
+            // }
         } catch (e) {
             console.log("error while fetching the weekly electricity data", e);
         }
