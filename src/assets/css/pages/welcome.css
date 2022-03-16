@@ -1,5 +1,5 @@
-@import "../defaults.css";
- 
+@import "/assets/css/theme.css";
+
 span.name {
     color: #2F72B9;
 }
@@ -51,6 +51,8 @@ span.name {
 
 .mid-section {
     height: fit-content;
+    background-color: var(--main-bg);
+    transition: background-color 200ms ease-in-out;
 }
 
 .end-section {
@@ -77,12 +79,18 @@ span.name {
 .mid-card,
 .right-card {
     border: none;
-    box-shadow: 0px 0px 25px 8px rgba(229, 233, 246, 0.4);
+    box-shadow: 0 0 25px 2px var(--shadow-color);
     border-radius: 8px;
     margin: 10px;
     width: 300px;
     height: 400px;
-    transition: 450ms ease-in;
+    transition: 450ms transform ease-in;
+}
+
+.left-card,
+.right-card {
+    background-color: var(--card-bg);
+    color: var(--text-color);
 }
 
 .mid-card {
@@ -123,7 +131,7 @@ span.name {
 }
 
 .section-title h2{
-    color: var(--main-text);
+    color: var(--text-color);
     font-weight: bold;
     padding-top: 30px;
 }
@@ -161,3 +169,4 @@ span.name {
 #imgendsection {
     width: 53%;
 }
+

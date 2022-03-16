@@ -5,6 +5,8 @@
  * @author Harmohat Khangura, ....
  */
 class ElectricityRoutes {
+    #ELECTRA_START_DATETIME = "2018-01-01 00:00:00";
+    #ELECTRA_END_DATETIME = "2022-03-08 23:45:00";
     #errCodes = require("../framework/utils/httpErrorCodes")
     #db = require("../framework/utils/databaseHelper")
     #cryptoHelper = require("../framework/utils/cryptoHelper");
@@ -28,14 +30,15 @@ class ElectricityRoutes {
             try {
                 const data = await this.#db.handleQuery({
                     query:
-                        "SELECT \n" +
-                        "\ttime AS start,\n" +
-                        "    YEARWEEK(time) AS week,\n" +
-                        "    sum(consumption) as consumption \n" +
-                        "    FROM electricity \n" +
-                        "    WHERE time BETWEEN '2018-01-01 00:00:00' AND ' 2022-03-08 23:45:00'\n" +
-                        "\tGROUP BY YEARWEEK(time)\n" +
-                        "    ORDER BY time;"
+                        "SELECT " +
+                        "time AS start, " +
+                        "YEARWEEK(time) AS week, " +
+                        "sum(consumption) as consumption " +
+                        "FROM electricity " +
+                        "WHERE time BETWEEN ? AND ? " +
+                        "GROUP BY YEARWEEK(time) " +
+                        "ORDER BY time;",
+                    values: [this.#ELECTRA_START_DATETIME, this.#ELECTRA_END_DATETIME]
                 });
 
                 if (data.length > 0) {
