@@ -20,6 +20,38 @@ class ElectricityRoutes {
 
         this.#getWeeklyData()
         this.#getDailyData()
+        this.#getMonthlyData()
+        // this.#getYearlyData()
+    }
+
+    #getMonthlyData() {
+        this.#app.get("/electricity/monthly", async (req, res) => {
+            try {
+                const data = await this.#db.handleQuery({
+                    // query:
+                    //     "SELECT " +
+                    //     "time AS start, " +
+                    //     "YEARWEEK(time) AS week, " +
+                    //     "sum(consumption) as consumption " +
+                    //     "FROM electricity " +
+                    //     "WHERE time BETWEEN ? AND ? " +
+                    //     "GROUP BY YEARWEEK(time) " +
+                    //     "ORDER BY time;",
+                    // values: [this.#ELECTRA_START_DATETIME, this.#ELECTRA_END_DATETIME]
+                })
+
+
+                if (data.length > 0){
+                    res.status(this.#errCodes.HTTP_OK_CODE).json({data})
+                } else {
+                    res.status(this.#errCodes.NO_CONTENT).json({reason: "Data not found"})
+                }
+            } catch (err) {
+                res.status(this.#errCodes.BAD_REQUEST_CODE).json({reason: err});
+            }
+
+        })
+
     }
 
     /**

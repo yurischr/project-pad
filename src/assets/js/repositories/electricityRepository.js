@@ -26,6 +26,10 @@ export class ElectricityRepository {
             .doRequest(`${this.#route}/weekly`, "GET");
     }
 
+    /**
+     * Async function to get the daily electricity data via network manager
+     * @returns {Promise<*>}
+     */
     async getDailyData() {
         return await this.#networkManager
             .doRequest(`${this.#route}/daily`, "GET")
