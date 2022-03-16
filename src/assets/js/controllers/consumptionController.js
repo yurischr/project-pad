@@ -17,7 +17,7 @@ export class ConsumptionController extends Controller {
 
     constructor() {
         super();
-        document.title = "Consumption";
+        document.title = "Energie Verbruik";
         this.#electricityRepository = new ElectricityRepository();
         this.#setupView()
     }
@@ -29,32 +29,42 @@ export class ConsumptionController extends Controller {
     async #setupView() {
         //await for when HTML is loaded, never skip this method call in a controller
         this.#consumptionView = await super.loadHtmlIntoContent("html_views/consumption.html")
-        this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/realtimeCards.html"
+
+        await super.loadHtmlIntoCustomElement("html_views/realtimeCards.html"
             , document.querySelector("#realtime-cards"));
 
         // Loading the table into the DOM element
-        this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/components/temp-table.html"
+        await super.loadHtmlIntoCustomElement("html_views/components/temp-table.html"
             , document.querySelector("#tableSpace"));
 
 
         // Selecting all the the tab links
-        const tabs = document.querySelectorAll("a.tab-link");
+        const tabs = this.#consumptionView.querySelectorAll("a.tab-link");
 
         // When a specific tab is clicked the `handleTableView` will be called
         tabs.forEach(tab => tab.addEventListener("click", async (event) => {
-            while (document.querySelector(".table-body").hasChildNodes()){
-                document.querySelector(".table-body").removeChild(document.querySelector(".table-body").firstChild);
+            while (this.#consumptionView.querySelector(".table-body").hasChildNodes()){
+                this.#consumptionView.querySelector(".table-body").removeChild(
+                    document.querySelector(".table-body").firstChild
+                );
             }
-            await this.#handleTableView(event);
+            await this.#handleTableView(event, tabs);
         }))
     }
 
     /**
      *
      * @param event - Tab
+     * @param tabs - Tabs
      * @returns {Promise<void>}
      */
-    async #handleTableView(event) {
+    async #handleTableView(event, tabs) {
+        tabs.forEach((tab) => {
+            tab.classList.remove('tab-active')
+        });
+
+        event.target.classList.add("tab-active")
+
         switch (event.target.dataset.table) {
             case this.#TAB_DAY:
                 await this.#fetchDailyData()
@@ -76,21 +86,25 @@ export class ConsumptionController extends Controller {
      * @returns {Promise<void>}
      */
     async #fetchWeeklyData() {
-        document.querySelector(".time-column").innerHTML = 'week';
+        this.#consumptionView.querySelector(".time-column").innerHTML = 'Week';
 
         try {
+            $('#table-data').DataTable().clear().destroy();
+
             //await keyword 'stops' code until data is returned - can only be used in async function
             const data = await this.#electricityRepository.getWeeklyData();
 
-            let template = document.querySelector("#row-template");
+            let template = this.#consumptionView.querySelector("#row-template");
 
             for (let row in data.data) {
                 let clone = template.content.cloneNode(true);
 
                 clone.querySelector(".time").textContent = data.data[row]['week'];
                 clone.querySelector(".data").textContent = data.data[row]['consumption'];
-                document.querySelector(".table-body").appendChild(clone)
+                this.#consumptionView.querySelector(".table-body").appendChild(clone)
             }
+
+            await this.#setDatable()
         } catch (e) {
             console.log("error while fetching the weekly electricity data", e);
         }
@@ -101,22 +115,25 @@ export class ConsumptionController extends Controller {
      * @returns {Promise<void>}
      */
     async #fetchYearlyData() {
-        document.querySelector(".time-column").innerHTML = 'Jaar';
+        this.#consumptionView.querySelector(".time-column").innerHTML = 'Jaar';
 
         try {
+            $('#table-data').DataTable().clear().destroy();
+
             //await keyword 'stops' code until data is returned - can only be used in async function
             const data = await this.#electricityRepository.getYearlyData();
 
-            let template = document.querySelector("#row-template");
+            let template = this.#consumptionView.querySelector("#row-template");
 
-            console.log(template)
             for (let row in data.data) {
                 let clone = template.content.cloneNode(true);
 
                 clone.querySelector(".time").textContent = data.data[row]['year'];
                 clone.querySelector(".data").textContent = data.data[row]['consumption'];
-                document.querySelector(".table-body").appendChild(clone)
+                this.#consumptionView.querySelector(".table-body").appendChild(clone)
             }
+            await this.#setDatable()
+
         } catch (e) {
             console.log("error while fetching the yearly electricity data", e);
         }
@@ -128,10 +145,12 @@ export class ConsumptionController extends Controller {
      */
     async #fetchDailyData() {
         try {
-            document.querySelector(".time-column").innerHTML = 'Dag';
+            $('#table-data').DataTable().clear().destroy();
+
+            this.#consumptionView.querySelector(".time-column").innerHTML = 'Dag';
             const dailyData = await this.#electricityRepository.getDailyData();
 
-            let template = document.querySelector("#row-template");
+            let template = this.#consumptionView.querySelector("#row-template");
 
             for (let i = 0; i < dailyData.length; i++) {
                 for (let j = 0; j < dailyData[i].length; j++) {
@@ -139,8 +158,10 @@ export class ConsumptionController extends Controller {
 
                     clone.querySelector(".time").textContent = dailyData[i][j]['day'];
                     clone.querySelector(".data").textContent = dailyData[i][j]['consumption'];
-                    document.querySelector(".table-body").appendChild(clone)
+                    this.#consumptionView.querySelector(".table-body").appendChild(clone)
                 }
+
+                await this.#setDatable()
             }
         } catch (e) {
             console.log("error while fetching the daily electricity data", e);
@@ -152,20 +173,24 @@ export class ConsumptionController extends Controller {
      * @returns {Promise<void>}
      */
     async #fetchMonthlyData() {
-        document.querySelector(".time-column").innerHTML = 'Maand';
+        this.#consumptionView.querySelector(".time-column").innerHTML = 'Maand';
 
         try {
+            $('#table-data').DataTable().clear().destroy();
+
             const data = await this.#electricityRepository.getMonthlyData()
 
-            let template = document.querySelector("#row-template");
+            let template = this.#consumptionView.querySelector("#row-template");
             for (let i = 0; i < data.length;i++){
                 for (let j = 0; j < data[i].length; j++) {
                     let clone = template.content.cloneNode(true);
 
                     clone.querySelector(".time").textContent = data[i][j]['month'];
                     clone.querySelector(".data").textContent = data[i][j]['consumption'];
-                    document.querySelector(".table-body").appendChild(clone)
+                    this.#consumptionView.querySelector(".table-body").appendChild(clone)
                 }
+
+                await this.#setDatable()
             }
         } catch (e) {
             console.log("error while fetching the monthly electricity data", e)
@@ -173,15 +198,17 @@ export class ConsumptionController extends Controller {
     }
 
     async #setDatable(){
-        this.#table.destroy()
-
+        // Initialized the DataTable
         this.#table = $('#table-data').DataTable({
+            "destroy": true,
             aLengthMenu: [
+                // Menu length
                 [10, 25, 50, 100, 150, -1],
+                // Menu Labels
                 [10, 25, 50, 100, 150, "All"]
-            ]
+            ],
+            // On load set the value of the menu to -1 -> "All"
+            iDisplayLength: -1
         });
-
     }
-
 }
