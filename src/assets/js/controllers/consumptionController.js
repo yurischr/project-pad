@@ -28,18 +28,15 @@ export class ConsumptionController extends Controller {
         this.#consumptionView = await super.loadHtmlIntoContent("html_views/consumption.html")
         this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/realtimeCards.html"
             , document.querySelector("#realtime-cards"));
-
-        // this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/components/temp-table.html"
-        //     , document.querySelector("#tableSpace"));
         this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/components/temp-table.html"
             , document.querySelector("#tableSpace"));
+
         await this.#setDatable()
 
         document.querySelector("#tableSpace").firstElementChild
 
         const anchors = document.querySelectorAll("a.tab-link");
         anchors.forEach(anchor => anchor.addEventListener("click", (event) => this.#handleTableView(event)))
-
     }
 
     async #handleTableView(event) {
@@ -60,6 +57,10 @@ export class ConsumptionController extends Controller {
         }
     }
 
+    /**
+     * Async function fetches the weekly data, and then adds the data to the table row template
+     * @returns {Promise<void>}
+     */
     async #fetchWeeklyData() {
         try {
             //await keyword 'stops' code until data is returned - can only be used in async function
@@ -68,6 +69,7 @@ export class ConsumptionController extends Controller {
             let template = document.querySelector("#row-template");
 
             for (let row in data.data) {
+                // creates a clone of the template
                 let clone = template.content.cloneNode(true);
 
                 clone.querySelector(".time").textContent = data.data[row]['week'];
