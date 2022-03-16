@@ -116,7 +116,7 @@ class ElectricityRoutes {
                         "time AS start, " +
                         "YEARWEEK(time) AS week, " +
                         "SUM(consumption / 4) AS consumption " +
-                        "FROM electricity " +
+                        " FROM electricity " +
                         "WHERE time BETWEEN ? AND ? " +
                         "GROUP BY YEARWEEK(time) " +
                         "ORDER BY time;",
