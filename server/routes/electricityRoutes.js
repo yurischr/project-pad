@@ -85,6 +85,10 @@ class ElectricityRoutes {
         });
     }
 
+    /**
+     * Electricity route for getting the electricity consumption on daily base
+     * @private
+     */
     #getDailyData() {
         const dailyStartTime2018 = "2018-01-01 00:00:00";
         const dailyStartTime2019 = "2019-01-01 00:00:00";
