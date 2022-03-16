@@ -135,6 +135,10 @@ class ElectricityRoutes {
         });
     }
 
+    /**
+     * Electricity route for getting the electricity consumption on yearly base
+     * @private
+     */
     #getYearlyData() {
         this.#app.get("/electricity/yearly", async (req, res) => {
             try {
