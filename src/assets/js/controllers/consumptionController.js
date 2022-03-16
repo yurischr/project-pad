@@ -107,7 +107,7 @@ export class ConsumptionController extends Controller {
     }
 
     /**
-     * Get the daily electricity data via the repository
+     * Get the daily electricity data via the repository and add the data to the table
      * @returns {Promise<void>}
      */
     async #fetchDailyData() {
@@ -118,7 +118,6 @@ export class ConsumptionController extends Controller {
 
             let template = document.querySelector("#row-template");
 
-            // let clone = template.content.cloneNode(true);
             for (let i = 0; i < dailyData.length; i++) {
                 for (let j = 0; j < dailyData[i].length; j++) {
                     let clone = template.content.cloneNode(true);
