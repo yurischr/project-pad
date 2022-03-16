@@ -17,6 +17,25 @@
     background-color: rgba(0, 80, 158, 0.2);
 }
 
+.tab-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #849AA9;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: 500ms ease-in;
+}
+
+.tab-link:hover {
+    background: #4b739b;
+    color: white;
+}
+
+.tab-active {
+    color: white !important;
+    background: #00509E;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
+}
 
 .dataTables_wrapper .dataTables_filter input {
     background-color: #DAE1EC;
