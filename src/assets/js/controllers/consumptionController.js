@@ -5,6 +5,7 @@
 import {ElectricityRepository} from "../repositories/electricityRepository.js";
 import {Controller} from "./controller.js";
 
+
 export class ConsumptionController extends Controller {
     #electricityRepository
     #consumptionView
@@ -14,6 +15,8 @@ export class ConsumptionController extends Controller {
         document.title = "Consumption";
         this.#electricityRepository = new ElectricityRepository();
         this.#setupView()
+
+
     }
 
     /**
@@ -32,12 +35,32 @@ export class ConsumptionController extends Controller {
         // this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/table.html"
         //     , document.querySelector("#tableSpace"));
 
+        await this.#setDatable()
+
         const anchors = document.querySelectorAll("a.tab-link");
         anchors.forEach(anchor => anchor.addEventListener("click", (event) => this.#handleTableView(event)))
 
-        await this.#fetchWeeklyData()
         await this.#fetchDailyData()
-        await this.#setDatable()
+    }
+
+    async #handleTableView(event) {
+        this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/components/temp-table.html"
+            , document.querySelector("#tableSpace"));
+
+        switch (event.target.dataset.table) {
+            case "day":
+                // Call the day method here
+                break;
+            case "week":
+                await this.#fetchWeeklyData()
+                break;
+            case "month":
+                // Call the month method here
+                break;
+            case "year":
+                // Call the year method here
+                break;
+        }
     }
 
     async #fetchWeeklyData() {
@@ -45,9 +68,9 @@ export class ConsumptionController extends Controller {
             //await keyword 'stops' code until data is returned - can only be used in async function
             const data = await this.#electricityRepository.getWeeklyData();
 
-            console.log(data)
             let template = document.querySelector("#row-template");
 
+            console.log(template)
             for (let row in data.data) {
                 let clone = template.content.cloneNode(true);
 
@@ -70,10 +93,6 @@ export class ConsumptionController extends Controller {
         } catch (e) {
             console.log("error while fetching the weekly electricity data", e);
         }
-    }
-
-    async #handleTableView(event) {
-        console.log(event.target.dataset.table)
     }
 
     async #setDatable(){
