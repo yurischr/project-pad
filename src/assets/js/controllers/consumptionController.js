@@ -207,8 +207,7 @@ export class ConsumptionController extends Controller {
                 // Menu Labels
                 [10, 25, 50, 100, 150, "All"]
             ],
-            // On load set the value of the menu to -1 -> "All"
-            iDisplayLength: -1
+
         });
     }
 }
