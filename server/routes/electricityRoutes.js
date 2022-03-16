@@ -31,7 +31,7 @@ class ElectricityRoutes {
         const dailyStartTime2021 = "2021-01-01 00:00:00";
         const dailyStartTime2022 = "2022-01-01 00:00:00";
         const dailyEndTime = "2022-03-08 23:45:00";
-        const query = `SELECT time AS day,
+        const query = `SELECT month(time) AS month,
                            SUM (consumption) AS consumption
                        FROM electricity
                        WHERE time BETWEEN ? AND ?

@@ -54,7 +54,7 @@ export class ConsumptionController extends Controller {
                 await this.#fetchWeeklyData()
                 break;
             case "month":
-                // Call the month method here
+                await this.#fetchMonthlyData()
                 break;
             case "year":
                 await this.#fetchYearlyData()
@@ -117,7 +117,7 @@ export class ConsumptionController extends Controller {
             const dailyData = await this.#electricityRepository.getDailyData();
 
             let template = document.querySelector("#row-template");
-            
+
             // let clone = template.content.cloneNode(true);
             for (let i = 0; i < dailyData.length; i++) {
                 for (let j = 0; j < dailyData[i].length; j++) {
@@ -133,7 +133,27 @@ export class ConsumptionController extends Controller {
         }
     }
 
-    async #setDatable() {
+    async #fetchMonthlyData() {
+        try {
+            const data = await this.#electricityRepository.getMonthlyData()
+
+            let template = document.querySelector("#row-template");
+            for (let i = 0; i < data.length;i++){
+                for (let j = 0; j < data[i].length; j++) {
+                    let clone = template.content.cloneNode(true);
+
+                    clone.querySelector(".time").textContent = data[i][j]['month'];
+                    clone.querySelector(".data").textContent = data[i][j]['consumption'];
+                    document.querySelector(".table-body").appendChild(clone)
+                }
+            }
+
+        } catch (e) {
+            console.log("error while fetching the monthly electricity data", e)
+        }
+    }
+
+    async #setDatable(){
         $('#table-data').DataTable({
             aLengthMenu: [
                 [10, 25, 50, 100, 150, -1],
