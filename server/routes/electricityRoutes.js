@@ -21,6 +21,7 @@ class ElectricityRoutes {
         this.#getWeeklyData()
         this.#getDailyData()
         this.#getMonthlyData()
+        this.#getYearlyData()
     }
 
     #getMonthlyData() {
@@ -213,6 +214,27 @@ class ElectricityRoutes {
                 res.status(this.#errCodes.BAD_REQUEST_CODE).json({reason: `${e}`});
             }
         });
+    }
+
+    /**
+     * Electricity route for getting the electricity consumption on yearly base
+     * @private
+     */
+    #getYearlyData() {
+        this.#app.get("/electricity/yearly", async (req, res) => {
+            try {
+                const data = await this.#db.handleQuery({
+                    query: 'SELECT time AS year, sum(consumption) / 4 AS consumption FROM electricity WHERE time BETWEEN \'2018-01-01 00:00:00\' AND \'2022-03-08 23:45:00\' GROUP BY YEAR(time) ORDER BY time'
+                })
+                if (data.length > 0) {
+                    res.status(this.#errCodes.HTTP_OK_CODE).json({data});
+                } else {
+                    res.status(this.#errCodes.NO_CONTENT).json({reason: "Data not found"});
+                }
+            } catch(e) {
+                res.status(this.#errCodes.BAD_REQUEST_CODE).json({reason: e});
+            }
+        })
     }
 }
 
