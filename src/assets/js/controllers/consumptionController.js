@@ -25,12 +25,19 @@ export class ConsumptionController extends Controller {
         this.#consumptionView = await super.loadHtmlIntoContent("html_views/consumption.html")
         this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/realtimeCards.html"
             , document.querySelector("#realtime-cards"));
-        this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/table.html"
+
+        this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/components/temp-table.html"
             , document.querySelector("#tableSpace"));
 
+        // this.#consumptionView = super.loadHtmlIntoCustomElement("html_views/table.html"
+        //     , document.querySelector("#tableSpace"));
+
+        const anchors = document.querySelectorAll("a.tab-link");
+        anchors.forEach(anchor => anchor.addEventListener("click", (event) => this.#handleTableView(event)))
 
         await this.#fetchWeeklyData()
         await this.#fetchDailyData()
+        await this.#setDatable()
     }
 
     async #fetchWeeklyData() {
@@ -38,6 +45,16 @@ export class ConsumptionController extends Controller {
             //await keyword 'stops' code until data is returned - can only be used in async function
             const data = await this.#electricityRepository.getWeeklyData();
 
+            console.log(data)
+            let template = document.querySelector("#row-template");
+
+            for (let row in data.data) {
+                let clone = template.content.cloneNode(true);
+
+                clone.querySelector(".time").textContent = data.data[row]['week'];
+                clone.querySelector(".data").textContent = data.data[row]['consumption'];
+                document.querySelector(".table-body").appendChild(clone)
+            }
         } catch (e) {
             console.log("error while fetching the weekly electricity data", e);
         }
@@ -49,6 +66,19 @@ export class ConsumptionController extends Controller {
         } catch (e) {
             console.log("error while fetching the weekly electricity data", e);
         }
+    }
+
+    async #handleTableView(event) {
+        console.log(event.target.dataset.table)
+    }
+
+    async #setDatable(){
+        $('#table-data').DataTable({
+            aLengthMenu: [
+                [10, 25, 50, 100, 150, -1],
+                [10, 25, 50, 100, 150, "All"]
+            ]
+        });
     }
 
 }
