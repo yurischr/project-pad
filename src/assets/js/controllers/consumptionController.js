@@ -3,9 +3,9 @@
  */
 
 import {ElectricityRepository} from "../repositories/electricityRepository.js";
-import { Controller } from "./controller.js";
+import {Controller} from "./controller.js";
 
-export class ConsumptionController extends Controller{
+export class ConsumptionController extends Controller {
     #electricityRepository
     #consumptionView
 
@@ -29,7 +29,8 @@ export class ConsumptionController extends Controller{
             , document.querySelector("#tableSpace"));
 
 
-         await this.#fetchWeeklyData()
+        await this.#fetchWeeklyData()
+        await this.#fetchDailyData()
     }
 
     async #fetchWeeklyData() {
@@ -37,6 +38,14 @@ export class ConsumptionController extends Controller{
             //await keyword 'stops' code until data is returned - can only be used in async function
             const data = await this.#electricityRepository.getWeeklyData();
 
+        } catch (e) {
+            console.log("error while fetching the weekly electricity data", e);
+        }
+    }
+
+    async #fetchDailyData() {
+        try {
+            const dailyData = await this.#electricityRepository.getDailyData();
         } catch (e) {
             console.log("error while fetching the weekly electricity data", e);
         }
