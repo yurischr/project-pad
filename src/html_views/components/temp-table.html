@@ -1,15 +1,19 @@
 <table class="table" id="table-data">
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <span>Klik op een tab om data te zien! :)</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <thead>
-    <tr>
-        <th class="time-column">Time</th>
-        <th class="data-column">Data</th>
+        <tr>
+            <th class="time-column">[Tijd]</th>
+            <th class="data-column">Verbruik (kWh)</th>
+        </tr>
     </thead>
-    <tbody class="table-body">
     <template id="row-template">
         <tr>
-            <td scope="row" class="time"></td>
+            <td class="time"></td>
             <td class="data"></td>
         </tr>
     </template>
-    </tbody>
+    <tbody class="table-body"></tbody>
 </table>
