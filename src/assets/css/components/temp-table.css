@@ -1,0 +1,64 @@
+/*!Temp. CSS for Table*/
+.table-overview {
+    padding: 2em;
+    margin-top: 3em;
+    background-color: white;
+    box-shadow: 0px 5px 20px rgb(0 0 0 / 5%);
+    border-radius: 10px;
+    margin-bottom: 10em;
+}
+
+.table thead {
+    background-color: #00509E;
+    color: white;
+}
+
+.table tr:nth-child(even) {
+    background-color: rgba(0, 80, 158, 0.2);
+}
+
+
+.dataTables_wrapper .dataTables_filter input {
+    background-color: #DAE1EC;
+    border-radius: 4px;
+    border: none;
+    margin: 10px;
+}
+
+.table > :not(caption) > * > * {
+    border: none;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    transition:500ms ease-in;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+    color:white !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: none !important;
+    border-radius: 8px;
+    background-color: #00509E !important;
+    color:white !important;
+}
+
+.paginate_button.current:hover {
+    background: none !important;
+    border-radius: 8px;
+    background-color: #00509E!important;
+    color:white !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    border: 1px solid #979797;
+    background: none !important;
+    border-radius: 8px !important;
+    background-color: #00509E !important;
+    color: white !important;
+}
