@@ -43,7 +43,7 @@ export class ConsumptionController extends Controller {
 
         // When a specific tab is clicked the `handleTableView` will be called
         tabs.forEach(tab => tab.addEventListener("click", async (event) => {
-            while (this.#consumptionView.querySelector(".table-body").hasChildNodes()){
+            while (this.#consumptionView.querySelector(".table-body").hasChildNodes()) {
                 this.#consumptionView.querySelector(".table-body").removeChild(
                     document.querySelector(".table-body").firstChild
                 );
@@ -160,9 +160,8 @@ export class ConsumptionController extends Controller {
                     clone.querySelector(".data").textContent = dailyData[i][j]['consumption'];
                     this.#consumptionView.querySelector(".table-body").appendChild(clone)
                 }
-
-                await this.#setDatable()
             }
+            await this.#setDatable()
         } catch (e) {
             console.log("error while fetching the daily electricity data", e);
         }
@@ -181,7 +180,7 @@ export class ConsumptionController extends Controller {
             const data = await this.#electricityRepository.getMonthlyData()
 
             let template = this.#consumptionView.querySelector("#row-template");
-            for (let i = 0; i < data.length;i++){
+            for (let i = 0; i < data.length; i++) {
                 for (let j = 0; j < data[i].length; j++) {
                     let clone = template.content.cloneNode(true);
 
@@ -197,7 +196,7 @@ export class ConsumptionController extends Controller {
         }
     }
 
-    async #setDatable(){
+    async #setDatable() {
         // Initialized the DataTable
         this.#table = $('#table-data').DataTable({
             "destroy": true,
