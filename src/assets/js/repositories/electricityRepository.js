@@ -4,7 +4,7 @@
  * @author Harmohat Khangura,....
  */
 
-import { NetworkManager } from "../framework/utils/networkManager.js";
+import {NetworkManager} from "../framework/utils/networkManager.js";
 
 export class ElectricityRepository {
     //# is a private field in Javascript
@@ -21,9 +21,14 @@ export class ElectricityRepository {
      *
      * @returns {Promise<void>}
      */
-    async getWeeklyData(){
+    async getWeeklyData() {
         return await this.#networkManager
             .doRequest(`${this.#route}/weekly`, "GET");
+    }
+
+    async getDailyData() {
+        return await this.#networkManager
+            .doRequest(`${this.#route}/daily`, "GET")
     }
 
 }
