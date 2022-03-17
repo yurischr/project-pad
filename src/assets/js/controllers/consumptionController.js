@@ -182,15 +182,16 @@ export class ConsumptionController extends Controller {
             let template = this.#consumptionView.querySelector("#row-template");
             for (let i = 0; i < data.length; i++) {
                 for (let j = 0; j < data[i].length; j++) {
+                    console.log(data[i][j])
                     let clone = template.content.cloneNode(true);
 
                     clone.querySelector(".time").textContent = data[i][j]['month'];
                     clone.querySelector(".data").textContent = data[i][j]['consumption'];
                     this.#consumptionView.querySelector(".table-body").appendChild(clone)
                 }
-
-                await this.#setDatable()
             }
+            await this.#setDatable()
+
         } catch (e) {
             console.log("error while fetching the monthly electricity data", e)
         }
