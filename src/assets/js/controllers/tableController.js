@@ -22,8 +22,8 @@ export class TableController extends Controller {
 
 
     async #setupView(){
-        this.#tableView = await super.loadHtmlIntoCustomElement("html_views/table.html"
-            , document.querySelector("#tableSpace2"));
+        // this.#tableView = await super.loadHtmlIntoCustomElement("html_views/table.html"
+        //     , document.querySelector("#tableSpace2"));
         this.#tableView.querySelector("#selectDay").addEventListener("click", function (){
             this.#appendTable("Dag")
             this.#setSelected(this);
