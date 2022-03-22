@@ -1,0 +1,19 @@
+.header-section {
+    padding-top: 8em;
+}
+
+.header-row,
+.header-card {
+    background-color: #00102B;
+}
+
+.header-row {
+    border: none;
+    border-radius: 25px;
+    height: fit-content;
+    padding: 25px;
+}
+
+.header-title {
+    color: white;
+}
