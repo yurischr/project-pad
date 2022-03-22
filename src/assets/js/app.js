@@ -13,6 +13,7 @@ import { NavbarController }  from "./controllers/navbarController.js"
 import { UploadController }  from "./controllers/uploadController.js"
 import { WelcomeController }  from "./controllers/welcomeController.js"
 import { ConsumptionController }  from "./controllers/consumptionController.js"
+import { TableController } from "./controllers/tableController.js";
 
 export class App {
     //we only need one instance of the sessionManager, thus static use here
@@ -26,6 +27,7 @@ export class App {
     static CONTROLLER_WELCOME = "welcome";
     static CONTROLLER_UPLOAD = "upload";
     static CONTROLLER_CONSUMPTION = "consumption";
+    static CONTROLLER_TABLE = "table";
 
 
     constructor() {
@@ -78,7 +80,12 @@ export class App {
             case App.CONTROLLER_CONSUMPTION:
                 App.setCurrentController(name);
                 new ConsumptionController();
+                new TableController();
                 break;
+
+            // case App.CONTROLLER_TABLE:
+            //     App.setCurrentController(name);
+            //     break;
 
             default:
                 return false;

@@ -2,56 +2,66 @@
  * Controller responsible for table on dashboard
  * @author Ares Kok
  */
-    const tableBody = document.body;
-    const tableTemplate = document.querySelector("#useTable");
-    const clone = tableTemplate.content.cloneNode(true);
-    const period = clone.querySelector("#timePeriod");
+import {Controller} from "./controller.js";
 
-    const day = document.querySelector("#selectDay");
-    const week = document.querySelector("#selectWeek");
-    const month = document.querySelector("#selectMonth");
-    const year = document.querySelector("#selectYear");
-    const buttons = [day, week, month, year];
+export class TableController extends Controller {
+    #tableBody = document.body;
+    #tableTemplate = document.querySelector("#useTable");
+    #day = document.querySelector("#selectDay");
+    #week = document.querySelector("#selectWeek");
+    #month = document.querySelector("#selectMonth");
+    #year = document.querySelector("#selectYear");
+    #buttons = [this.#day, this.#week, this.#month, this.#year];
+    #tableView
 
+    constructor() {
+        super();
+        console.log("test");
+        this.#setupView();
+    }
+
+
+    async #setupView(){
+        this.#tableView = await super.loadHtmlIntoCustomElement("html_views/table.html"
+            , document.querySelector("#tableSpace2"));
+        this.#tableView.querySelector("#selectDay").addEventListener("click", function (){
+            this.#appendTable("Dag")
+            this.#setSelected(this);
+        })
+        this.#tableView.querySelector("#selectWeek").addEventListener("click", function (){
+            this.#appendTable("Week")
+            this.#setSelected(this);
+        })
+        this.#tableView.querySelector("#selectMonth").addEventListener("click", function (){
+            this.#appendTable("Maand")
+            this.#setSelected(this);
+        })
+        this.#tableView.querySelector("#selectYear").addEventListener("click", function (){
+            this.#appendTable("Jaar")
+            this.#setSelected(this);
+        })
+    }
     /**
      * This function appends the table to the view.
      * @param timePeriod which time period the table provides.
      */
-    function appendTable(timePeriod){
+    #appendTable(timePeriod){
+        const clone = this.#tableTemplate.content.cloneNode(true);
+        const period = clone.querySelector("#timePeriod");
         period.innerHTML = timePeriod;
-        tableBody.appendChild(clone);
+        this.#tableBody.appendChild(clone);
     }
 
     /**
      * This function highlights the selected button.
      * @param toBeSelected the button that is selected.
      */
-    function setSelected(toBeSelected){
-        for (let i = 0; i < buttons.length; i++) {
-            buttons[i].style.background = "#FFFFFF"
-            buttons[i].style.color = "#849AA9"
+    #setSelected(toBeSelected){
+        for (let i = 0; i < this.#buttons.length; i++) {
+            this.#buttons[i].style.background = "#FFFFFF"
+            this.#buttons[i].style.color = "#849AA9"
         }
         toBeSelected.style.background = "#0063c3";
         toBeSelected.style.color = "#FFFFFF"
     }
-
-
-    day.addEventListener("click", function () {
-        appendTable("Dag")
-        setSelected(this);
-    });
-
-    week.addEventListener("click", function () {
-        appendTable("Week");
-        setSelected(this);
-    })
-
-    month.addEventListener("click", function () {
-        appendTable("Maand");
-        setSelected(this);
-    })
-
-    year.addEventListener("click", function () {
-        appendTable("Jaar");
-        setSelected(this);
-    });
+}
