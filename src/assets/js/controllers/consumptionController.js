@@ -4,6 +4,8 @@
 
 import {ElectricityRepository} from "../repositories/electricityRepository.js";
 import {Controller} from "./controller.js";
+import {ElectraController} from "./electraController.js";
+import {GasController} from "./gasController.js";
 
 
 export class ConsumptionController extends Controller {
@@ -41,6 +43,11 @@ export class ConsumptionController extends Controller {
         await super.loadHtmlIntoCustomElement("html_views/components/temp-table.html"
             , document.querySelector("#tableSpace"));
 
+        const dashboardBtns = this.#consumptionView.querySelectorAll(".dashboard-buttons");
+
+        dashboardBtns.forEach(button => button.addEventListener("click", async (event) => {
+            await this.#handleDashboard(event);
+        }))
 
         // Selecting all the the tab links
         const tabs = this.#consumptionView.querySelectorAll("a.tab-link");
@@ -56,6 +63,22 @@ export class ConsumptionController extends Controller {
         }))
     }
 
+    /**
+     * Function toggles between the dashboard views
+     *
+     * @param event - Dashboard toggle event
+     * @returns {Promise<void>}
+     */
+    async #handleDashboard(event) {
+        switch (event.target.dataset.dashboard) {
+            case 'gas':
+                new GasController(this.#consumptionView);
+                break;
+            case 'electra':
+                new ElectraController(this.#consumptionView);
+                break;
+        }
+    }
     /**
      *
      * @param event - Tab
