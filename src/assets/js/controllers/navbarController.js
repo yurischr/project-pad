@@ -29,8 +29,23 @@ export class NavbarController extends Controller{
 
         //set click listener on each anchor
         anchors.forEach(anchor => anchor.addEventListener("click", (event) => this.#handleClickNavigationItem(event)))
+
+        this.#navbarView.querySelector("#checkbox").addEventListener("change", (event) => {
+            this.#setTheme(event);
+        })
     }
 
+    #setTheme(event) {
+        if (event.target.checked) {
+            document.body.classList.add("dark-mode")
+            document.body.classList.remove("light-mode")
+        } else {
+            document.body.classList.add("light-mode")
+            document.body.classList.remove("dark-mode")
+
+
+        }
+    }
     /**
      * Reads data attribute on each .nav-link and then when clicked navigates to specific controller
      * @param event - clicked anchor event
