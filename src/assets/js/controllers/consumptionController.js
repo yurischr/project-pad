@@ -32,8 +32,12 @@ export class ConsumptionController extends Controller {
         //await for when HTML is loaded, never skip this method call in a controller
         this.#consumptionView = await super.loadHtmlIntoContent("html_views/consumption.html")
 
-        await super.loadHtmlIntoCustomElement("html_views/realtimeCards.html"
+        //loading realtime cards into the DOM element
+        await super.loadHtmlIntoCustomElement("html_views/realtime-cards.html"
             , document.querySelector("#realtime-cards"));
+
+        await super.loadHtmlIntoCustomElement("html_views/compare-usages.html"
+            , document.querySelector("#usage-compare"))
 
         // Loading the table into the DOM element
         await super.loadHtmlIntoCustomElement("html_views/components/temp-table.html"
