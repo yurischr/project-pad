@@ -59,6 +59,8 @@ export class ConsumptionController extends Controller {
                     document.querySelector(".table-body").firstChild
                 );
             }
+
+            event.preventDefault()
             await this.#handleTableView(event, tabs);
         }))
     }
