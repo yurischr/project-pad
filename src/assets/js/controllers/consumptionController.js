@@ -7,7 +7,6 @@ import {Controller} from "./controller.js";
 import {ElectraController} from "./electraController.js";
 import {GasController} from "./gasController.js";
 
-
 export class ConsumptionController extends Controller {
     #TAB_DAY = 'day';
     #TAB_WEEK = 'week';
@@ -23,7 +22,8 @@ export class ConsumptionController extends Controller {
         super();
         document.title = "Energie Verbruik";
         this.#electricityRepository = new ElectricityRepository();
-        this.#setupView()
+        this.#setupView();
+        this.#comparisonChart();
     }
 
     /**
@@ -44,6 +44,9 @@ export class ConsumptionController extends Controller {
         // Loading the table into the DOM element
         await super.loadHtmlIntoCustomElement("html_views/components/temp-table.html"
             , document.querySelector("#tableSpace"));
+
+        await super.loadHtmlIntoCustomElement("html_views/components/comparisonChart.html"
+            , document.querySelector(".comparison-chart"));
 
         const dashboardBtns = this.#consumptionView.querySelectorAll(".dashboard-buttons");
 
@@ -184,13 +187,11 @@ export class ConsumptionController extends Controller {
             let template = this.#consumptionView.querySelector("#row-template");
 
             for (let i = 0; i < dailyData.length; i++) {
-                for (let j = 0; j < dailyData[i].length; j++) {
-                    let clone = template.content.cloneNode(true);
+                let clone = template.content.cloneNode(true);
 
-                    clone.querySelector(".time").textContent = dailyData[i][j]['day'];
-                    clone.querySelector(".data").textContent = dailyData[i][j]['consumption'];
-                    this.#consumptionView.querySelector(".table-body").appendChild(clone)
-                }
+                clone.querySelector(".time").textContent = dailyData[i]['day'];
+                clone.querySelector(".data").textContent = dailyData[i]['consumption'];
+                this.#consumptionView.querySelector(".table-body").appendChild(clone)
             }
             await this.#setDatable()
         } catch (e) {
@@ -240,5 +241,35 @@ export class ConsumptionController extends Controller {
             ],
 
         });
+    }
+
+    #comparisonChart() {
+        const labels = [
+            'Elektriciteit',
+            'Gas'
+        ];
+
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Vergelijking Elektriciteit, Gas',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [75, 25],
+            }]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {}
+        };
+
+        const myChart = new Chart(
+            this.#consumptionView.querySelector(".comparison-chart-case"),
+            config
+        );
+
+
     }
 }
