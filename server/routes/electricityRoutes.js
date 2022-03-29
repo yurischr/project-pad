@@ -141,7 +141,7 @@ class ElectricityRoutes {
     #getDailyData() {
         this.#app.get("/electricity/daily", async (req, res) => {
             try {
-                const dailyData = await this.#db.handleQuery({
+                const data = await this.#db.handleQuery({
                     query: `SELECT DATE_FORMAT(time, '%Y-%m-%d') AS day, SUM (consumption / 4) AS consumption
                        FROM electricity
                        WHERE time BETWEEN ? AND ?
@@ -150,8 +150,8 @@ class ElectricityRoutes {
                     values: [this.#ELECTRA_START_DATETIME, this.#ELECTRA_END_DATETIME]
                 });
 
-                if (dailyData.length > 0) {
-                    res.status(this.#errCodes.HTTP_OK_CODE).json(dailyData)
+                if (data.length > 0) {
+                    res.status(this.#errCodes.HTTP_OK_CODE).json({data})
                 } else {
                     res.status(this.#errCodes.NO_CONTENT).json({reason: "Data not found"})
                 }
