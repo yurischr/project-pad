@@ -13,6 +13,8 @@ export class ConsumptionController extends Controller {
     #TAB_WEEK = 'week';
     #TAB_MONTH = 'month';
     #TAB_YEAR = 'year';
+    #DASHBOARD_GAS = 'gas';
+    #DASHBOARD_ELECTRA = 'electra';
     #table
     #electricityRepository
     #consumptionView
@@ -71,12 +73,12 @@ export class ConsumptionController extends Controller {
      * @param event - Dashboard toggle event
      * @returns {Promise<void>}
      */
-    async #handleDashboard(event) {
+    #handleDashboard(event) {
         switch (event.target.dataset.dashboard) {
-            case 'gas':
+            case this.#DASHBOARD_GAS:
                 new GasController(this.#consumptionView);
                 break;
-            case 'electra':
+            case this.#DASHBOARD_ELECTRA:
                 new ElectraController(this.#consumptionView);
                 break;
         }
