@@ -1,5 +1,5 @@
 import {Controller} from "./controller.js";
-import {App} from "../app";
+import {App} from "../app.js";
 
 export class CompareUsageController extends Controller{
     #view

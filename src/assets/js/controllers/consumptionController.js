@@ -6,6 +6,7 @@ import {ElectricityRepository} from "../repositories/electricityRepository.js";
 import {Controller} from "./controller.js";
 import {ElectraController} from "./electraController.js";
 import {GasController} from "./gasController.js";
+import {CompareUsageController} from "./compareUsageController.js";
 
 export class ConsumptionController extends Controller {
     #TAB_DAY = 'day';
@@ -23,6 +24,7 @@ export class ConsumptionController extends Controller {
         document.title = "Dashboard | Het Scheepvaartmuseum";
         this.#electricityRepository = new ElectricityRepository();
         this.#setupView();
+        new CompareUsageController(this.#consumptionView);
     }
 
     /**
