@@ -7,6 +7,14 @@ export class ElectraController extends Controller{
     constructor(view) {
         super();
 
-        this.#view = view
+        this.#view = view;
+
+        this.#svgAnimation();
+    }
+
+    #svgAnimation() {
+        this.#view.querySelectorAll("#windows path").forEach(path => {
+            path.classList.add("window-lights");
+        });
     }
 }

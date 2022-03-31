@@ -20,7 +20,7 @@ export class ConsumptionController extends Controller {
 
     constructor() {
         super();
-        document.title = "Energie Verbruik";
+        document.title = "Dashboard | Het Scheepvaartmuseum";
         this.#electricityRepository = new ElectricityRepository();
         this.#setupView();
     }
@@ -46,6 +46,9 @@ export class ConsumptionController extends Controller {
 
         await super.loadHtmlIntoCustomElement("html_views/components/comparisonChart.html"
             , document.querySelector(".comparison-chart"));
+
+        await super.loadHtmlIntoCustomElement("assets/svg/consumption-header-svg.svg"
+            , document.querySelector(".header-svg"));
 
         const dashboardBtns = this.#consumptionView.querySelectorAll(".dashboard-buttons");
 

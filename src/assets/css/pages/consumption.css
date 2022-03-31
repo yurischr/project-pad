@@ -19,3 +19,7 @@
     color: white;
 }
 
+.window-lights {
+    fill: #FEE45A;
+    transition: fill 500ms ease-in-out;
+}

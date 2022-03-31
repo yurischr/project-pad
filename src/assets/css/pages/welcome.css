@@ -5,7 +5,7 @@ span.name {
 }
 
 .start-section {
-    background: rgba(0, 80, 158, 0.23);
+    background-color: var(--section-background);
     display: flex;
     flex-direction: row;
 }
@@ -148,7 +148,7 @@ span.name {
 }
 
 .end-section {
-    background-color: rgba(0, 80, 157, 0.23);
+    background-color: var(--section-background);
 }
 
 .end {
@@ -160,7 +160,11 @@ span.name {
     display: flex;
     justify-content: center;
     padding: 15px;
-    color: #00509E;
+    color: var(--section-text-color);
+}
+
+.end-title h1 {
+    font-weight: bold;
 }
 
 .end-text {
@@ -169,7 +173,12 @@ span.name {
     width: 45%;
     margin: 0 auto;
     padding: 15px;
-    color: rgba(0, 79, 158, 0.7);
+    color: var(--section-text-color);
+}
+
+.end-text p {
+    text-align: center;
+    color: var(--section-text-color);
 }
 
 .end-img {

@@ -80,7 +80,7 @@ export class App {
             case App.CONTROLLER_CONSUMPTION:
                 App.setCurrentController(name);
                 new ConsumptionController();
-                new TableController();
+                // new TableController();
                 break;
 
             // case App.CONTROLLER_TABLE:
