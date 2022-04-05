@@ -3,12 +3,12 @@
         <div class="row g-4 row-cols-1 row-cols-lg-2 header-row">
             <div class="col header-card">
                 <h1 class="header-title">Welke energie verbruik wilt u zien?</h1>
-                <div class="buttons-box d-flex pt-5 gap-2">
-                    <button type="button" class="btn btn-primary dashboard-buttons" data-dashboard="gas">
-                        <i class="bi bi-speedometer2"></i> Gas
+                <div class="buttons-box">
+                    <button type="button" class="dashboard-buttons gas-btn" data-dashboard="gas">
+                        <i class="bi bi-speedometer2" ></i>  Gas
                     </button>
-                    <button type="button" class="btn btn-primary dashboard-buttons" data-dashboard="electra">
-                        <i class="bi bi-plug"></i> Elektra
+                    <button type="button" class="dashboard-buttons electra-btn" data-dashboard="electra">
+                        <i class="bi bi-plug"></i> Electra
                     </button>
                 </div>
             </div>
@@ -26,21 +26,7 @@
 </section>
 
 <section class="container pt-5">
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="tab-link" data-table="day" href="#">Dag</a>
-        </li>
-        <li class="nav-item">
-            <a class="tab-link" data-table="week" href="#">Week</a>
-        </li>
-        <li class="nav-item">
-            <a class="tab-link" data-table="month" href="#">Maand</a>
-        </li>
-        <li class="nav-item">
-            <a class="tab-link" data-table="year"  href="#">Jaar</a>
-        </li>
-    </ul>
-    <hr>
+    <div class="nav-pills-box"></div>
 
     <div class="comparison-chart container"></div>
 
