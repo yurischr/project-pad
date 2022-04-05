@@ -47,6 +47,8 @@ body {
     color: white;
 }
 
+
+hr,
 .title,
 .date {
     color: var(--text-color);

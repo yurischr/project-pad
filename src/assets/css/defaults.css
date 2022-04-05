@@ -87,7 +87,7 @@ a {
 }
 
 .checkbox:checked + .darkmode-label .darkmode-ball {
-    transform: translateX(10px);
+    transform: translateX(11px);
 }
 
 .checkbox:checked + .darkmode-label {
