@@ -70,7 +70,7 @@ span.name {
     height: 80vh;
 }
 
-.title h3 {
+.info-card-title  h3 {
     font-weight: bold;
     font-size: 22px;
 }
@@ -106,9 +106,6 @@ span.name {
 
 .mid-card {
     background-color: rgba(0, 80, 158, 0.7);
-}
-
-.mid-card {
     color: white;
 }
 

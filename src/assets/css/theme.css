@@ -17,7 +17,6 @@
     --select-date-color: #849AA9;
     --table-background-color: #FFFFFF;
     --table-top-color: #0063C3;
-    --table-row-color: rgba(0, 80, 158, 0.2);
     --table-export-buttons: #006F38;
 
     --main-bg: #FFFFFF;
@@ -26,7 +25,8 @@
     --section-text-color: #00509E;
     --text-color: #000000;
     --shadow-color: rgba(229, 233, 246, 1);
-    /*--shadow-color: rgba(229, 233, 246, 0.4);*/
+    --table-row-bg-even: rgba(0, 80, 158, 0.2);
+    --table-row-bg-odd: #FFFFFF;
 }
 
 .dark-mode {
@@ -48,7 +48,6 @@
     --select-date-color: #849AA9;
     --table-background-color: #1F1D2B;
     --table-top-color: rgba(0, 80, 158, 0.2);
-    --table-row-color: rgba(0, 80, 158, 0.2);
     --table-export-buttons: #006F38;
 
     --main-bg: #232F3F;
@@ -57,4 +56,6 @@
     --section-text-color: #ffffff;
     --text-color: #ffffff;
     --shadow-color: rgba(0, 0, 0, 0.4);
+    --table-row-bg-even: rgba(0, 80, 158, 0.2);
+    --table-row-bg-odd: #222e3d;
 }
