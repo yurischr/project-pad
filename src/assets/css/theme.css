@@ -22,7 +22,8 @@
 
     --main-bg: #FFFFFF;
     --card-bg: #FFFFFF;
-    --section-text-color: #0063c3;
+    --section-background: #C4D7E9;
+    --section-text-color: #00509E;
     --text-color: #000000;
     --shadow-color: rgba(229, 233, 246, 1);
     /*--shadow-color: rgba(229, 233, 246, 0.4);*/
@@ -50,8 +51,9 @@
     --table-row-color: rgba(0, 80, 158, 0.2);
     --table-export-buttons: #006F38;
 
-    --main-bg: #242426;
-    --card-bg: #242426;
+    --main-bg: #232F3F;
+    --card-bg: #232F3F;
+    --section-background: #232F3F;
     --section-text-color: #ffffff;
     --text-color: #ffffff;
     --shadow-color: rgba(0, 0, 0, 0.4);

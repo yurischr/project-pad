@@ -6,22 +6,25 @@ import {ElectricityRepository} from "../repositories/electricityRepository.js";
 import {Controller} from "./controller.js";
 import {ElectraController} from "./electraController.js";
 import {GasController} from "./gasController.js";
-
+import {CompareUsageController} from "./compareUsageController.js";
 
 export class ConsumptionController extends Controller {
     #TAB_DAY = 'day';
     #TAB_WEEK = 'week';
     #TAB_MONTH = 'month';
     #TAB_YEAR = 'year';
+    #DASHBOARD_GAS = 'gas';
+    #DASHBOARD_ELECTRA = 'electra';
     #table
     #electricityRepository
     #consumptionView
 
     constructor() {
         super();
-        document.title = "Energie Verbruik";
+        document.title = "Dashboard | Het Scheepvaartmuseum";
         this.#electricityRepository = new ElectricityRepository();
-        this.#setupView()
+        this.#setupView();
+        new CompareUsageController(this.#consumptionView);
     }
 
     /**
@@ -42,6 +45,12 @@ export class ConsumptionController extends Controller {
         // Loading the table into the DOM element
         await super.loadHtmlIntoCustomElement("html_views/components/temp-table.html"
             , document.querySelector("#tableSpace"));
+
+        await super.loadHtmlIntoCustomElement("html_views/components/comparisonChart.html"
+            , document.querySelector(".comparison-chart"));
+
+        await super.loadHtmlIntoCustomElement("assets/svg/consumption-header-svg.svg"
+            , document.querySelector(".header-svg"));
 
         const dashboardBtns = this.#consumptionView.querySelectorAll(".dashboard-buttons");
 
@@ -71,16 +80,17 @@ export class ConsumptionController extends Controller {
      * @param event - Dashboard toggle event
      * @returns {Promise<void>}
      */
-    async #handleDashboard(event) {
+    #handleDashboard(event) {
         switch (event.target.dataset.dashboard) {
-            case 'gas':
+            case this.#DASHBOARD_GAS:
                 new GasController(this.#consumptionView);
                 break;
-            case 'electra':
+            case this.#DASHBOARD_ELECTRA:
                 new ElectraController(this.#consumptionView);
                 break;
         }
     }
+
     /**
      *
      * @param event - Tab
@@ -96,103 +106,17 @@ export class ConsumptionController extends Controller {
 
         switch (event.target.dataset.table) {
             case this.#TAB_DAY:
-                await this.#fetchDailyData()
+                await this.#fetchPeriodData(await this.#electricityRepository.getDailyData(), "Dag", "day")
                 break;
             case this.#TAB_WEEK:
-                await this.#fetchWeeklyData()
+                await this.#fetchPeriodData(await this.#electricityRepository.getWeeklyData(), "Week", "week")
                 break;
             case this.#TAB_MONTH:
                 await this.#fetchMonthlyData()
                 break;
             case this.#TAB_YEAR:
-                await this.#fetchYearlyData()
+                await this.#fetchPeriodData(await this.#electricityRepository.getYearlyData(), "Jaar", "year")
                 break;
-        }
-    }
-
-    /**
-     * Async function gets the weekly electricity data via the repository and adds the data to the table rows
-     * @returns {Promise<void>}
-     */
-    async #fetchWeeklyData() {
-        this.#consumptionView.querySelector(".time-column").innerHTML = 'Week';
-
-        try {
-            $('#table-data').DataTable().clear().destroy();
-
-            //await keyword 'stops' code until data is returned - can only be used in async function
-            const data = await this.#electricityRepository.getWeeklyData();
-
-            let template = this.#consumptionView.querySelector("#row-template");
-
-            for (let row in data.data) {
-                let clone = template.content.cloneNode(true);
-
-                clone.querySelector(".time").textContent = data.data[row]['week'];
-                clone.querySelector(".data").textContent = data.data[row]['consumption'];
-                this.#consumptionView.querySelector(".table-body").appendChild(clone)
-            }
-
-            await this.#setDatable()
-        } catch (e) {
-            console.log("error while fetching the weekly electricity data", e);
-        }
-    }
-
-    /**
-     * Get the yearly electricity data via the repository
-     * @returns {Promise<void>}
-     */
-    async #fetchYearlyData() {
-        this.#consumptionView.querySelector(".time-column").innerHTML = 'Jaar';
-
-        try {
-            $('#table-data').DataTable().clear().destroy();
-
-            //await keyword 'stops' code until data is returned - can only be used in async function
-            const data = await this.#electricityRepository.getYearlyData();
-
-            let template = this.#consumptionView.querySelector("#row-template");
-
-            for (let row in data.data) {
-                let clone = template.content.cloneNode(true);
-
-                clone.querySelector(".time").textContent = data.data[row]['year'];
-                clone.querySelector(".data").textContent = data.data[row]['consumption'];
-                this.#consumptionView.querySelector(".table-body").appendChild(clone)
-            }
-            await this.#setDatable()
-
-        } catch (e) {
-            console.log("error while fetching the yearly electricity data", e);
-        }
-    }
-
-    /**
-     * Get the daily electricity data via the repository and add the data to the table
-     * @returns {Promise<void>}
-     */
-    async #fetchDailyData() {
-        try {
-            $('#table-data').DataTable().clear().destroy();
-
-            this.#consumptionView.querySelector(".time-column").innerHTML = 'Dag';
-            const dailyData = await this.#electricityRepository.getDailyData();
-
-            let template = this.#consumptionView.querySelector("#row-template");
-
-            for (let i = 0; i < dailyData.length; i++) {
-                for (let j = 0; j < dailyData[i].length; j++) {
-                    let clone = template.content.cloneNode(true);
-
-                    clone.querySelector(".time").textContent = dailyData[i][j]['day'];
-                    clone.querySelector(".data").textContent = dailyData[i][j]['consumption'];
-                    this.#consumptionView.querySelector(".table-body").appendChild(clone)
-                }
-            }
-            await this.#setDatable()
-        } catch (e) {
-            console.log("error while fetching the daily electricity data", e);
         }
     }
 
@@ -226,6 +150,34 @@ export class ConsumptionController extends Controller {
         }
     }
 
+    /**
+     * Async function gets the data for a period via the repository and adds the data to the table rows
+     * @param data - data from period
+     * @param timePeriod - time period (day, week, month, year)
+     * @param selector - selector for JSON
+     * @returns {Promise<void>}
+     */
+    async #fetchPeriodData(data, timePeriod, selector) {
+        try {
+            $('#table-data').DataTable().clear().destroy();
+
+            this.#consumptionView.querySelector(".time-column").innerHTML = timePeriod;
+
+            let template = this.#consumptionView.querySelector("#row-template");
+
+            for (let row in data.data) {
+                let clone = template.content.cloneNode(true);
+
+                clone.querySelector(".time").textContent = data.data[row][selector];
+                clone.querySelector(".data").textContent = data.data[row]['consumption'];
+                this.#consumptionView.querySelector(".table-body").appendChild(clone)
+            }
+            await this.#setDatable()
+        } catch (e) {
+            console.log("error while fetching the electricity data", e);
+        }
+    }
+
     async #setDatable() {
         // Initialized the DataTable
         this.#table = $('#table-data').DataTable({
@@ -240,3 +192,4 @@ export class ConsumptionController extends Controller {
         });
     }
 }
+
