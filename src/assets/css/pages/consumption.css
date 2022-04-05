@@ -28,6 +28,25 @@ body {
     transition: fill 500ms ease-in-out;
 }
 
+.buttons-box {
+    display: flex;
+    justify-content: space-around;
+    border-radius: 10px;
+    width: 220px;
+    background: white;
+}
+
+.dashboard-buttons {
+    width: 100%;
+    border-radius: 10px;
+    transition:  200ms ease-in-out;
+}
+
+.active-dashboard-btn {
+    background-color: #00509E;
+    color: white;
+}
+
 .title,
 .date {
     color: var(--text-color);
