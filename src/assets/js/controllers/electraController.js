@@ -1,7 +1,7 @@
 import {Controller} from "./controller.js";
 import {ElectricityRepository} from "../repositories/electricityRepository.js";
 
-export class ElectraController extends Controller{
+export class ElectraController extends Controller {
     #TAB_DAY = 'day';
     #TAB_WEEK = 'week';
     #TAB_MONTH = 'month';
@@ -64,6 +64,7 @@ export class ElectraController extends Controller{
         switch (event.target.dataset.table) {
             case this.#TAB_DAY:
                 await this.#fetchPeriodData(await this.#electricityRepository.getDailyData(), "Dag", "day")
+                this.#comparisonChart()
                 break;
             case this.#TAB_WEEK:
                 await this.#fetchPeriodData(await this.#electricityRepository.getWeeklyData(), "Week", "week")
@@ -154,5 +155,28 @@ export class ElectraController extends Controller{
                 [10, 25, 50, 100, 150, "All"]
             ],
         });
+    }
+
+    #comparisonChart() {
+        const comparisonChart = document.getElementById('chart');
+
+        const data = {
+            labels: ['Elektriciteit', 'Gas'],
+            datasets: [{
+                label: 'Kosten',
+                data: [75, 25],
+                backgroundColor: [
+                    'rgba(0, 74, 143, 0.5)',
+                    '#004A8F'
+                ],
+            }]
+        }
+
+        const config = {
+            type: 'doughnut',
+            data
+        }
+
+        const doughnutChart = new Chart(comparisonChart, config)
     }
 }
