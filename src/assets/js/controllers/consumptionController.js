@@ -19,7 +19,6 @@ export class ConsumptionController extends Controller {
         super();
         this.#electricityRepository = new ElectricityRepository();
         this.#setupView();
-        new CompareUsageController(this.#consumptionView);
     }
 
     /**
@@ -42,6 +41,7 @@ export class ConsumptionController extends Controller {
         // loading the compare usages into the DOM element [ID: #usage-compare]
         await super.loadHtmlIntoCustomElement("html_views/compare-usages.html"
             , document.querySelector("#usage-compare"))
+        new CompareUsageController(this.#consumptionView);
 
         // Loading the table into the DOM element [ID: #tableSpace]
         await super.loadHtmlIntoCustomElement("html_views/components/temp-table.html"

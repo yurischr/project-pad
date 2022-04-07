@@ -8,5 +8,6 @@ export class CompareUsageController extends Controller{
         super();
 
         this.#view = view
+        console.log(this.#view)
     }
 }
