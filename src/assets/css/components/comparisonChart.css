@@ -12,3 +12,8 @@
     font-weight: 600;
     font-size: 16px;
 }
+
+#chart {
+    max-width: 500px;
+    max-height: 500px;
+}
