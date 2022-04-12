@@ -1,7 +1,7 @@
 import {Controller} from "./controller.js";
 import {App} from "../app.js";
 import {ElectraController} from "./electraController.js";
-import {ElectricityRepository} from "../repositories/electricityRepository";
+import {ElectricityRepository} from "../repositories/electricityRepository.js";
 
 export class CompareUsageController extends Controller {
     #view
