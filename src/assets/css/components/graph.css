@@ -1,0 +1,8 @@
+.section-graph {
+    display: flex;
+    justify-content: center;
+}
+
+.graph {
+    width: 80%;
+}

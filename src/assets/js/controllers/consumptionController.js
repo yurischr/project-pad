@@ -59,6 +59,10 @@ export class ConsumptionController extends Controller {
         await super.loadHtmlIntoCustomElement("html_views/components/nav-pills.html"
             , this.#consumptionView.querySelector(".nav-pills-box"));
 
+        // Loading the graph into the DOM element [CLASS: .graph]
+        await super.loadHtmlIntoCustomElement("html_views/graph.html"
+            , document.querySelector(".graph"));
+
         // Selecting all the buttons with the class: dashboard-buttons
         const dashboardBtns = this.#consumptionView.querySelectorAll("button.dashboard-buttons");
 

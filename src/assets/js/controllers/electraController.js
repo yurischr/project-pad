@@ -18,6 +18,9 @@ export class ElectraController extends Controller {
         this.#electricityRepository = new ElectricityRepository();
         this.#comparisonChartRepository = new ComparisonChartRepository();
 
+        // Calling the method to show the graph
+        this.#graph();
+
         // Calling the method for the electricity SVG Animation
         this.#svgAnimation();
 
@@ -191,5 +194,25 @@ export class ElectraController extends Controller {
         }
         const comparisonChart = this.#view.querySelector('#chart');
         const doughnutChart = new Chart(comparisonChart, config);
+    }
+
+    #graph() {
+        const graph = document.querySelector("#graph");
+        // const yearlyData = this.#electricityRepository.getYearlyData();
+        // console.log(yearlyData);
+
+        const myChart = new Chart(graph, {
+            type: 'line',
+            data: {
+                labels: ['2018', '2019', '2020', '2021'],
+                datasets: [{
+                    label: 'Verbruik',
+                    data: [65, 59, 80, 81],
+                    fill: false,
+                    borderColor: '#0063c3',
+                    tension: 0.4,
+                }]
+            }
+        });
     }
 }
