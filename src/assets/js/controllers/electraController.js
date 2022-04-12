@@ -1,5 +1,6 @@
 import {Controller} from "./controller.js";
 import {ElectricityRepository} from "../repositories/electricityRepository.js";
+import {ComparisonChartRepository} from "../repositories/comparisonChartRepository.js";
 
 export class ElectraController extends Controller {
     #TAB_DAY = 'day';
@@ -9,11 +10,13 @@ export class ElectraController extends Controller {
     #view
     #table
     #electricityRepository
+    #comparisonChartRepository
 
     constructor(view) {
         super();
         this.#view = view;
         this.#electricityRepository = new ElectricityRepository();
+        this.#comparisonChartRepository = new ComparisonChartRepository();
 
         // Calling the method for the electricity SVG Animation
         this.#svgAnimation();
@@ -64,16 +67,19 @@ export class ElectraController extends Controller {
         switch (event.target.dataset.table) {
             case this.#TAB_DAY:
                 await this.#fetchPeriodData(await this.#electricityRepository.getDailyData(), "Dag", "day")
-                this.#comparisonChart()
+                this.#comparisonChart(await this.#comparisonChartRepository.getDailyComparisonData())
                 break;
             case this.#TAB_WEEK:
                 await this.#fetchPeriodData(await this.#electricityRepository.getWeeklyData(), "Week", "week")
+                this.#comparisonChart(await this.#comparisonChartRepository.getWeeklyComparisonData())
                 break;
             case this.#TAB_MONTH:
                 await this.#fetchMonthlyData()
+                this.#comparisonChart(await this.#comparisonChartRepository.getMonthlyComparisonData())
                 break;
             case this.#TAB_YEAR:
                 await this.#fetchPeriodData(await this.#electricityRepository.getYearlyData(), "Jaar", "year")
+                this.#comparisonChart(await this.#comparisonChartRepository.getYearlyComparisonData())
                 break;
             default:
                 return false;
@@ -97,7 +103,6 @@ export class ElectraController extends Controller {
             let template = this.#view.querySelector("#row-template");
             for (let i = 0; i < data.length; i++) {
                 for (let j = 0; j < data[i].length; j++) {
-                    console.log(data[i][j])
                     let clone = template.content.cloneNode(true);
 
                     clone.querySelector(".time").textContent = data[i][j]['month'];
@@ -157,14 +162,22 @@ export class ElectraController extends Controller {
         });
     }
 
-    #comparisonChart() {
-        const comparisonChart = document.getElementById('chart');
+    /**
+     * Function gets the electricity and gas data and adds the data to a doughnut chart
+     * @param comparisonData - comparison data from selected period
+     */
+    #comparisonChart(comparisonData) {
+        this.#view.querySelector('#chart').remove();
+        this.#view.querySelector('.comparison-chart').insertAdjacentHTML("beforeend", '<canvas id="chart">' +
+            '</canvas>');
+        const electricity = comparisonData.data['electricity'];
+        const gas = comparisonData.data['gas'];
 
         const data = {
             labels: ['Elektriciteit', 'Gas'],
             datasets: [{
-                label: 'Kosten',
-                data: [75, 25],
+                label: 'Verbruik',
+                data: [electricity, gas],
                 backgroundColor: [
                     'rgba(0, 74, 143, 0.5)',
                     '#004A8F'
@@ -176,7 +189,7 @@ export class ElectraController extends Controller {
             type: 'doughnut',
             data
         }
-
-        const doughnutChart = new Chart(comparisonChart, config)
+        const comparisonChart = this.#view.querySelector('#chart');
+        const doughnutChart = new Chart(comparisonChart, config);
     }
 }
