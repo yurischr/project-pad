@@ -1,24 +1,25 @@
 import {Controller} from "./controller.js";
 import {App} from "../app.js";
+import {ElectraController} from "./electraController.js";
+import {ElectricityRepository} from "../repositories/electricityRepository";
 
-export class CompareUsageController extends Controller{
+export class CompareUsageController extends Controller {
     #view
 
     constructor(view) {
         super();
 
         this.#view = view
-
         this.#setupDatePickers()
     }
 
-    #setupDatePickers(){
+    #setupDatePickers() {
         const picker = new easepick.create({
             element: document.getElementById('datepicker'),
             css: [
                 'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.1.3/dist/index.css',
             ],
-            plugins: ['RangePlugin','AmpPlugin'],
+            plugins: ['RangePlugin', 'AmpPlugin'],
             RangePlugin: {
                 tooltipNumber(num) {
                     return num - 1;
@@ -34,7 +35,18 @@ export class CompareUsageController extends Controller{
                     years: true,
                 },
             },
-
+            setup: (picker) => {
+                picker.on('hide', () => {
+                    this.#changeDate(picker.getStartDate(), picker.getEndDate())
+                });
+            },
         });
+
+    }
+
+    #changeDate(date1, date2) {
+        const startDate = new Date(date1).toISOString().split('T')[0]
+        const endDate = new Date(date2).toISOString().split('T')[0]
+
     }
 }
