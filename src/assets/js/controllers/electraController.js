@@ -202,18 +202,33 @@ export class ElectraController extends Controller {
         const doughnutChart = new Chart(comparisonChart, config);
     }
 
-    #graph() {
+    async #graph() {
         const graph = document.querySelector("#graph");
-        // const yearlyData = this.#electricityRepository.getYearlyData();
-        // console.log(yearlyData);
+        const yearlyData = this.#electricityRepository.getYearlyData();
+
+        const consumption2018 = await yearlyData.then(function (results) {
+            return results.data[0].consumption;
+        })
+
+        const consumption2019 = await yearlyData.then(function (results) {
+            return results.data[1].consumption;
+        })
+
+        const consumption2020 = await yearlyData.then(function (results) {
+            return results.data[2].consumption;
+        })
+
+        const consumption2021 = await yearlyData.then(function (results) {
+            return results.data[3].consumption;
+        })
 
         const myChart = new Chart(graph, {
             type: 'line',
             data: {
                 labels: ['2018', '2019', '2020', '2021'],
                 datasets: [{
-                    label: 'Verbruik',
-                    data: [65, 59, 80, 81],
+                    label: 'Verbruik (kWh)',
+                    data: [consumption2018, consumption2019, consumption2020, consumption2021],
                     fill: false,
                     borderColor: '#0063c3',
                     tension: 0.4,
