@@ -1,7 +1,9 @@
 .container-usage {
     padding: 2em;
     margin-top: 3em;
-    background-color: white;
+    background-color: var(--main-bg);
+    color: var(--text-color);
+    font-family: var(--default-font);
 }
 
 .data-section {
@@ -20,4 +22,18 @@
     box-shadow: 0px 5px 20px rgb(0 0 0 / 5%);
     border-radius: 10px;
     padding: 1em;
+}
+
+.arrow {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.positive {
+    color: var(--card-high-percentage);
+}
+
+.negative {
+    color: var(--card-low-percentage);
 }
