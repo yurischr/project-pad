@@ -1,7 +1,5 @@
 import {Controller} from "./controller.js";
-import {App} from "../app.js";
-import {ElectraController} from "./electraController.js";
-import {ElectricityRepository} from "../repositories/electricityRepository.js";
+
 
 export class CompareUsageController extends Controller {
     #view
@@ -10,10 +8,9 @@ export class CompareUsageController extends Controller {
         super();
 
         this.#view = view
-        this.#setupDatePickers()
     }
 
-    #setupDatePickers() {
+    setupDatePickers() {
         const picker = new easepick.create({
             element: document.getElementById('datepicker'),
             css: [
