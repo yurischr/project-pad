@@ -1,12 +1,13 @@
 import {Controller} from "./controller.js";
-
+import {CompareUsageRepository} from "../repositories/compareUsageRepository.js";
 
 export class CompareUsageController extends Controller {
     #view
+    #compareUsageRepository
 
     constructor(view) {
         super();
-
+        this.#compareUsageRepository = new CompareUsageRepository()
         this.#view = view
     }
 
@@ -35,15 +36,19 @@ export class CompareUsageController extends Controller {
             setup: (picker) => {
                 picker.on('hide', () => {
                     this.#changeDate(picker.getStartDate(), picker.getEndDate())
+
                 });
             },
         });
 
     }
 
-    #changeDate(date1, date2) {
+    async #changeDate(date1, date2) {
         const startDate = new Date(date1).toISOString().split('T')[0]
         const endDate = new Date(date2).toISOString().split('T')[0]
+
+        const data = await this.#compareUsageRepository.getDataDaily(startDate.replace(/-/g, "/"))
+
 
     }
 }
