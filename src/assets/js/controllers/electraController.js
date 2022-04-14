@@ -20,6 +20,7 @@ export class ElectraController extends Controller {
         this.#compareUsageController = new CompareUsageController(this.#view);
         this.#electricityRepository = new ElectricityRepository();
         this.#comparisonChartRepository = new ComparisonChartRepository();
+        this.#compareUsageController.setupDatePickers();
 
 
         // Calling the method to show the graph
@@ -75,8 +76,6 @@ export class ElectraController extends Controller {
             case this.#TAB_DAY:
                 await this.#fetchPeriodData(await this.#electricityRepository.getDailyData(), "Dag", "day")
                 this.#comparisonChart(await this.#comparisonChartRepository.getDailyComparisonData())
-
-                this.#compareUsageController.setupDatePickers();
                 break;
             case this.#TAB_WEEK:
                 await this.#fetchPeriodData(await this.#electricityRepository.getWeeklyData(), "Week", "week")
