@@ -82,7 +82,7 @@ export class ElectraController extends Controller {
                 this.#comparisonChart(await this.#comparisonChartRepository.getWeeklyComparisonData())
                 break;
             case this.#TAB_MONTH:
-                await this.#fetchMonthlyData()
+                await this.#fetchPeriodData(await this.#electricityRepository.getMonthlyData(), "Maand", "maand")
                 this.#comparisonChart(await this.#comparisonChartRepository.getMonthlyComparisonData())
                 break;
             case this.#TAB_YEAR:

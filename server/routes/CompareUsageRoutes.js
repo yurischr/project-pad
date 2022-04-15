@@ -3,12 +3,12 @@
  * @author Yuri Schrieken
  */
 
+
 class CompareUsageRoutes {
     #app;
     #errCodes = require("../framework/utils/httpErrorCodes");
     #axios = require("../node_modules/axios").default;
     #selectedDay = "2022/01/01";
-
 
     constructor(app) {
         this.#app = app
