@@ -29,6 +29,10 @@ export class WelcomeController extends Controller{
         //await for when HTML is loaded
         this.#welcomeView = await super.loadHtmlIntoContent("html_views/welcome.html")
 
+        // add event listener to the CTA button which leads to the consumption page
+        this.#welcomeView.querySelector(".viewButton").addEventListener("click", (event) => {
+            App.loadController(event.target.dataset.controller)
+        });
     }
 
 }
