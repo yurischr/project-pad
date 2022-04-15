@@ -19,6 +19,8 @@ export class ConsumptionController extends Controller {
         super();
         this.#electricityRepository = new ElectricityRepository();
         this.#setupView();
+
+        window.addEventListener('scroll', this.#scrollEffect);
     }
 
     /**
@@ -69,7 +71,7 @@ export class ConsumptionController extends Controller {
 
         // Loading the comparison chart into the DOM element [CLASS: .comparison-chart]
         await super.loadHtmlIntoCustomElement("html_views/components/comparisonChart.html"
-            , document.querySelector(".comparison-chart"));
+            , document.querySelector(".comparison-chart-box"));
 
         // Loading the nav pills into the DOM element [CLASS: .nav-pills-box]
         await super.loadHtmlIntoCustomElement("html_views/components/nav-pills.html"
@@ -103,6 +105,29 @@ export class ConsumptionController extends Controller {
         }
 
         return true;
+    }
+
+    /**
+     * The Intersection Observer API observes changes in the intersection of a target element with an ancestor element
+     */
+    #scrollEffect() {
+        const rows = document.querySelectorAll('.scroll-effect')
+        const observer = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    entry.target.classList.toggle("show-section", entry.isIntersecting)
+                })
+            },
+            {
+                // indicate at what percentage of the target's visibility the observer's callback should be executed.
+                threshold: 0.10
+            }
+        )
+
+        rows.forEach(row => {
+            // targeting the rows for the observer
+            observer.observe(row)
+        })
     }
 }
 

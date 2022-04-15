@@ -6,6 +6,17 @@ body {
     padding-top: 8em;
 }
 
+.scroll-effect{
+    opacity: 0;
+    transform: translateY(150px);
+    transition: all 0.5s ease-in-out;
+}
+
+.show-section {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .header-row,
 .header-card {
     background-color: #00102B;
@@ -46,7 +57,6 @@ body {
     background-color: #00509E;
     color: white;
 }
-
 
 hr,
 .title,

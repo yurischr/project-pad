@@ -12,6 +12,9 @@ export class CompareUsageController extends Controller {
     }
 
     setupDatePickers() {
+        const currentDate = new Date(Date.now());
+        const formattedDate = `${currentDate.getFullYear()}/${currentDate.getMonth() + 1}/${currentDate.getDate()}`;
+
         const picker = new easepick.create({
             element: document.getElementById('datepicker'),
             css: [
@@ -28,14 +31,14 @@ export class CompareUsageController extends Controller {
                 },
             },
             LockPlugin: {
-                maxDate: "2022/01/03"
+                maxDate: formattedDate
             },
             setup: (picker) => {
                 picker.on('hide', () => {
                     this.#changeDate(picker.getStartDate(), picker.getEndDate())
 
                 });
-                picker.setDate("2022-01-01")
+                picker.setDate(formattedDate)
             },
         });
 
