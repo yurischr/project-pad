@@ -204,22 +204,13 @@ export class ElectraController extends Controller {
     async #graph() {
         const graph = document.querySelector("#graph");
         const yearlyData = this.#electricityRepository.getYearlyData();
+        let consumptionYearly = [];
 
-        const consumption2018 = await yearlyData.then(function (results) {
-            return results.data[0].consumption;
-        })
-
-        const consumption2019 = await yearlyData.then(function (results) {
-            return results.data[1].consumption;
-        })
-
-        const consumption2020 = await yearlyData.then(function (results) {
-            return results.data[2].consumption;
-        })
-
-        const consumption2021 = await yearlyData.then(function (results) {
-            return results.data[3].consumption;
-        })
+        for (let i = 0; i < 4; i++) {
+            consumptionYearly[i] = await yearlyData.then(function (results) {
+                return results.data[i].consumption;
+            })
+        }
 
         const myChart = new Chart(graph, {
             type: 'line',
@@ -227,7 +218,7 @@ export class ElectraController extends Controller {
                 labels: ['2018', '2019', '2020', '2021'],
                 datasets: [{
                     label: 'Verbruik (kWh)',
-                    data: [consumption2018, consumption2019, consumption2020, consumption2021],
+                    data: [consumptionYearly[0], consumptionYearly[1], consumptionYearly[2], consumptionYearly[3]],
                     fill: false,
                     borderColor: '#0063c3',
                     tension: 0.4,
