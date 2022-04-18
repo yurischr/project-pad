@@ -2,6 +2,48 @@ body {
     background-color: var(--main-bg);
 }
 
+.side-nav {
+    position: fixed;
+    top: 30%;
+    right: 0;
+}
+
+.side-nav-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: 6px 0 6px 6px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #0063C3;
+}
+
+.side-nav-link:hover {
+    background-color: rgba(0, 99, 195, 0.50);
+    color: white;
+}
+
+.side-nav-box:hover {
+    transform: translateX(0px);
+}
+
+.side-nav-box {
+    display: flex;
+    align-items: baseline;
+    background: #c4d7e9;
+    border-radius: 50px 0 0 50px;
+    margin-bottom: 6px;
+    transform: translateX(160px);
+    transition: 300ms ease-in-out;
+}
+
+.link-text {
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
 .header-section {
     padding-top: 8em;
 }
@@ -73,4 +115,13 @@ hr,
 .comparison-chart h5 {
     color: var(--text-color);
     font-weight: bold;
+}
+
+#header,
+#realtime,
+#usage-compare,
+#comparison-chart,
+#tableSpace,
+#graph-section {
+    scroll-margin: 15em;
 }
