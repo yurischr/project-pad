@@ -2,12 +2,11 @@
     padding: 2em;
     margin-top: 3em;
     background-color: white;
-    box-shadow: 0px 5px 20px rgb(0 0 0 / 5%);
+    box-shadow: 0 5px 20px rgb(0 0 0 / 5%);
     border-radius: 10px;
 }
 
 .comparison-title {
-    font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;

@@ -6,7 +6,7 @@ body {
     padding-top: 8em;
 }
 
-.scroll-effect{
+.scroll-effect {
     opacity: 0;
     transform: translateY(150px);
     transition: all 0.5s ease-in-out;
@@ -50,7 +50,7 @@ body {
 .dashboard-buttons {
     width: 100%;
     border-radius: 10px;
-    transition:  200ms ease-in-out;
+    transition: 200ms ease-in-out;
 }
 
 .active-dashboard-btn {

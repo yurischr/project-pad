@@ -18,7 +18,6 @@ export class ElectricityRepository {
 
     /**
      * Async function to get the weekly electricity data via network manager
-     *
      * @returns {Promise<void>}
      */
     async getWeeklyData() {

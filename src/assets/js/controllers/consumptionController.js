@@ -7,7 +7,6 @@ import {ElectricityRepository} from "../repositories/electricityRepository.js";
 import {Controller} from "./controller.js";
 import {ElectraController} from "./electraController.js";
 import {GasController} from "./gasController.js";
-import {CompareUsageController} from "./compareUsageController.js";
 
 export class ConsumptionController extends Controller {
     #DASHBOARD_GAS = 'gas';

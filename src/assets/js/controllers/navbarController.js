@@ -4,10 +4,10 @@
  * @author Lennard Fonteijn & Pim Meijer
  */
 
-import { App } from "../app.js";
+import {App} from "../app.js";
 import {Controller} from "./controller.js";
 
-export class NavbarController extends Controller{
+export class NavbarController extends Controller {
     #navbarView
 
     constructor() {
@@ -67,6 +67,7 @@ export class NavbarController extends Controller{
             this.#navbarView.querySelector("#checkbox").checked = false;
         }
     }
+
     /**
      * Reads data attribute on each .nav-link and then when clicked navigates to specific controller
      * @param event - clicked anchor event
@@ -78,7 +79,7 @@ export class NavbarController extends Controller{
         const clickedAnchor = event.target;
         const controller = clickedAnchor.dataset.controller;
 
-        if(typeof controller === "undefined") {
+        if (typeof controller === "undefined") {
             console.error("No data-controller attribute defined in anchor HTML tag, don't know which controller to load!")
             return false;
         }

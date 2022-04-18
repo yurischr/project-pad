@@ -21,31 +21,32 @@ export class TableController extends Controller {
     }
 
 
-    async #setupView(){
+    async #setupView() {
         // this.#tableView = await super.loadHtmlIntoCustomElement("html_views/table.html"
         //     , document.querySelector("#tableSpace2"));
-        this.#tableView.querySelector("#selectDay").addEventListener("click", function (){
+        this.#tableView.querySelector("#selectDay").addEventListener("click", function () {
             this.#appendTable("Dag")
             this.#setSelected(this);
         })
-        this.#tableView.querySelector("#selectWeek").addEventListener("click", function (){
+        this.#tableView.querySelector("#selectWeek").addEventListener("click", function () {
             this.#appendTable("Week")
             this.#setSelected(this);
         })
-        this.#tableView.querySelector("#selectMonth").addEventListener("click", function (){
+        this.#tableView.querySelector("#selectMonth").addEventListener("click", function () {
             this.#appendTable("Maand")
             this.#setSelected(this);
         })
-        this.#tableView.querySelector("#selectYear").addEventListener("click", function (){
+        this.#tableView.querySelector("#selectYear").addEventListener("click", function () {
             this.#appendTable("Jaar")
             this.#setSelected(this);
         })
     }
+
     /**
      * This function appends the table to the view.
      * @param timePeriod which time period the table provides.
      */
-    #appendTable(timePeriod){
+    #appendTable(timePeriod) {
         const clone = this.#tableTemplate.content.cloneNode(true);
         const period = clone.querySelector("#timePeriod");
         period.innerHTML = timePeriod;
@@ -56,7 +57,7 @@ export class TableController extends Controller {
      * This function highlights the selected button.
      * @param toBeSelected the button that is selected.
      */
-    #setSelected(toBeSelected){
+    #setSelected(toBeSelected) {
         for (let i = 0; i < this.#buttons.length; i++) {
             this.#buttons[i].style.background = "#FFFFFF"
             this.#buttons[i].style.color = "#849AA9"
