@@ -42,7 +42,7 @@ export class ElectraController extends Controller {
             }
 
             // Prevent the page from scrolling to the top when clicking a tab
-            event.preventDefault()
+            event.preventDefault();
 
             // Calling the method for handling the table view and the active tab buttons
             await this.#handleTableView(event, tabs);
@@ -70,24 +70,24 @@ export class ElectraController extends Controller {
             tab.classList.remove('tab-active')
         });
 
-        event.target.classList.add("tab-active")
+        event.target.classList.add("tab-active");
 
         switch (event.target.dataset.table) {
             case this.#TAB_DAY:
-                await this.#fetchPeriodData(await this.#electricityRepository.getDailyData(), "Dag", "day")
-                this.#comparisonChart(await this.#comparisonChartRepository.getDailyComparisonData())
+                await this.#fetchPeriodData(await this.#electricityRepository.getDailyData(), "Dag", "day");
+                this.#comparisonChart(await this.#comparisonChartRepository.getDailyComparisonData());
                 break;
             case this.#TAB_WEEK:
-                await this.#fetchPeriodData(await this.#electricityRepository.getWeeklyData(), "Week", "week")
-                this.#comparisonChart(await this.#comparisonChartRepository.getWeeklyComparisonData())
+                await this.#fetchPeriodData(await this.#electricityRepository.getWeeklyData(), "Week", "week");
+                this.#comparisonChart(await this.#comparisonChartRepository.getWeeklyComparisonData());
                 break;
             case this.#TAB_MONTH:
-                await this.#fetchPeriodData(await this.#electricityRepository.getMonthlyData(), "Maand", "maand")
-                this.#comparisonChart(await this.#comparisonChartRepository.getMonthlyComparisonData())
+                await this.#fetchPeriodData(await this.#electricityRepository.getMonthlyData(), "Maand", "maand");
+                this.#comparisonChart(await this.#comparisonChartRepository.getMonthlyComparisonData());
                 break;
             case this.#TAB_YEAR:
-                await this.#fetchPeriodData(await this.#electricityRepository.getYearlyData(), "Jaar", "year")
-                this.#comparisonChart(await this.#comparisonChartRepository.getYearlyComparisonData())
+                await this.#fetchPeriodData(await this.#electricityRepository.getYearlyData(), "Jaar", "year");
+                this.#comparisonChart(await this.#comparisonChartRepository.getYearlyComparisonData());
                 break;
             default:
                 return false;
@@ -106,7 +106,7 @@ export class ElectraController extends Controller {
         try {
             $('#table-data').DataTable().clear().destroy();
 
-            const data = await this.#electricityRepository.getMonthlyData()
+            const data = await this.#electricityRepository.getMonthlyData();
 
             let template = this.#view.querySelector("#row-template");
             for (let i = 0; i < data.length; i++) {
@@ -115,13 +115,13 @@ export class ElectraController extends Controller {
 
                     clone.querySelector(".time").textContent = data[i][j]['month'];
                     clone.querySelector(".data").textContent = data[i][j]['consumption'];
-                    this.#view.querySelector(".table-body").appendChild(clone)
+                    this.#view.querySelector(".table-body").appendChild(clone);
                 }
             }
-            await this.#setDatable()
+            await this.#setDatable();
 
         } catch (e) {
-            console.log("error while fetching the monthly electricity data", e)
+            console.log("error while fetching the monthly electricity data", e);
         }
     }
 
@@ -145,7 +145,7 @@ export class ElectraController extends Controller {
 
                 clone.querySelector(".time").textContent = data.data[row][selector];
                 clone.querySelector(".data").textContent = data.data[row]['consumption'];
-                this.#view.querySelector(".table-body").appendChild(clone)
+                this.#view.querySelector(".table-body").appendChild(clone);
             }
             await this.#setDatable()
         } catch (e) {
@@ -191,12 +191,13 @@ export class ElectraController extends Controller {
                     '#004A8F'
                 ],
             }]
-        }
+        };
 
         const config = {
             type: 'doughnut',
             data
-        }
+        };
+
         const comparisonChart = this.#view.querySelector('#chart');
         const doughnutChart = new Chart(comparisonChart, config);
     }
@@ -209,7 +210,7 @@ export class ElectraController extends Controller {
         for (let i = 0; i < 4; i++) {
             consumptionYearly[i] = await yearlyData.then(function (results) {
                 return results.data[i].consumption;
-            })
+            });
         }
 
         const myChart = new Chart(graph, {

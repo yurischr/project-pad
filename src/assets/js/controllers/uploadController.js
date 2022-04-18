@@ -14,7 +14,7 @@ export class UploadController extends Controller {
     constructor() {
         super();
         this.#networkManager = new NetworkManager();
-        this.#setupView()
+        this.#setupView();
     }
 
     /**
@@ -24,20 +24,20 @@ export class UploadController extends Controller {
      */
     async #setupView() {
         //await for when HTML is loaded
-        this.#uploadView = await super.loadHtmlIntoContent("html_views/upload.html")
+        this.#uploadView = await super.loadHtmlIntoContent("html_views/upload.html");
 
         //from here we can safely get elements from the view via the right getter
         this.#uploadView.querySelector(".upload").addEventListener("click", async (event) => {
-            event.preventDefault()
+            event.preventDefault();
 
             const fileInput = this.#uploadView.querySelector("#sampleFile");
 
             //TODO: you should add validation to check if an actual file is selected
             const file = fileInput.files[0];
-            const formData = new FormData()
+            const formData = new FormData();
 
             //set "sampleFile" as key, we read this key in de back-end
-            formData.append("sampleFile", file)
+            formData.append("sampleFile", file);
 
             try {
                 const repsonse = await this.#networkManager.doFileRequest("/upload", "POST", formData);

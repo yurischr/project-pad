@@ -30,7 +30,7 @@ export class ConsumptionController extends Controller {
         document.title = "Dashboard | Het Scheepvaartmuseum";
 
         //await for when HTML is loaded, never skip this method call in a controller
-        this.#consumptionView = await super.loadHtmlIntoContent("html_views/consumption.html")
+        this.#consumptionView = await super.loadHtmlIntoContent("html_views/consumption.html");
 
         // Loading the header SVG into the DOM element [CLASS: .header-svg]
         await super.loadHtmlIntoCustomElement("assets/svg/consumption-header-svg.svg"
@@ -62,7 +62,7 @@ export class ConsumptionController extends Controller {
 
         // loading the compare usages into the DOM element [ID: #usage-compare]
         await super.loadHtmlIntoCustomElement("html_views/compare-usages.html"
-            , document.querySelector("#usage-compare"))
+            , document.querySelector("#usage-compare"));
 
         // Loading the table into the DOM element [ID: #tableSpace]
         await super.loadHtmlIntoCustomElement("html_views/components/temp-table.html"
@@ -110,12 +110,12 @@ export class ConsumptionController extends Controller {
      * The Intersection Observer API observes changes in the intersection of a target element with an ancestor element
      */
     #scrollEffect() {
-        const rows = document.querySelectorAll('.scroll-effect')
+        const rows = document.querySelectorAll('.scroll-effect');
         const observer = new IntersectionObserver(
             entries => {
                 entries.forEach(entry => {
-                    entry.target.classList.toggle("show-section", entry.isIntersecting)
-                })
+                    entry.target.classList.toggle("show-section", entry.isIntersecting);
+                });
             },
             {
                 // indicate at what percentage of the target's visibility the observer's callback should be executed.
@@ -126,7 +126,7 @@ export class ConsumptionController extends Controller {
         rows.forEach(row => {
             // targeting the rows for the observer
             observer.observe(row)
-        })
-    }
+        });
+    };
 }
 

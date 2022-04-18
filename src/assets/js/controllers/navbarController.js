@@ -22,7 +22,7 @@ export class NavbarController extends Controller {
      */
     async #setupView() {
         //await for when HTML is
-        this.#navbarView = await super.loadHtmlIntoNavigation("html_views/navbar.html")
+        this.#navbarView = await super.loadHtmlIntoNavigation("html_views/navbar.html");
 
         this.#setTheme();
 
@@ -30,7 +30,7 @@ export class NavbarController extends Controller {
         const anchors = this.#navbarView.querySelectorAll("a.nav-links");
 
         //set click listener on each anchor
-        anchors.forEach(anchor => anchor.addEventListener("click", (event) => this.#handleClickNavigationItem(event)))
+        anchors.forEach(anchor => anchor.addEventListener("click", (event) => this.#handleClickNavigationItem(event)));
 
         this.#navbarView.querySelector("#checkbox").addEventListener("change", (event) => {
             this.#handleThemeToggle(event);
@@ -43,12 +43,12 @@ export class NavbarController extends Controller {
      */
     #handleThemeToggle(event) {
         if (event.target.checked) {
-            document.body.classList.add("dark-mode")
-            document.body.classList.remove("light-mode")
+            document.body.classList.add("dark-mode");
+            document.body.classList.remove("light-mode");
             App.sessionManager.set("theme", "dark");
         } else {
-            document.body.classList.add("light-mode")
-            document.body.classList.remove("dark-mode")
+            document.body.classList.add("light-mode");
+            document.body.classList.remove("dark-mode");
             App.sessionManager.set("theme", "light");
         }
     }
@@ -58,12 +58,12 @@ export class NavbarController extends Controller {
      */
     #setTheme() {
         if (App.sessionManager.get("theme") === "dark") {
-            document.body.classList.add("dark-mode")
-            document.body.classList.remove("light-mode")
+            document.body.classList.add("dark-mode");
+            document.body.classList.remove("light-mode");
             this.#navbarView.querySelector("#checkbox").checked = true;
         } else {
             document.body.classList.add("light-mode")
-            document.body.classList.remove("dark-mode")
+            document.body.classList.remove("dark-mode");
             this.#navbarView.querySelector("#checkbox").checked = false;
         }
     }
@@ -88,7 +88,7 @@ export class NavbarController extends Controller {
             navLink.classList.remove("active-link");
         });
 
-        clickedAnchor.classList.add("active-link")
+        clickedAnchor.classList.add("active-link");
 
         //Pass the action to a new function for further processing
         App.loadController(controller);

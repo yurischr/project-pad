@@ -22,7 +22,7 @@ export class Controller {
      * @returns {Promise<*>}
      */
     async loadHtmlIntoNavigation(htmlFile) {
-        return await this.#fetchHtmlView(htmlFile, true)
+        return await this.#fetchHtmlView(htmlFile, true);
     }
 
     /**
@@ -31,7 +31,7 @@ export class Controller {
      * @returns {Promise<*>}
      */
     async loadHtmlIntoContent(htmlFile) {
-        return await this.#fetchHtmlView(htmlFile, false)
+        return await this.#fetchHtmlView(htmlFile, false);
     }
 
     /**
@@ -41,7 +41,7 @@ export class Controller {
      * @returns {Promise<*>}
      */
     async loadHtmlIntoCustomElement(htmlFile, element) {
-        return await this.#fetchHtmlView(htmlFile, false, element)
+        return await this.#fetchHtmlView(htmlFile, false, element);
     }
 
     /**
@@ -54,12 +54,12 @@ export class Controller {
      * @private
      */
     async #fetchHtmlView(htmlFile, loadIntoNavigation = false, customElement ) {
-        let loadInto = loadIntoNavigation ? this.#navigationViewHtml : this.#contentViewHtml
+        let loadInto = loadIntoNavigation ? this.#navigationViewHtml : this.#contentViewHtml;
 
         //if a HTML DOM element to load the content into is passed, load it into there and give that back
         if(customElement instanceof Element) {
-            console.log("load html into custom element instead of index.html")
-            loadInto = customElement
+            console.log("load html into custom element instead of index.html");
+            loadInto = customElement;
         }
 
         try {
@@ -81,7 +81,7 @@ export class Controller {
             loadInto.innerHTML = "<p>Failed to load HTML file</p>";
         }
 
-        return loadInto
+        return loadInto;
     }
 
     //optional getters

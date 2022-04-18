@@ -16,7 +16,7 @@ export class LoginController extends Controller{
         super();
         this.#usersRepository = new UsersRepository();
 
-        this.#setupView()
+        this.#setupView();
     }
 
     /**
@@ -25,7 +25,7 @@ export class LoginController extends Controller{
      */
     async #setupView() {
         //await for when HTML is loaded, never skip this method call in a controller
-        this.#loginView = await super.loadHtmlIntoContent("html_views/login.html")
+        this.#loginView = await super.loadHtmlIntoContent("html_views/login.html");
 
         //from here we can safely get elements from the view via the right getter
         this.#loginView.querySelector(".btn").addEventListener("click", event => this.#handleLogin(event));
@@ -52,7 +52,7 @@ export class LoginController extends Controller{
         } catch(error) {
             //if unauthorized error code, show error message to the user
             if(error.code === 401) {
-                this.#loginView.querySelector(".error").innerHTML = error.reason
+                this.#loginView.querySelector(".error").innerHTML = error.reason;
             } else {
                 console.error(error);
             }
