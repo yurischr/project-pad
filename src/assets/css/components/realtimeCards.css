@@ -18,6 +18,25 @@
     color: var(--text-color);
 }
 
+.card-custom-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-icon {
+    font-size: 25px;
+    color: #00509E;
+}
+
+.card-stats {
+    margin-top: 15px;
+}
+
+.card-text,
+.color-high {
+    margin-bottom: 0;
+}
+
 .color-high {
     color: var(--card-high-percentage);
 }
