@@ -76,6 +76,10 @@ export class ConsumptionController extends Controller {
         await super.loadHtmlIntoCustomElement("html_views/components/nav-pills.html"
             , this.#consumptionView.querySelector(".nav-pills-box"));
 
+        // Loading the side-nav into the DOM element [CLASS: .side-nav-main-box]
+        await super.loadHtmlIntoCustomElement("html_views/components/side-nav.html"
+            , document.querySelector(".side-nav-main-box"));
+
         // Loading the graph into the DOM element [CLASS: .graph]
         await super.loadHtmlIntoCustomElement("html_views/graph.html"
             , document.querySelector(".graph"));
