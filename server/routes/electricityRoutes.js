@@ -9,7 +9,6 @@ class ElectricityRoutes {
     #ELECTRA_END_DATETIME = "2022-03-08 23:45:00";
     #errCodes = require("../framework/utils/httpErrorCodes")
     #db = require("../framework/utils/databaseHelper")
-    #cryptoHelper = require("../framework/utils/cryptoHelper");
     #app
 
     /**

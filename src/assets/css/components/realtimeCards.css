@@ -4,6 +4,20 @@
     display: flex;
 }
 
+.realtime-card {
+    background-color: var(--main-bg);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px var(--shadow-color);
+    border: none;
+    margin: 10px;
+    width: 250px;
+}
+
+.realtime-card .card-title,
+.realtime-card .card-text {
+    color: var(--text-color);
+}
+
 .color-high {
     color: var(--card-high-percentage);
 }
