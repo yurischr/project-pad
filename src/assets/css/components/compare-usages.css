@@ -6,16 +6,44 @@
     font-family: var(--default-font);
 }
 
-.data-section {
+.box-top {
     display: flex;
+    flex-direction: column;
     box-shadow: 0 5px 20px var(--shadow-color);
     border-radius: 10px;
     padding: 2em;
     margin-bottom: 6em;
+
+}
+
+.input-date-1 {
+    text-align: center;
 }
 
 .date-output {
     display: flex;
+}
+
+.date {
+    font-weight: bolder;
+}
+
+.name-data-1 {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.name-data-1 span{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.datepicker {
+    text-align: center;
+    background-color: #f6f6f6;
+    padding: 10px;
+    border: 2px solid #f6f6f6;
+    border-radius: 5px;
 }
 
 .output {
@@ -32,8 +60,10 @@
 
 .positive {
     color: var(--card-high-percentage);
+    font-weight: bold;
 }
 
 .negative {
     color: var(--card-low-percentage);
+    font-weight: bold;
 }

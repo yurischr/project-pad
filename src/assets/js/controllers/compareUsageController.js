@@ -85,9 +85,9 @@ export class CompareUsageController extends Controller {
             difference.innerHTML = "+ " + percentage + "%"
             difference.classList.add("positive");
         }
-
-        difference.innerHTML = "+/- " + percentage + "%"
-        difference.classList.add("positive");
+        //
+        // difference.innerHTML = "+/- " + percentage + "%"
+        // difference.classList.add("positive");
 
 
     }

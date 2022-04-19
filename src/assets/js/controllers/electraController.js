@@ -1,6 +1,5 @@
 import {Controller} from "./controller.js";
 import {ElectricityRepository} from "../repositories/electricityRepository.js";
-import {CompareUsageRepository} from "../repositories/compareUsageRepository.js";
 import {ComparisonChartRepository} from "../repositories/comparisonChartRepository.js";
 import {CompareUsageController} from "./compareUsageController.js";
 
@@ -14,7 +13,6 @@ export class ElectraController extends Controller {
     #electricityRepository
     #comparisonChartRepository
     #compareUsageController;
-    #compareUsageRepository;
 
     constructor(view) {
         super();
@@ -22,11 +20,16 @@ export class ElectraController extends Controller {
         this.#compareUsageController = new CompareUsageController(this.#view);
         this.#electricityRepository = new ElectricityRepository();
         this.#comparisonChartRepository = new ComparisonChartRepository();
-        this.#compareUsageRepository = new CompareUsageRepository();
-
-        this.#compareUsageRepository.getDataDaily('2018');
-
         this.#compareUsageController.setupDatePickers();
+
+        (async () => {
+            try {
+                await this.#fetchPeriodData(await this.#electricityRepository.getDailyData(), "Dag", "day");
+                await this.#comparisonChart(await this.#comparisonChartRepository.getDailyComparisonData());
+            } catch (e) {
+                console.log("error while executing the data", e);
+            }
+        })();
 
 
         // Calling the method to show the graph
