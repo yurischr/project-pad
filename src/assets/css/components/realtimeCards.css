@@ -9,7 +9,7 @@
     border-radius: 10px;
     box-shadow: 0 5px 20px var(--shadow-color);
     border: none;
-    margin: auto;
+    margin: 10px;
     width: 250px;
 }
 
