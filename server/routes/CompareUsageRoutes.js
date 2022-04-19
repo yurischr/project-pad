@@ -27,10 +27,11 @@ class CompareUsageRoutes {
                 })
 
                 if (data.length > 0) {
-                    res.status(this.#errCodes.HTTP_OK_CODE).json({data: data[7]})
+                    res.status(this.#errCodes.HTTP_OK_CODE).json({data: data})
                 } else {
                     res.status(this.#errCodes.NO_CONTENT).json({reason: "Data not found"})
                 }
+
 
                 // res.send(req.body.selectedDay)
             } catch (e) {

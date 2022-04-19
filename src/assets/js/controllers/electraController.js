@@ -24,7 +24,8 @@ export class ElectraController extends Controller {
         this.#comparisonChartRepository = new ComparisonChartRepository();
         this.#compareUsageRepository = new CompareUsageRepository();
 
-        this.#compareUsageRepository.getDataDaily('2022-01-01');
+        this.#compareUsageRepository.getDataDaily('2018');
+
         this.#compareUsageController.setupDatePickers();
 
 
