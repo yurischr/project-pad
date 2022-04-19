@@ -1,7 +1,6 @@
 import {Controller} from "./controller.js";
 import {CompareUsageRepository} from "../repositories/compareUsageRepository.js";
 import {ElectricityRepository} from "../repositories/electricityRepository.js";
-import CompareUsageRoutes from "../../../../server/routes/CompareUsageRoutes.js";
 
 export class CompareUsageController extends Controller {
     #view
@@ -13,7 +12,7 @@ export class CompareUsageController extends Controller {
         super();
         this.#compareUsageRepository = new CompareUsageRepository()
         this.#electricityRepository = new ElectricityRepository()
-        this.#compareUsageRoutes = new CompareUsageRoutes()
+        this.#compareUsageRoutes = new CompareUsageRepository();
         this.#view = view
     }
 

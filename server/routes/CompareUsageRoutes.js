@@ -4,7 +4,7 @@
  */
 
 
-export class CompareUsageRoutes {
+class CompareUsageRoutes {
     #app;
     #errCodes = require("../framework/utils/httpErrorCodes");
     #axios = require("../node_modules/axios").default;
@@ -12,15 +12,15 @@ export class CompareUsageRoutes {
 
     constructor(app) {
         this.#app = app
-        this.#getData(this.#selectedDay)
+        this.#getData();
     }
 
-    #getData(selectedDay) {
-        this.#app.get(`/compare/daily/day=${selectedDay}`, async (req, res) => {
+    #getData() {
+        this.#app.post(`/compare/daily`, async (req, res) => {
             try {
-                const url = `https://svm.hbo-ict.cloud/api/v1/data/${selectedDay}`;
+                const url = `https://svm.hbo-ict.cloud/api/v1/data/${req.body.selectedDay}`;
                 let data;
-                await this.#axios.get(url, {params: {day: selectedDay}}).then(function (response) {
+                await this.#axios.get(url, {params: {day: req.body.selectedDay}}).then(function (response) {
                     data = response.data
                 }).catch(function (e) {
                     console.log(e)
@@ -31,6 +31,8 @@ export class CompareUsageRoutes {
                 } else {
                     res.status(this.#errCodes.NO_CONTENT).json({reason: "Data not found"})
                 }
+
+                // res.send(req.body.selectedDay)
             } catch (e) {
                 console.log(e)
                 res.status(this.#errCodes.BAD_REQUEST_CODE).json({reason: e});

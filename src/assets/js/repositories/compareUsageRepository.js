@@ -13,7 +13,10 @@ export class CompareUsageRepository {
         this.#networkManager = new NetworkManager();
     }
 
-    getDataDaily(selectedDay) {
-        return this.#networkManager.doRequest(`${this.#route}/daily/day=${selectedDay}`, "GET")
+    async getDataDaily(selectedDay) {
+        return await this.#networkManager
+            .doRequest(`${this.#route}/daily`, "POST", {
+            "selectedDay": selectedDay
+        });
     }
 }
