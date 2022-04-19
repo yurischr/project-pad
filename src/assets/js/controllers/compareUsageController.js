@@ -6,18 +6,18 @@ export class CompareUsageController extends Controller {
     #view
     #compareUsageRepository
     #electricityRepository
-    #compareUsageRoutes
+    data2;
 
     constructor(view) {
         super();
         this.#compareUsageRepository = new CompareUsageRepository()
         this.#electricityRepository = new ElectricityRepository()
-        this.#compareUsageRoutes = new CompareUsageRepository();
         this.#view = view
     }
 
     setupDatePickers() {
-        const currentDate = new Date(Date.now());
+        const currentDate = new Date("Date.now()");
+        const maxDate = new Date("2022/03/08")
         const formattedDate = `${currentDate.getFullYear()}/${currentDate.getMonth() + 1}/${currentDate.getDate()}`;
 
         const picker = new easepick.create({
@@ -36,18 +36,16 @@ export class CompareUsageController extends Controller {
                 },
             },
             LockPlugin: {
-                maxDate: formattedDate
+                maxDate: maxDate
             },
             setup: (picker) => {
                 picker.on('hide', () => {
                     this.#changeDate(picker.getStartDate(), picker.getEndDate())
 
                 });
-                picker.setDate(formattedDate)
+                picker.setDate(maxDate)
             },
         });
-
-        document.querySelector("#datepicker").innerHTML = "fadsfdsa"
 
     }
 
@@ -55,27 +53,27 @@ export class CompareUsageController extends Controller {
         const startDate = new Date(date1)
         const endDate = new Date(date2)
 
-        startDate.setDate(startDate.getDate() + 1)
-        endDate.setDate(endDate.getDate() + 1)
+        startDate.setMonth(startDate.getMonth() + 1)
+        endDate.setMonth(endDate.getMonth() + 1)
 
-        const newStartDate = startDate.toISOString().split('T')[0]
-        const newEndDate = endDate.toISOString().split('T')[0]
+        console.log(startDate)
+        console.log(endDate);
 
-        // const data1 = await this.#compareUsageRepository.getDataDaily(newStartDate.replace(/-/g, "/"))
-        // const data2 = await this.#compareUsageRepository.getDataDaily(newEndDate.replace(/-/g, "/"))
+        const data1 = await this.#compareUsageRepository.getDataDaily(startDate.getFullYear() + "/" + startDate.getMonth())
+        const data2 = await this.#compareUsageRepository.getDataDaily(endDate.getFullYear() + "/" + endDate.getMonth())
 
-        const data1 = await this.#electricityRepository.getDailyData()
         console.log(data1);
+        console.log(data2);
 
-        // document.querySelector("#result1").innerHTML = data1.data['electricity'] + " kWh";
-        // document.querySelector("#result2").innerHTML = data2.data['electricity'] + " kWh";
+        document.querySelector("#result1").innerHTML = data1.data[startDate.getDate()]['electricity'] + " kWh";
+        document.querySelector("#result2").innerHTML = data2.data[endDate.getDate()]['electricity'] + " kWh";
 
-        // this.#calculateDifferences(data1.data['electricity'], data2.data['electricity'])
+        this.#calculateDifferences(data1.data[startDate.getDate()]['electricity'], data2.data[endDate.getDate()]['electricity'])
     }
 
     #calculateDifferences(result1, result2) {
         const difference = document.querySelector("#difference")
-        const percentage = (result1 / result2) * 100;
+        const percentage = (result2 / result1) * 100;
 
 
         if (result1 > result2) {
