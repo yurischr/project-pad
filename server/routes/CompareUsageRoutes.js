@@ -4,7 +4,7 @@
  */
 
 
-class CompareUsageRoutes {
+export class CompareUsageRoutes {
     #app;
     #errCodes = require("../framework/utils/httpErrorCodes");
     #axios = require("../node_modules/axios").default;
@@ -40,3 +40,4 @@ class CompareUsageRoutes {
 }
 
 module.exports = CompareUsageRoutes
+

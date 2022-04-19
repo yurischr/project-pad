@@ -1,13 +1,19 @@
 import {Controller} from "./controller.js";
 import {CompareUsageRepository} from "../repositories/compareUsageRepository.js";
+import {ElectricityRepository} from "../repositories/electricityRepository.js";
+import CompareUsageRoutes from "../../../../server/routes/CompareUsageRoutes.js";
 
 export class CompareUsageController extends Controller {
     #view
     #compareUsageRepository
+    #electricityRepository
+    #compareUsageRoutes
 
     constructor(view) {
         super();
         this.#compareUsageRepository = new CompareUsageRepository()
+        this.#electricityRepository = new ElectricityRepository()
+        this.#compareUsageRoutes = new CompareUsageRoutes()
         this.#view = view
     }
 
@@ -56,13 +62,16 @@ export class CompareUsageController extends Controller {
         const newStartDate = startDate.toISOString().split('T')[0]
         const newEndDate = endDate.toISOString().split('T')[0]
 
-        const data1 = await this.#compareUsageRepository.getDataDaily(newStartDate.replace(/-/g, "/"))
-        const data2 = await this.#compareUsageRepository.getDataDaily(newEndDate.replace(/-/g, "/"))
+        // const data1 = await this.#compareUsageRepository.getDataDaily(newStartDate.replace(/-/g, "/"))
+        // const data2 = await this.#compareUsageRepository.getDataDaily(newEndDate.replace(/-/g, "/"))
 
-        document.querySelector("#result1").innerHTML = data1.data['electricity'] + " kWh";
-        document.querySelector("#result2").innerHTML = data2.data['electricity'] + " kWh";
+        const data1 = await this.#electricityRepository.getDailyData()
+        console.log(data1);
 
-        this.#calculateDifferences(data1.data['electricity'], data2.data['electricity'])
+        // document.querySelector("#result1").innerHTML = data1.data['electricity'] + " kWh";
+        // document.querySelector("#result2").innerHTML = data2.data['electricity'] + " kWh";
+
+        // this.#calculateDifferences(data1.data['electricity'], data2.data['electricity'])
     }
 
     #calculateDifferences(result1, result2) {
