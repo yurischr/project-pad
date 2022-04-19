@@ -97,35 +97,6 @@ export class ElectraController extends Controller {
     }
 
     /**
-     * Async function gets the monthly electricity data via the repository and adds the data to the table rows
-     * @returns {Promise<void>}
-     */
-    async #fetchMonthlyData() {
-        this.#view.querySelector(".time-column").innerHTML = 'Maand';
-
-        try {
-            $('#table-data').DataTable().clear().destroy();
-
-            const data = await this.#electricityRepository.getMonthlyData();
-
-            let template = this.#view.querySelector("#row-template");
-            for (let i = 0; i < data.length; i++) {
-                for (let j = 0; j < data[i].length; j++) {
-                    let clone = template.content.cloneNode(true);
-
-                    clone.querySelector(".time").textContent = data[i][j]['month'];
-                    clone.querySelector(".data").textContent = data[i][j]['consumption'];
-                    this.#view.querySelector(".table-body").appendChild(clone);
-                }
-            }
-            await this.#setDatable();
-
-        } catch (e) {
-            console.log("error while fetching the monthly electricity data", e);
-        }
-    }
-
-    /**
      * Async function gets the data for a period via the repository and adds the data to the table rows
      * @param data - data from period
      * @param timePeriod - time period (day, week, month, year)
