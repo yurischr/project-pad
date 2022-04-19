@@ -12,9 +12,9 @@
     position: relative;
     padding: 2em;
     margin-bottom: 6em;
-    background: white;
+    background: var(--main-bg);
     border-radius: 10px;
-    box-shadow: 0 5px 20px rgb(122 122 122);
+    box-shadow: 0 5px 20px  rgba(0, 0, 0, 0.4);
     transform: rotateZ(5deg);
     width: 55vw;
 }

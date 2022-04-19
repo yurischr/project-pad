@@ -65,7 +65,6 @@
 .table tbody tr:hover {
     background-color: #555555;
     color: white;
-    cursor: pointer;
 }
 
 .table > :not(:last-child) > :last-child > * {

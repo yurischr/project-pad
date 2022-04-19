@@ -65,8 +65,8 @@ export class CompareUsageController extends Controller {
         console.log(data1);
         console.log(data2);
 
-        document.querySelector("#result1").innerHTML = data1.data[startDate.getDate()]['electricity'] + " kWh";
-        document.querySelector("#result2").innerHTML = data2.data[endDate.getDate()]['electricity'] + " kWh";
+        this.#view.querySelector("#result1").innerHTML = data1.data[startDate.getDate()]['electricity'] + " kWh";
+        this.#view.querySelector("#result2").innerHTML = data2.data[endDate.getDate()]['electricity'] + " kWh";
 
         this.#calculateDifferences(data1.data[startDate.getDate()]['electricity'], data2.data[endDate.getDate()]['electricity'])
     }
