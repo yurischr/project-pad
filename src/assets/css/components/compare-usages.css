@@ -9,11 +9,27 @@
 .box-top {
     display: flex;
     flex-direction: column;
-    box-shadow: 0 5px 20px var(--shadow-color);
-    border-radius: 10px;
+    position: relative;
     padding: 2em;
     margin-bottom: 6em;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgb(122 122 122);
+    transform: rotateZ(5deg);
+    width: 55vw;
+}
 
+.box-content {
+    transform: rotateZ(-5deg);
+}
+
+.box-bottom {
+    background: #00509E;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px var(--shadow-color);
+    width: 55vw;
+    margin: auto;
 }
 
 .input-date-1 {
@@ -33,7 +49,7 @@
     margin-bottom: 12px;
 }
 
-.name-data-1 span{
+.name-data-1 span {
     font-weight: bold;
     font-size: 16px;
 }
@@ -44,19 +60,21 @@
     padding: 10px;
     border: 2px solid #f6f6f6;
     border-radius: 5px;
+    width: 25vw;
 }
 
 .output {
-    box-shadow: 0 5px 20px rgb(0 0 0 / 5%);
+    box-shadow: 0 5px 20px var(--shadow-color);
     border-radius: 10px;
+    width: 200px;
     padding: 1em;
 }
 
-.arrow {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
+/*.arrow {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    text-align: center;*/
+/*}*/
 
 .positive {
     color: var(--card-high-percentage);
