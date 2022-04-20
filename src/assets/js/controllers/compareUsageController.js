@@ -2,6 +2,10 @@ import {Controller} from "./controller.js";
 import {CompareUsageRepository} from "../repositories/compareUsageRepository.js";
 import {ElectricityRepository} from "../repositories/electricityRepository.js";
 
+/**
+ * Controller responsible for usage comparison
+ * @author Yuri Schrieken
+ */
 export class CompareUsageController extends Controller {
     #view
     #compareUsageRepository
@@ -14,6 +18,10 @@ export class CompareUsageController extends Controller {
         this.#view = view
     }
 
+    /**
+     * setup for date-pickers
+     * @returns {number}
+     */
     setupDatePickers() {
         const currentDate = new Date("Date.now()");
         const maxDate = new Date("2022/03/07")
@@ -39,7 +47,7 @@ export class CompareUsageController extends Controller {
             },
             setup: (picker) => {
                 picker.on('hide', () => {
-                    this.#changeDate(picker.getStartDate(), picker.getEndDate())
+                    this.#getData(picker.getStartDate(), picker.getEndDate())
 
                 });
                 picker.setDate(maxDate)
@@ -48,11 +56,25 @@ export class CompareUsageController extends Controller {
 
     }
 
-    async #changeDate(date1, date2) {
+    /**
+     * get and displays data according to selected dates
+     * @param date1 - first selected date
+     * @param date2 - second selected date
+     * @returns {Promise<void>}
+     */
+    async #getData(date1, date2) {
 
         const startDate = new Date(date1)
         const endDate = new Date(date2)
 
+        const dateFormat = {month: "long", day: "numeric", year: "numeric"}
+        const firstSelectedDate = startDate.toLocaleDateString("nl-NL", dateFormat)
+        const secondSelectedDate = endDate.toLocaleDateString("nl-NL", dateFormat)
+
+        document.querySelector("#long-date1").innerHTML = firstSelectedDate
+        document.querySelector("#long-date2").innerHTML = secondSelectedDate
+
+        //month buffer for date-picker
         startDate.setMonth(startDate.getMonth() + 1)
         endDate.setMonth(endDate.getMonth() + 1)
 
@@ -62,9 +84,15 @@ export class CompareUsageController extends Controller {
         document.querySelector("#result1").innerHTML = data1.data[startDate.getDate()]['electricity'] + " kWh";
         document.querySelector("#result2").innerHTML = data2.data[endDate.getDate()]['electricity'] + " kWh";
 
+
         this.#calculateDifferences(data1.data[startDate.getDate()]['electricity'], data2.data[endDate.getDate()]['electricity'])
     }
 
+    /**
+     * calculates and displays difference between two dates
+     * @param result1 - first result
+     * @param result2 - second result
+     */
     #calculateDifferences(result1, result2) {
         const difference = document.querySelector("#difference")
         const percentage = (result2 - result1) / result1 * 100;
