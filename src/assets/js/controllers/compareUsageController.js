@@ -16,7 +16,7 @@ export class CompareUsageController extends Controller {
 
     setupDatePickers() {
         const currentDate = new Date("Date.now()");
-        const maxDate = new Date("2022/03/08")
+        const maxDate = new Date("2022/03/07")
         const formattedDate = `${currentDate.getFullYear()}/${currentDate.getMonth() + 1}/${currentDate.getDate()}`;
 
         const picker = new easepick.create({
