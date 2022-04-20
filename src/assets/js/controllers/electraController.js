@@ -183,6 +183,9 @@ export class ElectraController extends Controller {
         const doughnutChart = new Chart(comparisonChart, config);
     }
 
+    /**
+     * Function creates a graph and adds daily consumption data to it
+     */
     async #graphDaily() {
         this.#clearGraph();
         const graph = document.querySelector("#graph");
@@ -232,6 +235,9 @@ export class ElectraController extends Controller {
         });
     }
 
+    /**
+     * Function creates a graph and adds weekly consumption data to it
+     */
     async #graphWeekly() {
         this.#clearGraph();
         const graph = document.querySelector("#graph");
@@ -269,6 +275,9 @@ export class ElectraController extends Controller {
         });
     }
 
+    /**
+     * Function creates a graph and adds monthly consumption data to it
+     */
     async #graphMonthly() {
         this.#clearGraph();
         const graph = document.querySelector("#graph");
@@ -296,6 +305,9 @@ export class ElectraController extends Controller {
         });
     }
 
+    /**
+     * Function creates a graph and adds yearly consumption data to it
+     */
     async #graphYearly() {
         this.#clearGraph();
         const graph = document.querySelector("#graph");
@@ -323,6 +335,9 @@ export class ElectraController extends Controller {
         });
     }
 
+    /**
+     * Function removes previous graph when you choose a different time period
+     */
     #clearGraph() {
         this.#view.querySelector('#graph').remove();
         this.#view.querySelector('.graph').insertAdjacentHTML("beforeend", '<canvas id="graph">' +
