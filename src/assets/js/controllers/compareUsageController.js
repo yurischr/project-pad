@@ -82,7 +82,7 @@ export class CompareUsageController extends Controller {
             return;
         }
 
-        difference.innerHTML = "+/- " + percentage + "%"
+        difference.innerHTML = "+/- " + Math.round(percentage * 100) / 100 + "%"
         difference.classList.add("positive");
 
 
