@@ -68,21 +68,22 @@ export class CompareUsageController extends Controller {
     #calculateDifferences(result1, result2) {
         const difference = document.querySelector("#difference")
         const percentage = (result2 - result1) / result1 * 100;
+        const rounded_percentage = Math.round(percentage * 100) / 100
 
 
         if (result1 > result2) {
-            difference.innerHTML = Math.round(percentage * 100) / 100 + "%"
+            difference.innerHTML = rounded_percentage + "%"
             difference.classList.add("negative");
             return
         }
 
         if (result1 < result2) {
-            difference.innerHTML = "+" + Math.round(percentage * 100) / 100 + "%"
+            difference.innerHTML = "+" + rounded_percentage + "%"
             difference.classList.add("positive");
             return;
         }
 
-        difference.innerHTML = "+/- " + Math.round(percentage * 100) / 100 + "%"
+        difference.innerHTML = "+/- " + rounded_percentage + "%"
         difference.classList.add("positive");
 
 
