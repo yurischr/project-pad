@@ -311,7 +311,7 @@ export class ElectraController extends Controller {
         const myChart = new Chart(graph, {
             type: 'line',
             data: {
-                labels: ['2015', '2019', '2020', '2021'],
+                labels: ['2018', '2019', '2020', '2021'],
                 datasets: [{
                     label: 'Verbruik (kWh)',
                     data: [yearlyConsumption[0], yearlyConsumption[1], yearlyConsumption[2], yearlyConsumption[3]],
