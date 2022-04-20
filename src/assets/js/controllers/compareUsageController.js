@@ -6,7 +6,6 @@ export class CompareUsageController extends Controller {
     #view
     #compareUsageRepository
     #electricityRepository
-    data2;
 
     constructor(view) {
         super();
@@ -50,44 +49,41 @@ export class CompareUsageController extends Controller {
     }
 
     async #changeDate(date1, date2) {
+
         const startDate = new Date(date1)
         const endDate = new Date(date2)
 
         startDate.setMonth(startDate.getMonth() + 1)
         endDate.setMonth(endDate.getMonth() + 1)
 
-        console.log(startDate)
-        console.log(endDate);
-
         const data1 = await this.#compareUsageRepository.getDataDaily(startDate.getFullYear() + "/" + startDate.getMonth())
         const data2 = await this.#compareUsageRepository.getDataDaily(endDate.getFullYear() + "/" + endDate.getMonth())
 
-        console.log(data1);
-        console.log(data2);
-
-        this.#view.querySelector("#result1").innerHTML = data1.data[startDate.getDate()]['electricity'] + " kWh";
-        this.#view.querySelector("#result2").innerHTML = data2.data[endDate.getDate()]['electricity'] + " kWh";
+        document.querySelector("#result1").innerHTML = data1.data[startDate.getDate()]['electricity'] + " kWh";
+        document.querySelector("#result2").innerHTML = data2.data[endDate.getDate()]['electricity'] + " kWh";
 
         this.#calculateDifferences(data1.data[startDate.getDate()]['electricity'], data2.data[endDate.getDate()]['electricity'])
     }
 
     #calculateDifferences(result1, result2) {
         const difference = document.querySelector("#difference")
-        const percentage = (result2 / result1) * 100;
+        const percentage = (result2 - result1) / result1 * 100;
 
 
         if (result1 > result2) {
-            difference.innerHTML = "- " + percentage + "%"
+            difference.innerHTML = Math.round(percentage * 100) / 100 + "%"
             difference.classList.add("negative");
+            return
         }
 
         if (result1 < result2) {
-            difference.innerHTML = "+ " + percentage + "%"
+            difference.innerHTML = "+" + Math.round(percentage * 100) / 100 + "%"
             difference.classList.add("positive");
+            return;
         }
-        //
-        // difference.innerHTML = "+/- " + percentage + "%"
-        // difference.classList.add("positive");
+
+        difference.innerHTML = "+/- " + percentage + "%"
+        difference.classList.add("positive");
 
 
     }
