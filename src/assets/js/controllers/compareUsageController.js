@@ -107,7 +107,7 @@ export class CompareUsageController extends Controller {
             //adds result to HTML if second result is less than first result
             //changes result color to red
             difference.innerHTML = rounded_percentage + "%"
-            difference.classList.add("negative");
+            difference.classList.add("positive");
             return;
         }
 
@@ -115,7 +115,7 @@ export class CompareUsageController extends Controller {
             //adds result to HTML if first result is less than second result
             //changes result color to green
             difference.innerHTML = "+" + rounded_percentage + "%"
-            difference.classList.add("positive");
+            difference.classList.add("negative");
             return;
         }
 
