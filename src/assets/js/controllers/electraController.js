@@ -2,6 +2,7 @@ import {Controller} from "./controller.js";
 import {ElectricityRepository} from "../repositories/electricityRepository.js";
 import {ComparisonChartRepository} from "../repositories/comparisonChartRepository.js";
 import {CompareUsageController} from "./compareUsageController.js";
+import {RealtimeController} from "./realtimeController.js"
 
 export class ElectraController extends Controller {
     #TAB_DAY = 'day';
@@ -13,13 +14,15 @@ export class ElectraController extends Controller {
     #electricityRepository
     #comparisonChartRepository
     #compareUsageController;
+    #realtimeController;
 
     constructor(view) {
         super();
         this.#view = view;
-        this.#compareUsageController = new CompareUsageController(this.#view);
         this.#electricityRepository = new ElectricityRepository();
         this.#comparisonChartRepository = new ComparisonChartRepository();
+        this.#realtimeController = new RealtimeController();
+        this.#compareUsageController = new CompareUsageController(this.#view);
         this.#compareUsageController.setupDatePickers();
 
         (async () => {
