@@ -27,6 +27,7 @@
     --shadow-color: rgba(229, 233, 246, 1);
     --table-row-bg-even: rgba(0, 80, 158, 0.2);
     --table-row-bg-odd: #FFFFFF;
+    --text-muted: #6c757d;
 }
 
 .dark-mode {
@@ -58,4 +59,6 @@
     --shadow-color: rgba(0, 0, 0, 0.4);
     --table-row-bg-even: rgba(0, 80, 158, 0.2);
     --table-row-bg-odd: #222e3d;
+    --text-muted: #ffffff;
+
 }
