@@ -18,7 +18,7 @@ class GasRoutes {
         this.#app = app;
 
         this.#getDailyData()
-        
+        this.#getWeeklyData()
     }
 
     /**
@@ -48,7 +48,33 @@ class GasRoutes {
         });
     }
 
+    /**
+     * Electricity route for getting the electricity consumption on weekly base
+     * @private
+     */
+    #getWeeklyData() {
+        this.#app.get("/gas/weekly", async (req, res) => {
+            try {
+                const data = await this.#db.handleQuery({
+                    query: `SELECT  time AS start, YEARWEEK(time) AS week, 
+                            SUM(\`usage\`) AS consumption 
+                            FROM gas 
+                            WHERE time BETWEEN ? AND ? 
+                            GROUP BY YEARWEEK(time) 
+                            ORDER BY time`,
+                    values: [this.#GAS_START_DATETIME, this.#GAS_END_DATETIME]
+                });
 
+                if (data.length > 0) {
+                    res.status(this.#errCodes.HTTP_OK_CODE).json({data})
+                } else {
+                    res.status(this.#errCodes.NO_CONTENT).json({reason: "Data not found"})
+                }
+            } catch (e) {
+                res.status(this.#errCodes.BAD_REQUEST_CODE).json({reason: e});
+            }
+        });
+    }
 }
 
 module.exports = GasRoutes;
