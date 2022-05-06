@@ -20,6 +20,7 @@ class GasRoutes {
         this.#getDailyData()
         this.#getWeeklyData()
         this.#getMonthlyData()
+        this.#getYearlyData()
     }
 
     /**
@@ -89,6 +90,33 @@ class GasRoutes {
                             FROM gas
                             WHERE time BETWEEN ? AND ?
                             GROUP BY YEAR (time), MONTH (time)`,
+                    values: [this.#GAS_START_DATETIME, this.#GAS_END_DATETIME]
+                });
+
+                if (data.length > 0) {
+                    res.status(this.#errCodes.HTTP_OK_CODE).json({data})
+                } else {
+                    res.status(this.#errCodes.NO_CONTENT).json({reason: "Data not found"})
+                }
+            } catch (e) {
+                res.status(this.#errCodes.BAD_REQUEST_CODE).json({reason: e});
+            }
+        });
+    }
+
+    /**
+     * Electricity route for getting the electricity consumption on yearly base
+     * @private
+     */
+    #getYearlyData(){
+        this.#app.get("/gas/yearly", async (req, res) => {
+            try {
+                const data = await this.#db.handleQuery({
+                    query: `SELECT YEAR (time) AS year, SUM (\`usage\`) AS consumption
+                            FROM gas
+                            WHERE time BETWEEN ? AND ?
+                            GROUP BY YEAR (time)
+                            ORDER BY time`,
                     values: [this.#GAS_START_DATETIME, this.#GAS_END_DATETIME]
                 });
 
