@@ -1,11 +1,11 @@
 /**
  * This class contains ExpressJS routes for getting electricity and gas data for the comparisonChart
  * this file is automatically loaded in app.js
+ * @author Jordy Mol
  */
 
 class ComparisonChartRoutes {
     #errCodes = require("../framework/utils/httpErrorCodes");
-    #db = require("../framework/utils/databaseHelper");
     #app;
     #axios = require("../node_modules/axios").default;
     #DAILY_DATE = "2022/03";
