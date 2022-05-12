@@ -22,9 +22,13 @@ export class RealtimeController extends Controller {
         console.log(yyyy + "/" + mm + "/" + dd)
 
         setInterval(async () => {
-            const data = await this.#compareUsageRepository.getDataDaily(dateFormat);
+            try {
+                const data = await this.#compareUsageRepository.getDataDaily(dateFormat);
+                console.log(data);
+            } catch(e) {
+                //TODO: hou bij hoe vaak geprobeerd, wanneer > MAX_TRIES - stop setInterval
+            }
 
-            console.log(data)
         }, 3000)
     }
 

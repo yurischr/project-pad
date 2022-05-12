@@ -58,14 +58,12 @@ export class CompareUsageController extends Controller {
 
     /**
      * get and displays data according to selected dates
-     * @param date1 - first selected date
-     * @param date2 - second selected date
+     * @param startDate - first selected date
+     * @param endDate - second selected date
      * @returns {Promise<void>}
      */
-    async #getData(date1, date2) {
-        const startDate = new Date(date1)
-        const endDate = new Date(date2)
-
+    async #getData(startDate, endDate) {
+        console.log("HJIER KOM IK");
         //formats date
         const dateFormat = {month: "long", day: "numeric", year: "numeric"}
         const firstSelectedDate = startDate.toLocaleDateString("nl-NL", dateFormat)
@@ -75,19 +73,25 @@ export class CompareUsageController extends Controller {
         document.querySelector("#long-date1").innerHTML = firstSelectedDate
         document.querySelector("#long-date2").innerHTML = secondSelectedDate
 
-        //month buffer for date-picker
-        startDate.setMonth(startDate.getMonth() + 1)
-        endDate.setMonth(endDate.getMonth() + 1)
-
+        // //month buffer for date-picker
+        // startDate.setMonth(startDate.getMonth() + 1)
+        // endDate.setMonth(endDate.getMonth() + 1)
+        console.log("DATEs");
+        console.log(startDate)
+        console.log(endDate)
         //gets results from AIP
-        const data1 = await this.#compareUsageRepository.getDataDaily(startDate.getFullYear() + "/" + startDate.getMonth())
-        const data2 = await this.#compareUsageRepository.getDataDaily(endDate.getFullYear() + "/" + endDate.getMonth())
+        const data1 = await this.#compareUsageRepository.getDataDaily(startDate.getFullYear() + "/" + this.#getCorrectNumericMonth(startDate))
+        const data2 = await this.#compareUsageRepository.getDataDaily(endDate.getFullYear() + "/" + this.#getCorrectNumericMonth(endDate))
 
         //adds result to HTML
         document.querySelector("#result1").innerHTML = data1.data[startDate.getDate()]['electricity'] + " kWh";
         document.querySelector("#result2").innerHTML = data2.data[endDate.getDate()]['electricity'] + " kWh";
 
         this.#calculateDifferences(data1.data[startDate.getDate()]['electricity'], data2.data[endDate.getDate()]['electricity'])
+    }
+
+    #getCorrectNumericMonth(date) {
+        return date.getMonth() + 1;
     }
 
     /**
