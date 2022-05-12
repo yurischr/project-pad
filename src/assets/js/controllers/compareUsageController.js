@@ -69,18 +69,18 @@ export class CompareUsageController extends Controller {
         const secondSelectedDate = endDate.toLocaleDateString("nl-NL", dateFormat)
 
         //adds formatted date to HTML
-        document.querySelector("#long-date1").innerHTML = firstSelectedDate
-        document.querySelector("#long-date2").innerHTML = secondSelectedDate
+        document.querySelector("#first-long-date").innerHTML = firstSelectedDate
+        document.querySelector("#second-long-date").innerHTML = secondSelectedDate
 
         //gets results from AIP
-        const data1 = await this.#compareUsageRepository.getDataDaily(startDate.getFullYear() + "/" + this.#getCorrectNumericMonth(startDate))
-        const data2 = await this.#compareUsageRepository.getDataDaily(endDate.getFullYear() + "/" + this.#getCorrectNumericMonth(endDate))
+        const dataFirstSelectedDate = await this.#compareUsageRepository.getDataDaily(startDate.getFullYear() + "/" + this.#getCorrectNumericMonth(startDate))
+        const dataSecondSelectedDate = await this.#compareUsageRepository.getDataDaily(endDate.getFullYear() + "/" + this.#getCorrectNumericMonth(endDate))
 
         //adds result to HTML
-        document.querySelector("#result1").innerHTML = data1.data[startDate.getDate()]['electricity'] + " kWh";
-        document.querySelector("#result2").innerHTML = data2.data[endDate.getDate()]['electricity'] + " kWh";
+        document.querySelector("#first-result").innerHTML = dataFirstSelectedDate.data[startDate.getDate()]['electricity'] + " kWh";
+        document.querySelector("#second-result").innerHTML = dataSecondSelectedDate.data[endDate.getDate()]['electricity'] + " kWh";
 
-        this.#calculateDifferences(data1.data[startDate.getDate()]['electricity'], data2.data[endDate.getDate()]['electricity'])
+        this.#calculateDifferences(dataFirstSelectedDate.data[startDate.getDate()]['electricity'], dataSecondSelectedDate.data[endDate.getDate()]['electricity'])
     }
 
     #getCorrectNumericMonth(date) {
@@ -89,36 +89,36 @@ export class CompareUsageController extends Controller {
 
     /**
      * calculates and displays difference between two dates
-     * @param result1 - first result
-     * @param result2 - second result
+     * @param firstDateResult - first result
+     * @param secondDateResult - second result
      */
-    #calculateDifferences(result1, result2) {
+    #calculateDifferences(firstDateResult, secondDateResult) {
         const difference = document.querySelector("#difference")
 
         //calculates difference in percentage and rounds to two decimals
-        const percentage = (result2 - result1) / result1 * 100;
-        const rounded_percentage = Math.round(percentage * 100) / 100
+        const percentage = (secondDateResult - firstDateResult) / firstDateResult * 100;
+        const roundedPercentage = Math.round(percentage * 100) / 100
 
 
-        if (result1 > result2) {
+        if (firstDateResult > secondDateResult) {
             //adds result to HTML if second result is less than first result
             //changes result color to red
-            difference.innerHTML = rounded_percentage + "%"
+            difference.innerHTML = roundedPercentage + "%"
             difference.classList.add("positive");
             return;
         }
 
-        if (result1 < result2) {
+        if (firstDateResult < secondDateResult) {
             //adds result to HTML if first result is less than second result
             //changes result color to green
-            difference.innerHTML = "+" + rounded_percentage + "%"
+            difference.innerHTML = "+" + roundedPercentage + "%"
             difference.classList.add("negative");
             return;
         }
 
         //adds result to HTML if the two results are equal
         //changes result color to green
-        difference.innerHTML = "+/- " + rounded_percentage + "%"
+        difference.innerHTML = "+/- " + roundedPercentage + "%"
         difference.classList.add("positive");
 
 
