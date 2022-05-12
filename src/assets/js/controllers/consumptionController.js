@@ -7,7 +7,6 @@ import {ElectricityRepository} from "../repositories/electricityRepository.js";
 import {Controller} from "./controller.js";
 import {ElectraController} from "./electraController.js";
 import {GasController} from "./gasController.js";
-import {AreaConsumptionController} from "./areaConsumptionController.js";
 
 export class ConsumptionController extends Controller {
     #DASHBOARD_GAS = 'gas';
@@ -37,10 +36,6 @@ export class ConsumptionController extends Controller {
         await super.loadHtmlIntoCustomElement("assets/svg/consumption-header-svg.svg"
             , document.querySelector(".header-svg"));
 
-        // !TEST CODE FOR TESTING area-consumption
-        await super.loadHtmlIntoCustomElement("html_views/components/area-consumption.html"
-            , document.querySelector(".area-consumption"));
-
         // Selecting all the buttons with the class: dashboard-buttons
         const dashboardBtns = this.#consumptionView.querySelectorAll("button.dashboard-buttons");
 
@@ -58,10 +53,6 @@ export class ConsumptionController extends Controller {
             // Calling the method for handling the dashboard
             this.#handleDashboard(event);
         }));
-
-
-        // !TEST CODE FOR TESTING area-consumption
-        await new AreaConsumptionController(this.#consumptionView);
     }
 
     async #setupComponents() {
