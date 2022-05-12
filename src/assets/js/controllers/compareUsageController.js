@@ -74,9 +74,6 @@ export class CompareUsageController extends Controller {
         document.querySelector("#long-date2").innerHTML = secondSelectedDate
 
         // //month buffer for date-picker
-        // startDate.setMonth(startDate.getMonth() + 1)
-        // endDate.setMonth(endDate.getMonth() + 1)
-        console.log("DATEs");
         console.log(startDate)
         console.log(endDate)
         //gets results from AIP
