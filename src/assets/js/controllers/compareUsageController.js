@@ -63,7 +63,6 @@ export class CompareUsageController extends Controller {
      * @returns {Promise<void>}
      */
     async #getData(startDate, endDate) {
-        console.log("HJIER KOM IK");
         //formats date
         const dateFormat = {month: "long", day: "numeric", year: "numeric"}
         const firstSelectedDate = startDate.toLocaleDateString("nl-NL", dateFormat)
@@ -73,9 +72,6 @@ export class CompareUsageController extends Controller {
         document.querySelector("#long-date1").innerHTML = firstSelectedDate
         document.querySelector("#long-date2").innerHTML = secondSelectedDate
 
-        // //month buffer for date-picker
-        console.log(startDate)
-        console.log(endDate)
         //gets results from AIP
         const data1 = await this.#compareUsageRepository.getDataDaily(startDate.getFullYear() + "/" + this.#getCorrectNumericMonth(startDate))
         const data2 = await this.#compareUsageRepository.getDataDaily(endDate.getFullYear() + "/" + this.#getCorrectNumericMonth(endDate))
