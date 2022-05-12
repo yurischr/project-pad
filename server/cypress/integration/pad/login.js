@@ -13,6 +13,8 @@ describe("Login",  () => {
         //Find the field for the username, check if it exists.
         cy.get("#exampleInputUsername").should("exist");
 
+        cy.get(".login-title").should("exist");
+
         //Find the field for the password, check if it exists.
         cy.get("#exampleInputPassword").should("exist");
 
