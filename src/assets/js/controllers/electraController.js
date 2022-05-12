@@ -21,7 +21,7 @@ export class ElectraController extends Controller {
         this.#view = view;
         this.#electricityRepository = new ElectricityRepository();
         this.#comparisonChartRepository = new ComparisonChartRepository();
-        this.#realtimeController = new RealtimeController();
+        this.#realtimeController = new RealtimeController(this.#view);
         this.#compareUsageController = new CompareUsageController(this.#view);
         this.#compareUsageController.setupDatePickers();
 
