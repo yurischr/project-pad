@@ -18,7 +18,6 @@ export class AreaConsumptionRepository {
     /**
      * Async function that sends the areaType as query to the network manager which will send it to our back-end to see
      * if a specific area is found with the query value
-     * @author Harmohat Khangura
      * @param areaType - The areaType to search for
      * @returns {Promise<area>} - Returns a promise that resolves to the area if found
      */
@@ -30,7 +29,6 @@ export class AreaConsumptionRepository {
     /**
      * Async function that sends the roomId, year, month and day as queries to the network manager which will
      * send it to our back-end which will return the consumption data for the given roomId, year, month and day
-     * @author Harmohat Khangura
      * @param roomId - The roomId of the room we want to get the consumption data for
      * @param year - The year we want to get the consumption data for
      * @returns {Promise<room>} - Returns the consumption data for the given roomId, year, month and day

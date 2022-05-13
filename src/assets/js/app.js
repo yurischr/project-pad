@@ -80,13 +80,7 @@ export class App {
             case App.CONTROLLER_CONSUMPTION:
                 App.setCurrentController(name);
                 new ConsumptionController();
-                // new TableController();
                 break;
-
-            // case App.CONTROLLER_TABLE:
-            //     App.setCurrentController(name);
-            //     break;
-
             default:
                 return false;
         }

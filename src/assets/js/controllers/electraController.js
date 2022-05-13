@@ -25,6 +25,7 @@ export class ElectraController extends Controller {
         this.#compareUsageController = new CompareUsageController(this.#view);
         this.#compareUsageController.setupDatePickers();
 
+        // top level async function
         (async () => {
             try {
                 await this.#fetchPeriodData(await this.#electricityRepository.getDailyData(), "Dag", "day");
@@ -60,6 +61,7 @@ export class ElectraController extends Controller {
 
     /**
      * Method selects all the paths for the 'windows' and the CSS class to the paths
+     * @private
      */
     #svgAnimation() {
         this.#view.querySelectorAll("#windows path").forEach(path => {
@@ -73,6 +75,7 @@ export class ElectraController extends Controller {
      * @param event - The event that has been triggered (Tab)
      * @param tabs - The array of all the tab buttons
      * @returns {Promise<boolean>} - Returns a promise that resolves to true  if the table was successfully handled
+     * @private
      */
     async #handleTableView(event, tabs) {
         tabs.forEach((tab) => {
@@ -115,6 +118,7 @@ export class ElectraController extends Controller {
      * @param timePeriod - time period (day, week, month, year)
      * @param selector - selector for JSON
      * @returns {Promise<void>} - Returns a promise that resolves to void
+     * @private
      */
     async #fetchPeriodData(data, timePeriod, selector) {
         try {
@@ -140,6 +144,7 @@ export class ElectraController extends Controller {
     /**
      * Method sets the datatable for the table
      * @returns {Promise<void>} - Returns a promise that resolves to void
+     * @private
      */
     async #setDatable() {
         // Initialized the DataTable

@@ -25,16 +25,17 @@ export class ConsumptionController extends Controller {
     /**
      * Loads contents of desired HTML file into the index.html .content div
      * @returns {Promise<void>}
+     * @private
      */
     async #setupView() {
         document.title = "Dashboard | Het Scheepvaartmuseum";
 
         //await for when HTML is loaded, never skip this method call in a controller
-        this.#consumptionView = await super.loadHtmlIntoContent("html_views/consumption.html");
+        this.#consumptionView = await super.loadHtmlIntoContent("html_views/pages/consumption.html");
 
         // Loading the header SVG into the DOM element [CLASS: .header-svg]
         await super.loadHtmlIntoCustomElement("assets/svg/consumption-header-svg.svg"
-            , document.querySelector(".header-svg"));
+            , this.#consumptionView.querySelector(".header-svg"));
 
         // Selecting all the buttons with the class: dashboard-buttons
         const dashboardBtns = this.#consumptionView.querySelectorAll("button.dashboard-buttons");
@@ -55,22 +56,27 @@ export class ConsumptionController extends Controller {
         }));
     }
 
+    /**
+     * Method loads the components for the dashboard
+     * @returns {Promise<void>}
+     * @private
+     */
     async #setupComponents() {
         //loading realtime cards into the DOM element [ID: #realtime-cards]
-        await super.loadHtmlIntoCustomElement("html_views/realtime-cards.html"
-            , document.querySelector("#realtime-cards"));
+        await super.loadHtmlIntoCustomElement("html_views/components/realtime-cards.html"
+            , this.#consumptionView.querySelector("#realtime-cards"));
 
         // loading the compare usages into the DOM element [ID: #usage-compare]
-        await super.loadHtmlIntoCustomElement("html_views/compare-usages.html"
-            , document.querySelector("#usage-compare"));
+        await super.loadHtmlIntoCustomElement("html_views/components/compare-usages.html"
+            , this.#consumptionView.querySelector("#usage-compare"));
 
         // Loading the table into the DOM element [ID: #tableSpace]
         await super.loadHtmlIntoCustomElement("html_views/components/temp-table.html"
-            , document.querySelector("#tableSpace"));
+            , this.#consumptionView.querySelector("#tableSpace"));
 
         // Loading the comparison chart into the DOM element [CLASS: .comparison-chart]
         await super.loadHtmlIntoCustomElement("html_views/components/comparisonChart.html"
-            , document.querySelector(".comparison-chart-box"));
+            , this.#consumptionView.querySelector(".comparison-chart-box"));
 
         // Loading the nav pills into the DOM element [CLASS: .nav-pills-box]
         await super.loadHtmlIntoCustomElement("html_views/components/nav-pills.html"
@@ -78,11 +84,11 @@ export class ConsumptionController extends Controller {
 
         // Loading the side-nav into the DOM element [CLASS: .side-nav-main-box]
         await super.loadHtmlIntoCustomElement("html_views/components/side-nav.html"
-            , document.querySelector(".side-nav-main-box"));
+            , this.#consumptionView.querySelector(".side-nav-main-box"));
 
         // Loading the graph into the DOM element [CLASS: .graph]
-        await super.loadHtmlIntoCustomElement("html_views/graph.html"
-            , document.querySelector(".graph-box"));
+        await super.loadHtmlIntoCustomElement("html_views/components/graph.html"
+            , this.#consumptionView.querySelector(".graph-box"));
     }
 
     /**
@@ -90,6 +96,7 @@ export class ConsumptionController extends Controller {
      *
      * @param event - The event that triggered the method (Button)
      * @returns {boolean} - Returns true if the dashboard was successfully handled
+     * @private
      */
     async #handleDashboard(event) {
         switch (event.target.dataset.dashboard) {
@@ -112,6 +119,8 @@ export class ConsumptionController extends Controller {
 
     /**
      * The Intersection Observer API observes changes in the intersection of a target element with an ancestor element
+     * @returns {Promise<void>}
+     * @private
      */
     #scrollEffect() {
         const rows = document.querySelectorAll('.scroll-effect');

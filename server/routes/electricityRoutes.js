@@ -1,5 +1,5 @@
 /**
- * This class contains ExpressJS routes specific for the Electricity entity
+ * Class electricityRoutes contains ExpressJS routes specific for the Electricity entity
  * this file is automatically loaded in app.js
  *
  * @author Harmohat Khangura, ....
@@ -43,8 +43,9 @@ class ElectricityRoutes {
 
 
     /**
-     * Electricity route for getting the electricity consumption on weekly base
-     * @private
+     * Method creates route for getting the weekly electricity data
+     *
+     * @returns {Promise<void>}
      */
     #getWeeklyData() {
         this.#app.get("/electricity/weekly", async (req, res) => {

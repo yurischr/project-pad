@@ -1,17 +1,23 @@
 <div class="container table-overview">
+    <!-- Table -->
     <table class="table" id="table-data">
+        <!-- Table header -->
         <thead>
-        <tr>
-            <th class="time-column ">[Tijd]</th>
-            <th class="data-column">Verbruik (kWh)</th>
-        </tr>
+            <tr>
+                <th class="time-column ">[Tijd]</th>
+                <th class="data-column">Verbruik (kWh)</th>
+            </tr>
         </thead>
+
+        <!-- template for table rows -->
         <template id="row-template">
             <tr>
                 <td class="time"></td>
                 <td class="data"></td>
             </tr>
         </template>
+
+        <!-- Table body  will contain the table rows which are added via JS -->
         <tbody class="table-body"></tbody>
     </table>
 </div>
