@@ -167,25 +167,24 @@ span.name {
     padding-top: 30px;
 }
 
-.carousel-item .card {
-    background-color: var(--card-bg);
+.accordion-title-box {
+    display: flex;
+    align-items: center;
+    padding: 5px 0 5px 25px;
+}
+
+.accordion-button:not(.collapsed) {
     color: var(--text-color);
+    background-color: var(--main-bg);
+    box-shadow: none;
 }
 
-.carousel-control-next {
-    position: absolute;
-    left: 100%;
+.accordion-button:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
 }
 
-.carousel-control-prev {
-    position: absolute;
-    left: -15%;
-}
-
-.carousel-indicators {
-    position: absolute;
-    bottom: -40px;
-}
 
 .card-bm {
     width: 360px;
@@ -213,6 +212,31 @@ span.name {
     font-size: 45px;
     color: white;
 }
+
+.accordion-bm-icon {
+    font-size: 25px;
+    color: white;
+}
+
+.accordion-title-box .bm-icon-box {
+    padding: 30px;
+}
+.accordion-item {
+    border: none;
+}
+
+.accordion-flush .accordion-item {
+    border-radius: 10px;
+}
+
+.accordion-button,
+.accordion-title-box,
+.accordion-body {
+    background-color: var(--main-bg);
+    color: var(--text-color);
+}
+
+
 
 .bm-card-number {
     position: absolute;
