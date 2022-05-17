@@ -34,8 +34,9 @@ export class RealtimeController extends Controller {
 
         let interval = setInterval(async () => {
             try {
-                const data = await this.#realtimeRepository.getDataDaily(dateFormat);
-                console.log(data);
+                const data = await this.#realtimeRepository.getElectricityData(dateFormat);
+
+                this.#view.querySelector("#realtime-electra-data").innerHTML = data.data[0]['consumption'] + "kWh";
 
                 errorAmount++
                 if (errorAmount > 1) {

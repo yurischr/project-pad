@@ -13,10 +13,10 @@ export class RealtimeRepository {
         this.#networkManager = new NetworkManager();
     }
 
-    async getDataDaily(currentDay) {
+    async getElectricityData(currentDay) {
         return await this.#networkManager
             .doRequest(`${this.#route}`, "POST", {
-                "realtime": currentDay
+                "realtimeElectricity": currentDay
             });
     }
 }
