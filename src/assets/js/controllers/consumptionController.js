@@ -75,7 +75,6 @@ export class ConsumptionController extends Controller {
 
     /**
      * Method calls the controller for the electra components and methods
-     *
      * @private
      */
     async #handleDashboard() {
