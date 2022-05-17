@@ -15,8 +15,16 @@ export class RealtimeRepository {
 
     async getElectricityData(currentDay) {
         return await this.#networkManager
-            .doRequest(`${this.#route}`, "POST", {
-                "realtimeElectricity": currentDay
+            .doRequest(`${this.#route}/electricity`, "POST", {
+                "realtime": currentDay
             });
     }
+
+    async getGassData(currentDay) {
+        return await this.#networkManager
+            .doRequest(`${this.#route}/gas`, "POST", {
+                "realtime" : currentDay
+            })
+    }
+
 }

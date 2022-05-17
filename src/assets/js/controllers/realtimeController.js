@@ -20,29 +20,30 @@ export class RealtimeController extends Controller {
     }
 
     #calculateRealtimeData() {
-        const today = new Date()
-        const yyyy = today.getFullYear() - 1
-        const mm = today.getMonth() + 1
-        const dd = today.getDate()
-        const hh = today.getHours()
-        const min = today.getMinutes()
-        const roundedMinutes = this.#roundToNearest15(min)
-
-        const dateFormat = `${yyyy}-${mm}-${dd} ${hh}:${roundedMinutes}`
-        console.log(dateFormat);
-        let errorAmount = 0;
 
         let interval = setInterval(async () => {
             try {
-                const data = await this.#realtimeRepository.getElectricityData(dateFormat);
+                const today = new Date()
+                const yyyy = today.getFullYear() - 1
+                const mm = today.getMonth() + 1
+                const dd = today.getDate()
+                const hh = today.getHours()
+                const min = today.getMinutes()
+                const roundedMinutes = this.#roundToNearest15(min)
 
-                this.#view.querySelector("#realtime-electra-data").innerHTML = data.data[0]['consumption'] + "kWh";
+                const formattedElectricityDate = `${yyyy}-${mm}-${dd} ${hh}:${roundedMinutes}`
+                const formattedGasDate = `${yyyy}-${mm}-${dd}`
 
-                errorAmount++
-                if (errorAmount > 1) {
-                    clearInterval(interval)
-                }
-            } catch(e) {
+                const electricityData = await this.#realtimeRepository.getElectricityData(formattedElectricityDate);
+                const gasData = await this.#realtimeRepository.getGassData(formattedGasDate)
+
+                this.#view.querySelector("#realtime-electra-data").innerHTML = electricityData.data[0]['consumption'] + "kWh";
+                this.#view.querySelector("#realtime-gas-data").innerHTML = gasData.data[0]['usage'] + "m^3"
+
+
+            } catch (e) {
+                let errorAmount = 0;
+
                 errorAmount++;
                 if (errorAmount > 1) {
                     clearInterval(interval);
@@ -50,11 +51,11 @@ export class RealtimeController extends Controller {
                 }
             }
 
-        }, 3000)
+        }, 1000*60*15)
     }
 
-    #roundToNearest15(minutes){
-        let minuten = (Math.round(minutes/15) * 15) % 60
+    #roundToNearest15(minutes) {
+        let minuten = (Math.round(minutes / 15) * 15) % 60
         return minuten;
     }
 
