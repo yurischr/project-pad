@@ -5,6 +5,8 @@ import {CompareUsageController} from "./compareUsageController.js";
 import {RealtimeController} from "./realtimeController.js"
 
 export class ElectraController extends Controller {
+    #CO2_KG = 0.4;
+    #CO2_TREE_CONSUMPTION_KG = 20;
     #TAB_DAY = 'day';
     #TAB_WEEK = 'week';
     #TAB_MONTH = 'month';
@@ -36,9 +38,6 @@ export class ElectraController extends Controller {
             }
         })();
 
-        // Calling the method for the electricity SVG Animation
-        this.#svgAnimation();
-
         // Selecting all the the period tab links
         const tabs = this.#view.querySelectorAll("button.tab-link");
 
@@ -56,17 +55,21 @@ export class ElectraController extends Controller {
 
             // Calling the method for handling the table view and the active tab buttons
             await this.#handleTableView(event, tabs);
-        }))
+        }));
+
+        this.#view.querySelectorAll(".modal-button").forEach(button =>
+            button.addEventListener("click", async (event) => {
+                await this.#handleModalClick(event);
+            })
+        );
     }
 
-    /**
-     * Method selects all the paths for the 'windows' and the CSS class to the paths
-     * @private
-     */
-    #svgAnimation() {
-        this.#view.querySelectorAll("#windows path").forEach(path => {
-            path.classList.add("window-lights");
-        });
+    async #handleModalClick(event) {
+        const electraValue = event.target.parentNode.value;
+        const treeCompensateCalc =  (electraValue * this.#CO2_KG) / this.#CO2_TREE_CONSUMPTION_KG;
+
+
+        this.#view.querySelector(".modal-text").innerHTML = `Aantal bomen: ${treeCompensateCalc}`;
     }
 
     /**
