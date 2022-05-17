@@ -17,6 +17,7 @@ export class RealtimeController extends Controller {
         this.#realtimeRepository = new RealtimeRepository();
 
         this.#calculateRealtimeData()
+        this.#satisfactionPercentage()
     }
 
     #calculateRealtimeData() {
@@ -58,4 +59,13 @@ export class RealtimeController extends Controller {
         return minuten;
     }
 
+    #satisfactionPercentage() {
+        const percentageBar = this.#view.querySelector('.percentage-bar');
+        const percentageCount = this.#view.querySelector('.percentage-count');
+        const percentage = 20;
+        const rotateDegree = 45 + (percentage * 1.8)
+        percentageBar.style.transform = `rotate(${rotateDegree}deg)`
+        percentageCount.innerHTML = `${percentage}%`
+
+    }
 }

@@ -57,8 +57,8 @@ export class ConsumptionController extends Controller {
             , this.#consumptionView.querySelector("#tableSpace"));
 
         // Loading the comparison chart into the DOM element [CLASS: .comparison-chart]
-        await super.loadHtmlIntoCustomElement("html_views/components/comparisonChart.html"
-            , this.#consumptionView.querySelector(".comparison-chart-box"));
+        await super.loadHtmlIntoCustomElement("html_views/components/comparison-chart.html"
+            , document.querySelector(".comparison-chart-box"));
 
         // Loading the nav pills into the DOM element [CLASS: .nav-pills-box]
         await super.loadHtmlIntoCustomElement("html_views/components/nav-pills.html"
