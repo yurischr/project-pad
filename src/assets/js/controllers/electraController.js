@@ -47,7 +47,7 @@ export class ElectraController extends Controller {
             // Removes all the child nodes of the table in tbody
             while (this.#view.querySelector(".table-body").hasChildNodes()) {
                 this.#view.querySelector(".table-body").removeChild(
-                    document.querySelector(".table-body").firstChild
+                    this.#view.querySelector(".table-body").firstChild
                 );
             }
 

@@ -221,12 +221,9 @@ span.name {
 .accordion-title-box .bm-icon-box {
     padding: 30px;
 }
+
 .accordion-item {
     border: none;
-}
-
-.accordion-flush .accordion-item {
-    border-radius: 10px;
 }
 
 .accordion-button,
@@ -235,7 +232,6 @@ span.name {
     background-color: var(--main-bg);
     color: var(--text-color);
 }
-
 
 
 .bm-card-number {
@@ -258,7 +254,6 @@ span.name {
     display: flex;
     flex-direction: column;
 }
-
 
 .end-title {
     display: flex;

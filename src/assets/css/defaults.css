@@ -51,14 +51,14 @@ a {
     border-radius: 8px;
 }
 
-.nav-links:hover {
+.nav-links:hover:not(.navbar-brand, .active-link) {
     color: #004085;
     background: #FFFFFF;
     padding: 8px 8px;
     text-decoration: none;
 }
 
-.active-link {
+.active-link:not(.navbar-brand) {
     color: #004085;
     background: #FFFFFF;
     border-radius: 8px;

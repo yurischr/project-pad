@@ -6,11 +6,8 @@ import {App} from "../app.js";
 import {ElectricityRepository} from "../repositories/electricityRepository.js";
 import {Controller} from "./controller.js";
 import {ElectraController} from "./electraController.js";
-import {GasController} from "./gasController.js";
 
 export class ConsumptionController extends Controller {
-    #DASHBOARD_GAS = 'gas';
-    #DASHBOARD_ELECTRA = 'electra';
     #electricityRepository
     #consumptionView
 
@@ -37,23 +34,8 @@ export class ConsumptionController extends Controller {
         await super.loadHtmlIntoCustomElement("assets/svg/consumption-header-svg.svg"
             , this.#consumptionView.querySelector(".header-svg"));
 
-        // Selecting all the buttons with the class: dashboard-buttons
-        const dashboardBtns = this.#consumptionView.querySelectorAll("button.dashboard-buttons");
+        await this.#handleDashboard();
 
-        // Adding event listeners to all the buttons
-        dashboardBtns.forEach(button => button.addEventListener("click", async (event) => {
-            dashboardBtns.forEach((button) => {
-                button.classList.remove('active-dashboard-btn');
-            });
-
-            // Avoids the event from adding an active class to the icon
-            if (event.target.nodeName === "BUTTON") {
-                event.target.classList.add('active-dashboard-btn');
-            }
-
-            // Calling the method for handling the dashboard
-            this.#handleDashboard(event);
-        }));
     }
 
     /**
@@ -92,29 +74,14 @@ export class ConsumptionController extends Controller {
     }
 
     /**
-     * Method calls the dashboard (electricity or gas) based on which button is clicked
+     * Method calls the controller for the electra components and methods
      *
-     * @param event - The event that triggered the method (Button)
-     * @returns {boolean} - Returns true if the dashboard was successfully handled
      * @private
      */
-    async #handleDashboard(event) {
-        switch (event.target.dataset.dashboard) {
-            case this.#DASHBOARD_GAS:
-                await this.#setupComponents();
-                App.setCurrentController("gas");
-                new GasController(this.#consumptionView);
-                break;
-            case this.#DASHBOARD_ELECTRA:
-                await this.#setupComponents();
-                App.setCurrentController("electra");
-                new ElectraController(this.#consumptionView);
-                break;
-            default:
-                return false;
-        }
-
-        return true;
+    async #handleDashboard() {
+        await this.#setupComponents();
+        App.setCurrentController("electra");
+        new ElectraController(this.#consumptionView);
     }
 
     /**
@@ -122,7 +89,7 @@ export class ConsumptionController extends Controller {
      * @returns {Promise<void>}
      * @private
      */
-    #scrollEffect() {
+     #scrollEffect() {
         const rows = document.querySelectorAll('.scroll-effect');
         const observer = new IntersectionObserver(
             entries => {
