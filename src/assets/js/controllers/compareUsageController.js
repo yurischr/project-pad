@@ -80,6 +80,11 @@ export class CompareUsageController extends Controller {
         document.querySelector("#first-result").innerHTML = dataFirstSelectedDate.data[startDate.getDate()]['electricity'] + " kWh";
         document.querySelector("#second-result").innerHTML = dataSecondSelectedDate.data[endDate.getDate()]['electricity'] + " kWh";
 
+        // Add the result to the button values
+        document.querySelector(".cu-mb-first button").value =  dataFirstSelectedDate.data[startDate.getDate()]['electricity']
+        document.querySelector(".cu-mb-second button").value =  dataSecondSelectedDate.data[endDate.getDate()]['electricity']
+
+
         this.#calculateDifferences(dataFirstSelectedDate.data[startDate.getDate()]['electricity'], dataSecondSelectedDate.data[endDate.getDate()]['electricity'])
     }
 

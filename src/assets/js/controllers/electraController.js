@@ -69,7 +69,7 @@ export class ElectraController extends Controller {
         const treeCompensateCalc =  (electraValue * this.#CO2_KG) / this.#CO2_TREE_CONSUMPTION_KG;
 
 
-        this.#view.querySelector(".modal-text").innerHTML = `Aantal bomen: ${treeCompensateCalc}`;
+        this.#view.querySelector(".modal-text").innerHTML = `Aantal bomen: ${treeCompensateCalc.toFixed()}`;
     }
 
     /**
