@@ -11,6 +11,7 @@ class ComparisonChartRoutes {
     #DAILY_DATE = "2022/03";
     #MONTH_DATE = "2022";
     #YEAR_DATE = "2021";
+    #API_URL = "https://svm.hbo-ict.cloud/api/v1/data";
 
     constructor(app) {
         this.#app = app;
@@ -28,16 +29,11 @@ class ComparisonChartRoutes {
     #getDailyComparisonData() {
         this.#app.get("/comparison/daily", async (req, res) => {
             try {
-                const url = `https://svm.hbo-ict.cloud/api/v1/data/${this.#DAILY_DATE}`;
-                let data;
-                await this.#axios.get(url).then(function (response) {
-                    data = response.data
-                }).catch(function (e) {
-                    console.log(e)
-                })
+                const url = `${this.#API_URL}/${this.#DAILY_DATE}`;
+                const request = await this.#axios.get(url);
 
-                if (data.length > 0) {
-                    res.status(this.#errCodes.HTTP_OK_CODE).json({data: data[7]})
+                if (request.data.length > 0) {
+                    res.status(this.#errCodes.HTTP_OK_CODE).json({data: request.data[7]})
                 } else {
                     res.status(this.#errCodes.NO_CONTENT).json({reason: "Data not found"})
                 }
@@ -55,7 +51,7 @@ class ComparisonChartRoutes {
     #getWeeklyComparisonData() {
         this.#app.get("/comparison/weekly", async (req, res) => {
             try {
-                const url = `https://svm.hbo-ict.cloud/api/v1/data/${this.#DAILY_DATE}`;
+                const url = `${this.#API_URL}/${this.#DAILY_DATE}`;
                 let data;
                 await this.#axios.get(url).then(function (response) {
                     data = response.data;
@@ -93,7 +89,7 @@ class ComparisonChartRoutes {
     #getMonthlyComparisonData() {
         this.#app.get("/comparison/monthly", async (req, res) => {
             try {
-                const url = `https://svm.hbo-ict.cloud/api/v1/data/${this.#MONTH_DATE}`;
+                const url = `${this.#API_URL}/${this.#MONTH_DATE}`;
                 let data;
                 await this.#axios.get(url).then(function (response) {
                     data = response.data;
@@ -120,7 +116,7 @@ class ComparisonChartRoutes {
     #getYearlyComparisonData() {
         this.#app.get("/comparison/yearly", async (req, res) => {
             try {
-                const url = `https://svm.hbo-ict.cloud/api/v1/data/${this.#YEAR_DATE}`;
+                const url = `${this.#API_URL}/${this.#YEAR_DATE}`;
                 let data;
                 await this.#axios.get(url).then(function (response) {
                     data = response.data;
