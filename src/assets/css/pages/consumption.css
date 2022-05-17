@@ -76,6 +76,10 @@ body {
     color: white;
 }
 
+.bi-tree-fill {
+    color: #2D692E;
+}
+
 .window-lights {
     fill: #FEE45A;
     transition: fill 500ms ease-in-out;

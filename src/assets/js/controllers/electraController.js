@@ -68,8 +68,8 @@ export class ElectraController extends Controller {
         const electraValue = event.target.parentNode.value;
         const treeCompensateCalc =  (electraValue * this.#CO2_KG) / this.#CO2_TREE_CONSUMPTION_KG;
 
-
-        this.#view.querySelector(".modal-tree-value").innerHTML = `: ${treeCompensateCalc.toFixed()}`;
+        this.#view.querySelector(".modal-kwh-value").innerHTML = `${electraValue} KwH`;
+        this.#view.querySelector(".modal-tree-value").innerHTML = treeCompensateCalc.toFixed();
     }
 
     /**
