@@ -14,7 +14,6 @@ export class RealtimeRepository {
     }
 
     async getDataDaily(currentDay) {
-
         return await this.#networkManager
             .doRequest(`${this.#route}`, "POST", {
                 "realtime": currentDay

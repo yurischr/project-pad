@@ -31,9 +31,6 @@ class CompareUsageRoutes {
                 } else {
                     res.status(this.#errCodes.NO_CONTENT).json({reason: "Data not found"})
                 }
-
-
-                // res.send(req.body.selectedDay)
             } catch (e) {
                 console.log(e)
                 res.status(this.#errCodes.BAD_REQUEST_CODE).json({reason: e});

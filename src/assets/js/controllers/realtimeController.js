@@ -1,17 +1,21 @@
 import {Controller} from "./controller.js";
 import {CompareUsageRepository} from "../repositories/compareUsageRepository.js";
 import {ElectricityRepository} from "../repositories/electricityRepository.js";
+import {RealtimeRepository} from "../repositories/realtimeRepository.js";
 
 export class RealtimeController extends Controller {
     #view
     #compareUsageRepository
     #electricityRepository
+    #realtimeRepository
 
     constructor(view) {
         super();
         this.#view = view;
         this.#compareUsageRepository = new CompareUsageRepository()
         this.#electricityRepository = new ElectricityRepository()
+        this.#realtimeRepository = new RealtimeRepository();
+
         this.#calculateRealtimeData()
     }
 
@@ -20,29 +24,37 @@ export class RealtimeController extends Controller {
         const yyyy = today.getFullYear() - 1
         const mm = today.getMonth() + 1
         const dd = today.getDate()
-        const dateFormat = yyyy + "/" + mm + "/" + dd
-        let errorAmount = 0;
+        const hh = today.getHours()
+        const min = today.getMinutes()
+        const roundedMinutes = this.#roundToNearest15(min)
 
-            console.log(yyyy + "/" + mm + "/" + dd)
+        const dateFormat = `${yyyy}-${mm}-${dd} ${hh}:${roundedMinutes}`
+        console.log(dateFormat);
+        let errorAmount = 0;
 
         let interval = setInterval(async () => {
             try {
-                const data = await this.#electricityRepository.getDailyData(dateFormat);
+                const data = await this.#realtimeRepository.getDataDaily(dateFormat);
                 console.log(data);
 
                 errorAmount++
-                if (errorAmount > 4) {
+                if (errorAmount > 1) {
                     clearInterval(interval)
                 }
             } catch(e) {
                 errorAmount++;
-                if (errorAmount > 4) {
+                if (errorAmount > 1) {
                     clearInterval(interval);
                     console.error("Error with interval -> interval has been stopped: " + e)
                 }
             }
 
         }, 3000)
+    }
+
+    #roundToNearest15(minutes){
+        let minuten = (Math.round(minutes/15) * 15) % 60
+        return minuten;
     }
 
 }
