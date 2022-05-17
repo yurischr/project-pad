@@ -57,8 +57,8 @@ export class ConsumptionController extends Controller {
             , this.#consumptionView.querySelector("#tableSpace"));
 
         // Loading the comparison chart into the DOM element [CLASS: .comparison-chart]
-        await super.loadHtmlIntoCustomElement("html_views/components/comparisonChart.html"
-            , this.#consumptionView.querySelector(".comparison-chart-box"));
+        await super.loadHtmlIntoCustomElement("html_views/components/comparison-chart.html"
+            , document.querySelector(".comparison-chart-box"));
 
         // Loading the nav pills into the DOM element [CLASS: .nav-pills-box]
         await super.loadHtmlIntoCustomElement("html_views/components/nav-pills.html"
@@ -71,6 +71,15 @@ export class ConsumptionController extends Controller {
         // Loading the graph into the DOM element [CLASS: .graph]
         await super.loadHtmlIntoCustomElement("html_views/components/graph.html"
             , this.#consumptionView.querySelector(".graph-box"));
+
+        // Loading the modal into the DOM element [CLASS: .modal-box]
+        await super.loadHtmlIntoCustomElement("html_views/components/modal.html"
+            , this.#consumptionView.querySelector(".modal-box"));
+
+        // Loading the modal buttons into the DOM elements [CLASS: .modal-button]
+        for (let modalButton of this.#consumptionView.querySelectorAll(".modal-button")) {
+            await super.loadHtmlIntoCustomElement("html_views/components/modal-button.html", modalButton);
+        }
     }
 
     /**
