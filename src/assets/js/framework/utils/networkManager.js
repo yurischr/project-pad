@@ -123,10 +123,7 @@ export class NetworkManager {
 
         console.error(`Error with response code: ${errorCode} and message: ${JSON.stringify(error)}`)
 
-        const current = new Date();
-        const time = current.toLocaleTimeString("en-US");
-
-        return Promise.reject({code: errorCode, timestamp: time, reason: error});
+        return Promise.reject({code: errorCode, reason: error});
     }
 
 

@@ -9,7 +9,7 @@ class AreaConsumptionRoutes {
     #SVM_AREATYPES = ["Noord", "east", "west", "outside"];
     #errCodes = require("../framework/utils/httpErrorCodes")
     #db = require("../framework/utils/databaseHelper")
-    #axios = require("../node_modules/axios").default;
+    #axios = require("axios").default;
     #app
 
     /**

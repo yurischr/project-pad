@@ -23,7 +23,18 @@ global.wwwrootPath = process.env.WWWROOT || "../src/";
 
 const app = require("./app");
 
-app.listen(SERVER_PORT, () => console.log(`\nPAD Framework server listening on port ${SERVER_PORT} for environment ${SERVER_ENVIRONMENT}!`));
+const http = require('http').Server(app)
+const io = require('socket.io')(http, {
+    cors: {
+        origin: ['http://localhost:63342']
+    }
+})
+
+io.on("connection", socket => {
+    console.log(socket.id)
+})
+
+http.listen(SERVER_PORT, () => console.log(`\nPAD Framework server listening on port ${SERVER_PORT} for environment ${SERVER_ENVIRONMENT}!`));
 
 function getConfigFilePath() {
     if(SERVER_ENVIRONMENT === SERVER_ENVIRONMENT_DEV) {

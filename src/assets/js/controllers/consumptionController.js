@@ -6,6 +6,7 @@ import {App} from "../app.js";
 import {ElectricityRepository} from "../repositories/electricityRepository.js";
 import {Controller} from "./controller.js";
 import {ElectraController} from "./electraController.js";
+import {SocketController} from "./socketController.js";
 
 export class ConsumptionController extends Controller {
     #electricityRepository
@@ -36,6 +37,7 @@ export class ConsumptionController extends Controller {
 
         await this.#handleDashboard();
 
+        // await new SocketController(this.#consumptionView);
     }
 
     /**

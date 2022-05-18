@@ -35,9 +35,6 @@ export class ElectraController extends Controller {
                 await this.#graphDaily();
             } catch (e) {
                 console.log("error while executing the data", e);
-                if (e.code === 1000) {
-                    this.#view.querySelector(".toast-body").innerHTML = "request did not arrive at server";
-                }
             }
         })();
 

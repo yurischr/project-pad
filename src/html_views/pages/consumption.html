@@ -60,21 +60,16 @@
     <!-- Loads modal via JS -->
 </div>
 
-<!--<div aria-live="polite" aria-atomic="true" style="position: fixed;right: 5px;bottom: 10px;">-->
-<!--    <div class="toast-container p-3" style="position: fixed;right: 5px;bottom: 10px;">-->
-
-<!--    </div>-->
-<!--</div>-->
-
-
-
-
-<div class="toast show" style="position: fixed;right: 5px;bottom: 10px;">
-    <div class="toast-header">
-        <strong class="me-auto text-danger fw-bold">Error</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+<template id="toast-template">
+    <div class="toast show" role="alert" data-bs-autohide="true" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <i class="bi bi-hdd-rack"></i>
+            <strong class="toast-type me-auto ms-3"></strong>
+            <small class="toast-time text-muted"></small>
+            <button type="button" class="btn-close toast-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body"></div>
     </div>
-    <div class="toast-body danger-text">
-        <p>Some text inside the toast body</p>
-    </div>
-</div>
+</template>
+
+<div class="toast-container" style="position: fixed;right: 5px;bottom: 10px;"></div>
