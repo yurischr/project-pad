@@ -48,7 +48,8 @@ export class CompareUsageController extends Controller {
             setup: (picker) => {
                 picker.on('hide', () => {
                     this.#getData(picker.getStartDate(), picker.getEndDate())
-                    this.#getDaysArray(picker.getStartDate(), picker.getEndDate());
+                    // this.#getDaysArray(picker.getStartDate(), picker.getEndDate());
+                    this.#graphDatepicker(picker.getStartDate(), picker.getEndDate())
                 });
                 picker.setDate(maxDate)
             },
@@ -56,26 +57,40 @@ export class CompareUsageController extends Controller {
 
     }
 
-    #getDaysArray = function(start, end) {
-        for(var arr=[],dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
-            arr.push(new Date(dt).toISOString().split('T')[0]);
-        }
-        // console.log(arr);
-        this.#graphDatepicker(arr);
-    };
+    // #getDaysArray = function(start, end) {
+    //     for(var arr=[],dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
+    //         arr.push(new Date(dt).toISOString().split('T')[0]);
+    //     }
+    //     // console.log(arr);
+    //     this.#graphDatepicker(arr);
+    // };
 
-    async #graphDatepicker(arr) {
-        console.log( await this.#electricityRepository.getData("2021-01-01", "2021-01-07"));
+    async #graphDatepicker(startDate, endDate) {
+
+        const newStartDate = startDate.toISOString().split('T')[0]
+        const newEndDate = endDate.toISOString().split('T')[0]
+
+        const data = await this.#electricityRepository.getData(newStartDate, newEndDate)
+
+        console.log(data)
+
+        let dayArray = []
+        let dataArray = []
+
+        for (let i = 0; i < data.data.length; i++) {
+            dayArray[i] = data.data[i].day
+            dataArray[i] = data.data[i].consumption
+        }
 
         const graph = document.querySelector("#graph-datepicker");
 
         const myChart = new Chart(graph, {
             type: 'line',
             data: {
-                labels: arr,
+                labels: dayArray,
                 datasets: [{
                     label: 'Verbruik (kWh)',
-                    data: [1, 1, 1, 1],
+                    data: dataArray,
                     fill: false,
                     borderColor: '#0063c3',
                     tension: 0.4,

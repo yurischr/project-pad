@@ -21,6 +21,7 @@ class ElectricityRoutes {
         this.#getDailyData()
         this.#getMonthlyData()
         this.#getYearlyData()
+        this.#getDateData()
     }
 
     #getMonthlyData() {
@@ -126,13 +127,12 @@ class ElectricityRoutes {
         this.#app.post("/electricity/dateData", async (req, res) => {
             try {
                 const data = await this.#db.handleQuery({
-                    query: 'SELECT time,\n' +
+                    query: 'SELECT DATE_FORMAT(time, \'%Y-%m-%d\') AS day,\n' +
                         ' ROUND(SUM(consumption / 4), 2) AS consumption\n' +
                         ' FROM electricity\n' +
-                        ' WHERE time BETWEEN \'?\' AND \'?\'\n' +
+                        ' WHERE time BETWEEN \'' + req.body.startDate + '\' AND \'' + req.body.endDate  + '\'\n' +
                         ' GROUP BY DAY(time)\n' +
                         ' ORDER BY time',
-                    values: [req.body.startDate, req.body.endDate]
                 })
                 if (data.length > 0) {
                     res.status(this.#errCodes.HTTP_OK_CODE).json({data});
@@ -146,5 +146,6 @@ class ElectricityRoutes {
     }
 }
 
-module.exports = ElectricityRoutes
+
+    module.exports = ElectricityRoutes
 
