@@ -52,4 +52,15 @@ export class ElectricityRepository {
         return await this.#networkManager
             .doRequest(`${this.#route}/yearly`, "GET")
     }
+
+    /**
+     * Async function to get the yearly electricity data via network manager
+     * @returns {Promise<*>}
+     */
+    async getData(startDate, endDate) {
+        return await this.#networkManager
+            .doRequest(`${this.#route}/dateData`, "POST", {
+                "startDate": startDate, "endDate": endDate
+            })
+    }
 }

@@ -48,12 +48,40 @@ export class CompareUsageController extends Controller {
             setup: (picker) => {
                 picker.on('hide', () => {
                     this.#getData(picker.getStartDate(), picker.getEndDate())
-
+                    this.#getDaysArray(picker.getStartDate(), picker.getEndDate());
                 });
                 picker.setDate(maxDate)
             },
         });
 
+    }
+
+    #getDaysArray = function(start, end) {
+        for(var arr=[],dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
+            arr.push(new Date(dt).toISOString().split('T')[0]);
+        }
+        // console.log(arr);
+        this.#graphDatepicker(arr);
+    };
+
+    async #graphDatepicker(arr) {
+        console.log( await this.#electricityRepository.getData("2021-01-01", "2021-01-07"));
+
+        const graph = document.querySelector("#graph-datepicker");
+
+        const myChart = new Chart(graph, {
+            type: 'line',
+            data: {
+                labels: arr,
+                datasets: [{
+                    label: 'Verbruik (kWh)',
+                    data: [1, 1, 1, 1],
+                    fill: false,
+                    borderColor: '#0063c3',
+                    tension: 0.4,
+                }]
+            }
+        });
     }
 
     /**
