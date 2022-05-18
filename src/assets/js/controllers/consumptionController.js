@@ -68,7 +68,7 @@ export class ConsumptionController extends Controller {
         await super.loadHtmlIntoCustomElement("html_views/components/side-nav.html"
             , this.#consumptionView.querySelector(".side-nav-main-box"));
 
-        // Loading the graph into the DOM element [CLASS: .graph]
+        // Loading the graph into the DOM element [CLASS: .graph-box]
         await super.loadHtmlIntoCustomElement("html_views/components/graph.html"
             , this.#consumptionView.querySelector(".graph-box"));
 
@@ -80,6 +80,10 @@ export class ConsumptionController extends Controller {
         for (let modalButton of this.#consumptionView.querySelectorAll(".modal-button")) {
             await super.loadHtmlIntoCustomElement("html_views/components/modal-button.html", modalButton);
         }
+
+        // Loading the graph into the DOM element [CLASS: .graph-datepicker]
+        await super.loadHtmlIntoCustomElement("html_views/components/graph-datepicker.html"
+            , this.#consumptionView.querySelector(".graph-datepicker"));
     }
 
     /**
