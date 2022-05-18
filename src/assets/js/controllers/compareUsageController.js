@@ -65,6 +65,11 @@ export class CompareUsageController extends Controller {
     //     this.#graphDatepicker(arr);
     // };
 
+    /**
+     * Creates a graph based on data from chosen dates in the datepicker
+     * @param startDate - start date
+     * @param endDate - end date
+     */
     async #graphDatepicker(startDate, endDate) {
 
         const newStartDate = startDate.toISOString().split('T')[0]

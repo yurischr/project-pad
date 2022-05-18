@@ -124,6 +124,10 @@ class ElectricityRoutes {
         })
     }
 
+    /**
+     * Electricity route for getting the electricity consumption for specific dates
+     * @private
+     */
     #getDateData() {
         this.#app.post("/electricity/dateData", async (req, res) => {
             try {
