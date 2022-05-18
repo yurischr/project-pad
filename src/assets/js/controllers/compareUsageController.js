@@ -87,6 +87,9 @@ export class CompareUsageController extends Controller {
             dataArray[i] = data.data[i].consumption
         }
 
+        this.#view.querySelector('#graph-datepicker').remove();
+        this.#view.querySelector('.datepicker-graph').insertAdjacentHTML("beforeend", '<canvas id="graph-datepicker" width="400" height="175">' +
+            '</canvas>');
         const graph = document.querySelector("#graph-datepicker");
 
         const myChart = new Chart(graph, {
