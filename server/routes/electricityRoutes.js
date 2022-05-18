@@ -135,7 +135,7 @@ class ElectricityRoutes {
                     query: 'SELECT DATE_FORMAT(time, \'%Y-%m-%d\') AS day,\n' +
                         ' ROUND(SUM(consumption / 4), 2) AS consumption\n' +
                         ' FROM electricity\n' +
-                        ' WHERE time BETWEEN \'' + req.body.startDate + '\' AND \'' + req.body.endDate  + '\'\n' +
+                        ' WHERE time BETWEEN \'' + req.body.startDate + '\' AND \'' + req.body.endDate + " 23:59:00" + '\'\n' +
                         ' GROUP BY DAY(time)\n' +
                         ' ORDER BY time',
                 })
