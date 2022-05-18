@@ -41,6 +41,10 @@
     color: var(--card-high-percentage);
 }
 
+.color-low {
+    color: var(--card-low-percentage);
+}
+
 .title-container {
     margin-top: 5rem;
 }
