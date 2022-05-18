@@ -54,7 +54,7 @@ export class ElectricityRepository {
     }
 
     /**
-     * Async function to get the yearly electricity data via network manager
+     * Async function to get the electricity data for specific dates via network manager
      * @returns {Promise<*>}
      */
     async getData(startDate, endDate) {
@@ -62,5 +62,9 @@ export class ElectricityRepository {
             .doRequest(`${this.#route}/dateData`, "POST", {
                 "startDate": startDate, "endDate": endDate
             })
+    }
+
+    async getAverageData() {
+        return await this.#networkManager.doRequest(`${this.#route}/average`, 'GET');
     }
 }

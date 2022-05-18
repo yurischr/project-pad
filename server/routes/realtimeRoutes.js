@@ -12,10 +12,10 @@ class RealtimeRoutes {
     }
 
     #getRealtimeElectricityData() {
-        this.#app.post(`/realtime`, async (req, res) => {
+        this.#app.post(`/realtime/electricity`, async (req, res) => {
             try {
                     let data = await this.#db.handleQuery({
-                    query: "SELECT * FROM electricity WHERE time = " + "\"" + req.body.realtimeElectricity + "\""
+                    query: "SELECT * FROM electricity WHERE time = " + "\"" + req.body.realtime + "\""
                 })
 
                 if (data.length > 0) {
@@ -35,7 +35,7 @@ class RealtimeRoutes {
         this.#app.post(`/realtime/gas`, async (req, res) => {
             try {
                 let data = await this.#db.handleQuery({
-                    query: "SELECT * FROM electricity WHERE time = " + "\"" + req.body.realtimeGas + "\""
+                    query: "SELECT * FROM gas WHERE time = " + "\"" + req.body.realtime + "\""
                 })
 
                 if (data.length > 0) {

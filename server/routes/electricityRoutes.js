@@ -21,6 +21,8 @@ class ElectricityRoutes {
         this.#getDailyData()
         this.#getMonthlyData()
         this.#getYearlyData()
+        this.#getDateData()
+        this.#getAverageDate()
     }
 
     #getMonthlyData() {
@@ -122,17 +124,20 @@ class ElectricityRoutes {
         })
     }
 
+    /**
+     * Electricity route for getting the electricity consumption for specific dates
+     * @private
+     */
     #getDateData() {
         this.#app.post("/electricity/dateData", async (req, res) => {
             try {
                 const data = await this.#db.handleQuery({
-                    query: 'SELECT time,\n' +
+                    query: 'SELECT DATE_FORMAT(time, \'%Y-%m-%d\') AS day,\n' +
                         ' ROUND(SUM(consumption / 4), 2) AS consumption\n' +
                         ' FROM electricity\n' +
-                        ' WHERE time BETWEEN \'?\' AND \'?\'\n' +
+                        ' WHERE time BETWEEN \'' + req.body.startDate + '\' AND \'' + req.body.endDate + " 23:59:00" + '\'\n' +
                         ' GROUP BY DAY(time)\n' +
                         ' ORDER BY time',
-                    values: [req.body.startDate, req.body.endDate]
                 })
                 if (data.length > 0) {
                     res.status(this.#errCodes.HTTP_OK_CODE).json({data});
@@ -144,7 +149,27 @@ class ElectricityRoutes {
             }
         })
     }
+
+    #getAverageDate() {
+        this.#app.get("/electricity/average", async (req, res) => {
+            try {
+                const data = await this.#db.handleQuery({
+                    query: `SELECT AVG(consumption) AS averageConsumption
+                            FROM electricity`
+                });
+
+                if (data.length > 0) {
+                    res.status(this.#errCodes.HTTP_OK_CODE).json({data})
+                } else {
+                    res.status(this.#errCodes.NO_CONTENT).json({reason: "Data not found"})
+                }
+            } catch (e) {
+                res.status(this.#errCodes.BAD_REQUEST_CODE).json({reason: `${e}`});
+            }
+        });
+    }
 }
 
-module.exports = ElectricityRoutes
+
+    module.exports = ElectricityRoutes
 

@@ -17,68 +17,68 @@ export class RealtimeController extends Controller {
         this.#realtimeRepository = new RealtimeRepository();
 
         this.#calculateRealtimeData()
-        this.#satisfactionPercentage()
+
+        setInterval(()  => {
+            this.#calculateRealtimeData()
+        }, 3000)
     }
 
-    #calculateRealtimeData() {
+    async #calculateRealtimeData() {
         const today = new Date()
         const yyyy = today.getFullYear() - 1
         const mm = today.getMonth() + 1
         const dd = today.getDate()
         const hh = today.getHours()
         const min = today.getMinutes()
-        const roundedMinutes = this.#roundToNearest15(min)
+        const roundedMinutes = (Math.round(min / 15) * 15) % 60
 
-        const dateFormat = `${yyyy}-${mm}-${dd} ${hh}:${roundedMinutes}`
-        console.log(dateFormat);
-        let errorAmount = 0;
+        const formattedElectricityDate = `${yyyy}-${mm}-${dd} ${hh}:${roundedMinutes}`
+        const formattedGasDate = `${yyyy}-${mm}-${dd}`
 
-        let interval = setInterval(async () => {
-            try {
-                const data = await this.#realtimeRepository.getElectricityData(dateFormat);
+        const electricityData = await this.#realtimeRepository.getElectricityData(formattedElectricityDate);
+        const gasData = await this.#realtimeRepository.getGassData(formattedGasDate)
 
-                this.#view.querySelector("#realtime-electra-data").innerHTML = data.data[0]['consumption'] + "kWh";
+        this.#view.querySelector("#realtime-electra-data").innerHTML = electricityData.data[0]['consumption'] + "kWh";
+        this.#view.querySelector("#realtime-gas-data").innerHTML = gasData.data[0]['usage'] + "m^3"
+        this.#satisfactionPercentage(electricityData.data[0]['consumption'])
 
-                errorAmount++
-                if (errorAmount > 1) {
-                    clearInterval(interval)
-                }
-            } catch(e) {
-                errorAmount++;
-                if (errorAmount > 1) {
-                    clearInterval(interval);
-                    console.error("Error with interval -> interval has been stopped: " + e)
-                }
-            }
-
-        }, 3000)
     }
 
-    #roundToNearest15(minutes){
-        let minuten = (Math.round(minutes/15) * 15) % 60
-        return minuten;
-    }
 
-    #satisfactionPercentage() {
+    // catch(e) {
+    //     errorAmount++;
+    //     if (errorAmount > 1) {
+    //         clearInterval(interval);
+    //         console.error("Error with interval -> interval has been stopped: " + e)
+    //     }
+    // }
+
+    async #satisfactionPercentage(currentElectricityUsage) {
         const percentageBar = this.#view.querySelector('.percentage-bar');
         const percentageCount = this.#view.querySelector('.percentage-count');
         const satisfactionIcon = this.#view.querySelector('.satisfaction-icon');
         const iconsFolder = 'assets/images/icons';
-        const percentage = 20;
+
+        const averageElectricityData = await this.#electricityRepository.getAverageData();
+        let percentage = ((averageElectricityData.data[0]['averageConsumption'] / currentElectricityUsage) * 100).toFixed(0);
+        if (percentage > 100) {
+            percentage = 100;
+        }
         const rotateDegree = 45 + (percentage * 1.8);
+
         percentageBar.style.transform = `rotate(${rotateDegree}deg)`;
         percentageCount.innerHTML = `${percentage}%`;
 
         if (percentage < 50) {
-            setSatisfactionIcon(`${iconsFolder}/sad-icon.png`)
+            setSatisfactionIcon('sad-icon.png');
         } else if (percentage >= 50 && percentage < 70) {
-            setSatisfactionIcon(`${iconsFolder}/neutral-icon.png`)
+            setSatisfactionIcon('neutral-icon.png');
         } else {
-           setSatisfactionIcon(`${iconsFolder}/happy-icon.png`)
+            setSatisfactionIcon('happy-icon.png');
         }
 
-        function setSatisfactionIcon(iconPath) {
-            satisfactionIcon.src = iconPath;
+        function setSatisfactionIcon(iconName) {
+            satisfactionIcon.src = `${iconsFolder}/${iconName}`;
         }
     }
 }
