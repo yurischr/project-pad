@@ -37,7 +37,7 @@ export class ConsumptionController extends Controller {
 
         await this.#handleDashboard();
 
-        // await new SocketController(this.#consumptionView);
+        await new SocketController(this.#consumptionView, "DEV");
     }
 
     /**

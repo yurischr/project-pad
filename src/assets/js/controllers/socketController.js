@@ -15,7 +15,7 @@ export class SocketController extends Controller {
     #LIVE_ENV = "LIVE";
     //! REPLACE URLS TO A DOTENV FILE
     #LOCAL_BACKEND_URL = "http://localhost:3000";
-    #DEV_BACKEND_URL = "https://dev-svm-3.hbo-ict.cloud/api/";
+    #DEV_BACKEND_URL = "https://dev-svm-3.hbo-ict.cloud:8080/api/";
     #LIVE_BACKEND_URL = "https://svm-3.hbo-ict.cloud/api/";
 
     /**

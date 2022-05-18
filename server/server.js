@@ -26,7 +26,10 @@ const app = require("./app");
 const http = require('http').Server(app)
 const io = require('socket.io')(http, {
     cors: {
-        origin: ['http://localhost:63342']
+        origin: [
+            'http://localhost:63342',
+            'https://dev-svm-3.hbo-ict.cloud'
+        ]
     }
 })
 
