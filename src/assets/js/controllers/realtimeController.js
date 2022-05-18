@@ -17,7 +17,7 @@ export class RealtimeController extends Controller {
         this.#realtimeRepository = new RealtimeRepository();
 
         this.#calculateRealtimeData()
-        this.#satisfactionPercentage()
+        this.#satisfactionPercentage(10)
     }
 
     async #calculateRealtimeData() {
@@ -59,13 +59,17 @@ export class RealtimeController extends Controller {
         return minuten;
     }
 
-    #satisfactionPercentage() {
+    async #satisfactionPercentage(currentElectricityUsage) {
         const percentageBar = this.#view.querySelector('.percentage-bar');
         const percentageCount = this.#view.querySelector('.percentage-count');
         const satisfactionIcon = this.#view.querySelector('.satisfaction-icon');
         const iconsFolder = 'assets/images/icons';
 
-        const percentage = 50;
+        const averageElectricityData = await this.#electricityRepository.getAverageData();
+        let percentage = ((averageElectricityData.data[0]['averageConsumption'] / currentElectricityUsage) * 100).toFixed(0);
+        if (percentage > 100) {
+            percentage = 100;
+        }
         const rotateDegree = 45 + (percentage * 1.8);
 
         percentageBar.style.transform = `rotate(${rotateDegree}deg)`;
