@@ -63,4 +63,8 @@ export class ElectricityRepository {
                 "startDate": startDate, "endDate": endDate
             })
     }
+
+    async getAverageData() {
+        return await this.#networkManager.doRequest(`${this.#route}/average`, 'GET');
+    }
 }

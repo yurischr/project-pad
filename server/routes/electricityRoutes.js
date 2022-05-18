@@ -22,6 +22,7 @@ class ElectricityRoutes {
         this.#getMonthlyData()
         this.#getYearlyData()
         this.#getDateData()
+        this.#getAverageDate()
     }
 
     #getMonthlyData() {
@@ -143,6 +144,25 @@ class ElectricityRoutes {
                 res.status(this.#errCodes.BAD_REQUEST_CODE).json({reason: e});
             }
         })
+    }
+
+    #getAverageDate() {
+        this.#app.get("/electricity/average", async (req, res) => {
+            try {
+                const data = await this.#db.handleQuery({
+                    query: `SELECT AVG(consumption) AS averageConsumption
+                            FROM electricity`
+                });
+
+                if (data.length > 0) {
+                    res.status(this.#errCodes.HTTP_OK_CODE).json({data})
+                } else {
+                    res.status(this.#errCodes.NO_CONTENT).json({reason: "Data not found"})
+                }
+            } catch (e) {
+                res.status(this.#errCodes.BAD_REQUEST_CODE).json({reason: `${e}`});
+            }
+        });
     }
 }
 
