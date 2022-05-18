@@ -69,7 +69,7 @@ export class ElectraController extends Controller {
         const consumptionType = event.target.parentNode.dataset.consumption;
         const treeCompensateCalc =  (value * this.#CO2_KG) / this.#CO2_TREE_CONSUMPTION_KG;
 
-        this.#view.querySelector(".modal-consumption-value").innerHTML = `${value} KwH`;
+        this.#view.querySelector(".modal-consumption-value").innerHTML = `${value} kWh`;
         this.#view.querySelector(".modal-tree-value").innerHTML = treeCompensateCalc.toFixed();
     }
 
@@ -144,7 +144,7 @@ export class ElectraController extends Controller {
             }
             await this.#setDatable()
         } catch (e) {
-            console.log("error while fetching the electricity data", e);
+            console.log("error while executing the #fetchPeriodData method", e);
         }
     }
 

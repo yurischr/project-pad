@@ -39,7 +39,7 @@ export class RealtimeController extends Controller {
         const gasData = await this.#realtimeRepository.getGassData(formattedGasDate)
 
         this.#view.querySelector("#realtime-electra-data").innerHTML = electricityData.data[0]['consumption'] + "kWh";
-        this.#view.querySelector("#realtime-gas-data").innerHTML = gasData.data[0]['usage'] + "m^3";
+        this.#view.querySelector("#realtime-gas-data").innerHTML = gasData.data[0]['usage'] + "m³";
 
         // Adds the electricity + gas data to the value of the realtime card button for electricity
         this.#view.querySelector(".rt-electra button").value =  electricityData.data[0]['consumption'];
