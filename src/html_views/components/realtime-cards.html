@@ -8,11 +8,11 @@
 <div class="container">
     <div class="row g-4 row-cols-1 row-cols-lg-2 justify-content-center" id="row">
         <div class="col">
-            <div class="card card-body realtime-card">
+            <div class="card card-body realtime-card mb-4">
                 <div class="card-custom-header">
-                    <h5 class="card-title">Electra</h5>
-                    <div data-bs-toggle="tooltip" data-bs-placement="top" title="Hooray!" class="card-info-icon">
-                        <i class="bi bi-info-circle-fill info-icon"></i>
+                    <h5 class="card-title fw-bold">Electra</h5>
+                    <div class="card-info-icon rt-electra modal-button">
+                        <!-- Loads modal button via JS -->
                     </div>
                 </div>
                 <div class="card-content card-stats justify-content-between">
@@ -20,14 +20,12 @@
                     <p class="color-low">+1.4%</p>
                 </div>
             </div>
-        </div>
 
-        <div class="col">
             <div class="card card-body realtime-card">
                 <div class="card-custom-header">
-                    <h5 class="card-title">Gas</h5>
-                    <div class="card-info-icon">
-                        <i class="bi bi-info-circle-fill info-icon"></i>
+                    <h5 class="card-title fw-bold">Gas</h5>
+                    <div class="card-info-icon rt-gas modal-button">
+                        <!-- Loads modal button via JS -->
                     </div>
                 </div>
                 <div class="card-content card-stats justify-content-between">
@@ -37,12 +35,12 @@
             </div>
         </div>
         <div class="col">
-            <div class="satisfaction-box">
-                <div class="satisfaction-text">
+            <div class="satisfaction-box row row-cols-1 row-cols-lg-2 ">
+                <div class="col satisfaction-text">
                     <h5 class="satisfaction-title">Huidige Tevredenheid</h5>
                     <p class="satisfaction-subtitle">Huidige elektra verbruik vergeleken met het gemiddelde elektra verbruik</p>
                 </div>
-                <div class="satisfaction-stats">
+                <div class="col satisfaction-stats">
                     <div class="percentage-bar-overflow">
                         <div class="percentage-bar"></div>
                     </div>

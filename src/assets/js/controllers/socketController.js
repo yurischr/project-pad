@@ -40,7 +40,6 @@ export class SocketController extends Controller {
             console.error(e);
         }
 
-
         console.log(`connected: ${this.#socket.connected}`);
         console.log(`disconnected: ${this.#socket.disconnected}`);
         console.log(this.#socket)

@@ -65,10 +65,11 @@ export class ElectraController extends Controller {
     }
 
     async #handleModalClick(event) {
-        const electraValue = event.target.parentNode.value;
-        const treeCompensateCalc =  (electraValue * this.#CO2_KG) / this.#CO2_TREE_CONSUMPTION_KG;
+        const value = event.target.parentNode.value;
+        const consumptionType = event.target.parentNode.dataset.consumption;
+        const treeCompensateCalc =  (value * this.#CO2_KG) / this.#CO2_TREE_CONSUMPTION_KG;
 
-        this.#view.querySelector(".modal-kwh-value").innerHTML = `${electraValue} KwH`;
+        this.#view.querySelector(".modal-consumption-value").innerHTML = `${value} KwH`;
         this.#view.querySelector(".modal-tree-value").innerHTML = treeCompensateCalc.toFixed();
     }
 
@@ -134,8 +135,11 @@ export class ElectraController extends Controller {
             for (let row in data.data) {
                 let clone = template.content.cloneNode(true);
 
+                let treeCompensateCalc =  (data.data[row]['consumption'] * this.#CO2_KG) / this.#CO2_TREE_CONSUMPTION_KG;
+
                 clone.querySelector(".time").textContent = data.data[row][selector];
                 clone.querySelector(".data").textContent = data.data[row]['consumption'];
+                clone.querySelector(".tree-value").textContent = treeCompensateCalc.toFixed();
                 this.#view.querySelector(".table-body").appendChild(clone);
             }
             await this.#setDatable()
@@ -238,7 +242,10 @@ export class ElectraController extends Controller {
                 datasets: [{
                     label: 'Verbruik (kWh)',
                     data: [dailyConsumption[0], dailyConsumption[1], dailyConsumption[2], dailyConsumption[3], dailyConsumption[4], dailyConsumption[5], dailyConsumption[6]],
-                    fill: false,
+                    fill: true,
+                    backgroundColor: [
+                        'rgba(0,97,194,0.4)'
+                    ],
                     borderColor: '#0063c3',
                     tension: 0.4,
                 }]

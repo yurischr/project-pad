@@ -96,7 +96,10 @@ export class CompareUsageController extends Controller {
                 datasets: [{
                     label: 'Verbruik (kWh)',
                     data: dataArray,
-                    fill: false,
+                    fill: true,
+                    backgroundColor: [
+                        'rgba(0,97,194,0.4)'
+                    ],
                     borderColor: '#0063c3',
                     tension: 0.4,
                 }]

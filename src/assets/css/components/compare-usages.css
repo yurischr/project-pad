@@ -1,5 +1,4 @@
 .container-usage {
-    padding: 2em;
     margin-top: 3em;
     background-color: var(--main-bg);
     color: var(--text-color);
@@ -62,6 +61,15 @@
     border: 2px solid #f6f6f6;
     border-radius: 5px;
     width: 25vw;
+}
+
+.datepicker-graph {
+    box-shadow: 0 5px 20px var(--shadow-color);
+    background-color: var(--main-bg);
+    border-radius: 10px;
+    width: 60%;
+    padding: 1em;
+    margin: auto;
 }
 
 .output {
