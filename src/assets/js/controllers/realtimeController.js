@@ -21,10 +21,6 @@ export class RealtimeController extends Controller {
         this.#satisfactionPercentage()
     }
 
-    #setIntervals(){
-        // setInterval(this.#calculateRealtimeData(), 6000)
-    }
-
     async #calculateRealtimeData() {
         const today = new Date()
         const yyyy = today.getFullYear() - 1
