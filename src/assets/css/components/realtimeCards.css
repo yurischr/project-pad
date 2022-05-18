@@ -49,7 +49,6 @@
     display: flex;
     flex-direction: row;
     border: none;
-    margin: auto;
     height: 15em;
     width: 30em;
     background: linear-gradient(127.09deg, rgba(6, 11, 40, 0.94) 19.41%, rgba(10, 14, 35, 0.49) 76.65%);
@@ -70,7 +69,7 @@
 
 .satisfaction-stats {
     margin-left: 6em;
-    margin-top: 9em;
+    margin-top: 7em;
 }
 
 .percentage-box {
@@ -93,18 +92,24 @@
 .percentage-bar-overflow {
     position: absolute;
     overflow: hidden;
-    width: 8em;
-    height: 4em;
-    margin-top: -4em;
-    margin-left: 2.3em;
+    width: 9em;
+    height: 4.5em;
+    margin-top: -3em;
+    margin-left: 1.8em;
 }
 
 .percentage-bar {
-    width: 8em; height: 8em;
+    width: 9em; height: 9em;
     border-radius: 50%;
     box-sizing: border-box;
     border: 0.6em solid #22234B;
     border-bottom-color: #0075FF;
     border-right-color: #0075FF;
+}
+
+.satisfaction-icon {
+    margin-left: 4.8em;
+    margin-bottom: -2em;
+    margin-top: -4em;
 }
 

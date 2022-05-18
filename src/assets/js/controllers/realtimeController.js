@@ -62,10 +62,23 @@ export class RealtimeController extends Controller {
     #satisfactionPercentage() {
         const percentageBar = this.#view.querySelector('.percentage-bar');
         const percentageCount = this.#view.querySelector('.percentage-count');
+        const satisfactionIcon = this.#view.querySelector('.satisfaction-icon');
+        const iconsFolder = 'assets/images/icons';
         const percentage = 20;
-        const rotateDegree = 45 + (percentage * 1.8)
-        percentageBar.style.transform = `rotate(${rotateDegree}deg)`
-        percentageCount.innerHTML = `${percentage}%`
+        const rotateDegree = 45 + (percentage * 1.8);
+        percentageBar.style.transform = `rotate(${rotateDegree}deg)`;
+        percentageCount.innerHTML = `${percentage}%`;
 
+        if (percentage < 50) {
+            setSatisfactionIcon(`${iconsFolder}/sad-icon.png`)
+        } else if (percentage >= 50 && percentage < 70) {
+            setSatisfactionIcon(`${iconsFolder}/neutral-icon.png`)
+        } else {
+           setSatisfactionIcon(`${iconsFolder}/happy-icon.png`)
+        }
+
+        function setSatisfactionIcon(iconPath) {
+            satisfactionIcon.src = iconPath;
+        }
     }
 }
