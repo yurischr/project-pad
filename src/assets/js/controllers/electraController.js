@@ -285,7 +285,10 @@ export class ElectraController extends Controller {
                 datasets: [{
                     label: 'Verbruik (kWh)',
                     data: [weeklyConsumption[0], weeklyConsumption[1], weeklyConsumption[2], weeklyConsumption[3]],
-                    fill: false,
+                    fill: true,
+                    backgroundColor: [
+                        'rgba(0,97,194,0.4)'
+                    ],
                     borderColor: '#0063c3',
                     tension: 0.4,
                 }]
@@ -315,7 +318,10 @@ export class ElectraController extends Controller {
                 datasets: [{
                     label: 'Verbruik (kWh)',
                     data: [monthlyConsumption[0], monthlyConsumption[1], monthlyConsumption[2], monthlyConsumption[3], monthlyConsumption[4], monthlyConsumption[5], monthlyConsumption[6], monthlyConsumption[7], monthlyConsumption[8], monthlyConsumption[9], monthlyConsumption[10], monthlyConsumption[11]],
-                    fill: false,
+                    fill: true,
+                    backgroundColor: [
+                        'rgba(0,97,194,0.4)'
+                    ],
                     borderColor: '#0063c3',
                     tension: 0.4,
                 }]
@@ -345,7 +351,10 @@ export class ElectraController extends Controller {
                 datasets: [{
                     label: 'Verbruik (kWh)',
                     data: [yearlyConsumption[0], yearlyConsumption[1], yearlyConsumption[2], yearlyConsumption[3]],
-                    fill: false,
+                    fill: true,
+                    backgroundColor: [
+                        'rgba(0,97,194,0.4)'
+                    ],
                     borderColor: '#0063c3',
                     tension: 0.4,
                 }]
