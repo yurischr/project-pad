@@ -88,7 +88,9 @@ export class NavbarController extends Controller {
             navLink.classList.remove("active-link");
         });
 
-        clickedAnchor.classList.add("active-link");
+        if (!clickedAnchor.parentNode.classList.contains("navbar-brand")) {
+            clickedAnchor.classList.add("active-link");
+        }
 
         //Pass the action to a new function for further processing
         App.loadController(controller);
