@@ -67,10 +67,24 @@ export class ElectraController extends Controller {
     async #handleModalClick(event) {
         const value = event.target.parentNode.value;
         const consumptionType = event.target.parentNode.dataset.consumption;
-        const treeCompensateCalc =  (value * this.#CO2_KG) / this.#CO2_TREE_CONSUMPTION_KG;
+        const chartType = event.target.parentNode.dataset.type;
 
-        this.#view.querySelector(".modal-consumption-value").innerHTML = `${value} kWh`;
-        this.#view.querySelector(".modal-tree-value").innerHTML = treeCompensateCalc.toFixed();
+        if (chartType === "cc-chart") {
+            this.#view.querySelector(".modal-content-custom").style.display = "none";
+            this.#view.querySelector(".modal-explanation").style.display = "block";
+
+            this.#view.querySelector(".modal-explanation").innerHTML = "Wist je dat het scheepvaartmuseum bijna geen gas verbruikt!";
+        } else  {
+            this.#view.querySelector(".modal-content-custom").style.display = "block";
+            this.#view.querySelector(".modal-explanation").style.display = "none";
+
+            const treeCompensateCalc =  (value * this.#CO2_KG) / this.#CO2_TREE_CONSUMPTION_KG;
+
+            this.#view.querySelector(".modal-consumption-value").innerHTML = `${value} kWh`;
+            this.#view.querySelector(".modal-tree-value").innerHTML = treeCompensateCalc.toFixed();
+        }
+
+
     }
 
     /**
@@ -196,6 +210,8 @@ export class ElectraController extends Controller {
 
         const comparisonChart = this.#view.querySelector('#chart');
         const doughnutChart = new Chart(comparisonChart, config);
+
+        this.#view.querySelector(".cc-value button").dataset.type = "cc-chart";
     }
 
     /**
