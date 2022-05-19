@@ -87,6 +87,9 @@ export class CompareUsageController extends Controller {
             dataArray[i] = data.data[i].consumption
         }
 
+        this.#view.querySelector('#graph-datepicker').remove();
+        this.#view.querySelector('.datepicker-graph').insertAdjacentHTML("beforeend", '<canvas id="graph-datepicker" width="400" height="175">' +
+            '</canvas>');
         const graph = document.querySelector("#graph-datepicker");
 
         const myChart = new Chart(graph, {
@@ -155,6 +158,7 @@ export class CompareUsageController extends Controller {
         const percentage = (secondDateResult - firstDateResult) / firstDateResult * 100;
         const roundedPercentage = Math.round(percentage * 100) / 100
 
+        difference.classList.remove("positive", "negative")
 
         if (firstDateResult > secondDateResult) {
             //adds result to HTML if second result is less than first result
