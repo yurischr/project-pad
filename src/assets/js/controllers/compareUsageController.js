@@ -158,6 +158,7 @@ export class CompareUsageController extends Controller {
         const percentage = (secondDateResult - firstDateResult) / firstDateResult * 100;
         const roundedPercentage = Math.round(percentage * 100) / 100
 
+        difference.classList.remove("positive", "negative")
 
         if (firstDateResult > secondDateResult) {
             //adds result to HTML if second result is less than first result
