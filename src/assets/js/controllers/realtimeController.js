@@ -20,7 +20,7 @@ export class RealtimeController extends Controller {
 
         setInterval(()  => {
             this.#calculateRealtimeData()
-        }, 3000)
+        }, 1000*60*15)
     }
 
     async #calculateRealtimeData() {
@@ -38,6 +38,8 @@ export class RealtimeController extends Controller {
         const electricityData = await this.#realtimeRepository.getElectricityData(formattedElectricityDate);
         const gasData = await this.#realtimeRepository.getGassData(formattedGasDate)
 
+        this.#view.querySelector("#current-date").innerHTML = formattedGasDate
+
         this.#view.querySelector("#realtime-electra-data").innerHTML = electricityData.data[0]['consumption'] + "kWh";
         this.#view.querySelector("#realtime-gas-data").innerHTML = gasData.data[0]['usage'] + "m³";
 
@@ -52,15 +54,6 @@ export class RealtimeController extends Controller {
         this.#satisfactionPercentage(electricityData.data[0]['consumption'])
 
     }
-
-
-    // catch(e) {
-    //     errorAmount++;
-    //     if (errorAmount > 1) {
-    //         clearInterval(interval);
-    //         console.error("Error with interval -> interval has been stopped: " + e)
-    //     }
-    // }
 
     async #satisfactionPercentage(currentElectricityUsage) {
         const percentageBar = this.#view.querySelector('.percentage-bar');
