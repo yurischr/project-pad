@@ -79,6 +79,19 @@
     padding: 1em;
 }
 
+.compare-usages-results {
+    transition: all 1s ease-in-out;
+    opacity: 1;
+    transform: scale(1);
+    height: fit-content;
+}
+
+.scale-effect {
+    opacity: 0;
+    transform: scale(0);
+    height: 0;
+}
+
 /*.arrow {*/
 /*    display: flex;*/
 /*    flex-direction: column;*/

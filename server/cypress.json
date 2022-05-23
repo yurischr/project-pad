@@ -1,4 +1,10 @@
 {
   "integrationFolder": "cypress/integration/pad",
-  "video": false
+  "video": false,
+  "env": {
+    "CONSUMPTION_PAGE_URL": "http://localhost:8080/#consumption",
+    "LOCAL_API_BASE_URL": "http://localhost:3000",
+    "DEV_API_BASE_URL": "https://dev-svm-3.hbo-ict.cloud/api",
+    "LIVE_API_BASE_URL": "https://svm-3.hbo-ict.cloud/api"
+  }
 }

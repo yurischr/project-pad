@@ -18,6 +18,10 @@ export class ElectraController extends Controller {
     #compareUsageController;
     #realtimeController;
 
+    /**
+     * Constructor for the ElectraController
+     * @param view - the view to be used by the controller
+     */
     constructor(view) {
         super();
         this.#view = view;
@@ -53,8 +57,17 @@ export class ElectraController extends Controller {
             // Prevent the page from scrolling to the top when clicking a tab
             event.preventDefault();
 
-            // Calling the method for handling the table view and the active tab buttons
-            await this.#handleTableView(event, tabs);
+            try {
+                // Calling the method for handling the table view and the active tab buttons
+                await this.#handleTableView(event, tabs);
+            } catch (e) {
+                if (e.code === 204) {
+                    await super.loadErrAlertIntoCustomElement(this.#view.querySelector(".error-box-nav-pills"), {
+                        reason: "No data available for this period",
+                        code: 204
+                    });
+                }
+            }
         }));
 
         this.#view.querySelectorAll(".modal-button").forEach(button =>
@@ -64,6 +77,11 @@ export class ElectraController extends Controller {
         );
     }
 
+    /**
+     * Method handles the click on the info  to show the modal
+     * @param {object} event - The event object
+     * @returns {Promise<void>}
+     */
     async #handleModalClick(event) {
         const value = event.target.parentNode.value;
         const consumptionType = event.target.parentNode.dataset.consumption;
@@ -83,15 +101,13 @@ export class ElectraController extends Controller {
             this.#view.querySelector(".modal-consumption-value").innerHTML = `${value} kWh`;
             this.#view.querySelector(".modal-tree-value").innerHTML = treeCompensateCalc.toFixed();
         }
-
-
     }
 
     /**
      * Method removes the active class from all the buttons and adds the active class to the clicked tab button.
      * and calls the methods for the table data depending on which tab has been clicked
-     * @param event - The event that has been triggered (Tab)
-     * @param tabs - The array of all the tab buttons
+     * @param {object} event - The event that has been triggered (Tab)
+     * @param {object} tabs - The array of all the tab buttons
      * @returns {Promise<boolean>} - Returns a promise that resolves to true  if the table was successfully handled
      * @private
      */
@@ -132,9 +148,9 @@ export class ElectraController extends Controller {
 
     /**
      * Async function gets the data for a period via the repository and adds the data to the table rows
-     * @param data - data from period
-     * @param timePeriod - time period (day, week, month, year)
-     * @param selector - selector for JSON
+     * @param {object} data - data from period
+     * @param {string} timePeriod - time period (day, week, month, year)
+     * @param {string} selector - selector for JSON
      * @returns {Promise<void>} - Returns a promise that resolves to void
      * @private
      */
@@ -158,7 +174,7 @@ export class ElectraController extends Controller {
             }
             await this.#setDatable()
         } catch (e) {
-            console.log("error while executing the #fetchPeriodData method", e);
+            console.error(e);
         }
     }
 

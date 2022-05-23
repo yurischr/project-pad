@@ -90,7 +90,7 @@ export class ConsumptionController extends Controller {
      */
     async #handleDashboard() {
         await this.#setupComponents();
-        App.setCurrentController("electra");
+        App.setCurrentController("consumption");
         new ElectraController(this.#consumptionView);
     }
 

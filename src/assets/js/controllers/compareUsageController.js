@@ -117,6 +117,7 @@ export class CompareUsageController extends Controller {
      * @returns {Promise<void>}
      */
     async #getData(startDate, endDate) {
+        this.#view.querySelector('.compare-usages-results').classList.remove("scale-effect");
         //formats date
         const dateFormat = {month: "long", day: "numeric", year: "numeric"}
         const firstSelectedDate = startDate.toLocaleDateString("nl-NL", dateFormat)

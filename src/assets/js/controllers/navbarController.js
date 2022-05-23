@@ -13,6 +13,10 @@ export class NavbarController extends Controller {
     constructor() {
         super();
         this.#setupView();
+
+        console.log(App.getCurrentController())
+
+
     }
 
     /**
@@ -23,6 +27,8 @@ export class NavbarController extends Controller {
     async #setupView() {
         //await for when HTML is
         this.#navbarView = await super.loadHtmlIntoNavigation("html_views/components/navbar.html");
+
+        this.#handleActiveClassOnLoad();
 
         this.#setTheme();
 
@@ -35,37 +41,6 @@ export class NavbarController extends Controller {
         this.#navbarView.querySelector("#checkbox").addEventListener("change", (event) => {
             this.#handleThemeToggle(event);
         })
-    }
-
-    /**
-     * Handles the toggle of the theme switchers
-     * @param event - the event that triggered the click (Theme-toggle)
-     */
-    #handleThemeToggle(event) {
-        if (event.target.checked) {
-            document.body.classList.add("dark-mode");
-            document.body.classList.remove("light-mode");
-            App.sessionManager.set("theme", "dark");
-        } else {
-            document.body.classList.add("light-mode");
-            document.body.classList.remove("dark-mode");
-            App.sessionManager.set("theme", "light");
-        }
-    }
-
-    /**
-     * Methods sets the theme based on the theme values in the session
-     */
-    #setTheme() {
-        if (App.sessionManager.get("theme") === "dark") {
-            document.body.classList.add("dark-mode");
-            document.body.classList.remove("light-mode");
-            this.#navbarView.querySelector("#checkbox").checked = true;
-        } else {
-            document.body.classList.add("light-mode")
-            document.body.classList.remove("dark-mode");
-            this.#navbarView.querySelector("#checkbox").checked = false;
-        }
     }
 
     /**
@@ -97,5 +72,52 @@ export class NavbarController extends Controller {
 
         //Return false to prevent reloading the page
         return false;
+    }
+
+    /**
+     * Sets the active class on the navigation bar based on the current controller
+     * @private
+     */
+    #handleActiveClassOnLoad() {
+        let links = this.#navbarView.querySelectorAll("[data-controller]");
+
+        for (let link of links) {
+            if (link.dataset.controller === App.getCurrentController()) {
+                if (!link.parentNode.classList.contains("navbar-brand")) {
+                    link.classList.add("active-link");
+                }
+            }
+        }
+    }
+
+    /**
+     * Handles the toggle of the theme switchers
+     * @param event - the event that triggered the click (Theme-toggle)
+     */
+    #handleThemeToggle(event) {
+        if (event.target.checked) {
+            document.body.classList.add("dark-mode");
+            document.body.classList.remove("light-mode");
+            App.sessionManager.set("theme", "dark");
+        } else {
+            document.body.classList.add("light-mode");
+            document.body.classList.remove("dark-mode");
+            App.sessionManager.set("theme", "light");
+        }
+    }
+
+    /**
+     * Methods sets the theme based on the theme values in the session
+     */
+    #setTheme() {
+        if (App.sessionManager.get("theme") === "dark") {
+            document.body.classList.add("dark-mode");
+            document.body.classList.remove("light-mode");
+            this.#navbarView.querySelector("#checkbox").checked = true;
+        } else {
+            document.body.classList.add("light-mode")
+            document.body.classList.remove("dark-mode");
+            this.#navbarView.querySelector("#checkbox").checked = false;
+        }
     }
 }

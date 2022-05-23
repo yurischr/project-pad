@@ -1,5 +1,5 @@
 //Context: Login
-describe("Login",  () => {
+describe("Login", () => {
     const endpoint = "/users/login";
 
     //Run before each test in this context
@@ -23,7 +23,7 @@ describe("Login",  () => {
     });
 
     //Test: Successful login
-    it("Successful login",  () => {
+    it("Successful login", () => {
         //Start a fake server
         cy.server();
 
@@ -65,7 +65,7 @@ describe("Login",  () => {
     });
 
     //Test: Failed login
-    it("Failed login",  () => {
+    it("Failed login", () => {
         //Start a fake server
         cy.server();
 

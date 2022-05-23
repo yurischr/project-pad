@@ -2,6 +2,11 @@ body {
     background-color: var(--main-bg);
 }
 
+.nav-pills-box {
+    position: relative;
+    z-index: -1;
+}
+
 .side-nav {
     position: fixed;
     top: 30%;

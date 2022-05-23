@@ -45,6 +45,20 @@ export class Controller {
     }
 
     /**
+     * Loads the error alert into custom given DOM element
+     * @param element - DOM element to load the content of file into
+     * @param message - message to display in the alert
+     * @returns {Promise<void>}
+     */
+    async loadErrAlertIntoCustomElement(element, message) {
+        let errElement = await this.#fetchHtmlView("html_views/components/error-alert.html", false, element);
+        errElement.querySelector(".status").innerHTML = message.code;
+        errElement.querySelector(".err-msg").innerHTML = message.reason;
+
+        return  errElement;
+    }
+
+    /**
      * Private helper function to load HTML, children can simply call super.fetchHtmlView and pass the path of the HTML file
      * HTML will be loaded into .content of the index.html
      * @param htmlFile - path to html file
@@ -53,11 +67,11 @@ export class Controller {
      * @returns {Promise<void>}
      * @private
      */
-    async #fetchHtmlView(htmlFile, loadIntoNavigation = false, customElement ) {
+    async #fetchHtmlView(htmlFile, loadIntoNavigation = false, customElement) {
         let loadInto = loadIntoNavigation ? this.#navigationViewHtml : this.#contentViewHtml;
 
         //if a HTML DOM element to load the content into is passed, load it into there and give that back
-        if(customElement instanceof Element) {
+        if (customElement instanceof Element) {
             console.log("load html into custom element instead of index.html");
             loadInto = customElement;
         }
@@ -65,18 +79,17 @@ export class Controller {
         try {
             const response = await fetch(htmlFile);
 
-            if(response.ok) {
+            if (response.ok) {
                 const htmlData = await response.text();
 
                 //clear html and load htmlData from file
                 loadInto.innerHTML = "";
                 loadInto.innerHTML = htmlData;
-
             } else {
                 console.error(response.statusText);
                 loadInto.innerHTML = "<p>Failed to load HTML file</p>";
             }
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             loadInto.innerHTML = "<p>Failed to load HTML file</p>";
         }

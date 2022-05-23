@@ -27,48 +27,37 @@ export class SocketController extends Controller {
         super();
         this.#view = view;
 
-        try {
-            // Initialize the socket connection
-            const socket =  io(this.#getBackendURL(env), {
-                transports: ['websocket'],
-                reconnection: true
+        (async () => {
+            try {
+                // Initialize the socket connection
+                const socket = await io(this.#getBackendURL(env), {
+                    transports: ['websocket']
+                });
 
-            });
+                this.#socket = socket;
 
-            this.#socket = socket;
-        } catch (e) {
-            console.error(e);
-        }
+                let clearTimeout = setTimeout(async () => {
+                    console.log(this.#socket)
+                    if (!this.#socket.connected) {
+                        await this.#socketConnection(this.#CONN_DISCONNECT);
+                    }
+                }, 1000);
 
-        console.log(`connected: ${this.#socket.connected}`);
-        console.log(`disconnected: ${this.#socket.disconnected}`);
-        console.log(this.#socket)
+                // if the socket connection is connected, show the connection message
+                this.#socket.on("connect", async () => {
+                    await this.#socketConnection(this.#CONN_CONNECTED);
+                });
 
-        // if the socket connection is disconnected, show the disconnection message
-       if (!this.#socket.connected) {
-           (async () => {
-               try {
-                   console.log("Socket disconnected");
-                   await this.#socketConnection(this.#CONN_DISCONNECT);
-               } catch (e) {
-                    console.error(e);
-               }
-           })();
-       }
+                // if the socket connection is disconnected, show the disconnection message
+                this.#socket.on("disconnect", async () => {
+                    await this.#socketConnection(this.#CONN_DISCONNECT);
+                });
+            } catch (e) {
+                console.error(e);
+            }
+        })();
 
-        this.#socket.on("reconnect", async () => {
-            console.log("Socket reconnected");
-        });
 
-       // if the socket connection is connected, show the connection message
-        this.#socket.on("connect", async () => {
-            await this.#socketConnection(this.#CONN_CONNECTED);
-        });
-
-       // if the socket connection is disconnected, show the disconnection message
-        this.#socket.on("disconnect",  async () => {
-            await this.#socketConnection(this.#CONN_DISCONNECT);
-        });
     }
 
     /**
@@ -100,12 +89,12 @@ export class SocketController extends Controller {
         let template = this.#view.querySelector("#toast-template");
         let clone = template.content.cloneNode(true);
 
-        let textColor =  type === this.#CONN_DISCONNECT ? "text-danger" : "text-success";
+        let textColor = type === this.#CONN_DISCONNECT ? "text-danger" : "text-success";
 
         const current = new Date();
         const errTime = current.toLocaleTimeString("en-US");
 
-        clone.querySelector(".toast-type").innerHTML =  type === this.#CONN_DISCONNECT ? "ERROR" : "SUCCES";
+        clone.querySelector(".toast-type").innerHTML = type === this.#CONN_DISCONNECT ? "ERROR" : "SUCCES";
         clone.querySelector(".toast-type").classList.add(textColor);
         clone.querySelector(".toast-body").innerHTML = "server is " + (type === this.#CONN_DISCONNECT ? "offline" : "online");
         clone.querySelector(".toast-time").innerHTML = errTime;
@@ -114,7 +103,7 @@ export class SocketController extends Controller {
 
         this.#view.querySelectorAll(".toast-close").forEach(button => {
             button.addEventListener("click", (e) => {
-                e.target.parentElement.parentElement.remove()
+                e.target.parentElement.parentElement.remove();
             });
         });
     }

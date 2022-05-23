@@ -56,24 +56,25 @@ export class App {
                 new NavbarController();
                 break;
 
-            case App.CONTROLLER_LOGIN:
-                App.setCurrentController(name);
-                App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
-                break;
+            // case App.CONTROLLER_LOGIN:
+            //     App.setCurrentController(name);
+            //     // App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
+            //     break;
 
-            case App.CONTROLLER_LOGOUT:
-                App.setCurrentController(name);
-                App.handleLogout();
-                break;
+            // case App.CONTROLLER_LOGOUT:
+            //     App.setCurrentController(name);
+            //     App.handleLogout();
+            //     break;
 
             case App.CONTROLLER_WELCOME:
                 App.setCurrentController(name);
-                App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
+                // App.isLoggedIn(() => new WelcomeController(), () => new LoginController());
+                new WelcomeController();
                 break;
 
-            case App.CONTROLLER_UPLOAD:
-                App.isLoggedIn(() => new UploadController(),() => new LoginController());
-                break;
+            // case App.CONTROLLER_UPLOAD:
+            //     App.isLoggedIn(() => new UploadController(),() => new LoginController());
+            //     break;
 
             case App.CONTROLLER_CONSUMPTION:
                 App.setCurrentController(name);
@@ -93,6 +94,7 @@ export class App {
     static loadControllerFromUrl(fallbackController) {
         const currentController = App.getCurrentController();
 
+        console.log(currentController)
         if (currentController) {
             if (!App.loadController(currentController)) {
                 App.loadController(fallbackController);
