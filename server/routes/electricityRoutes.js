@@ -46,22 +46,21 @@ class ElectricityRoutes {
 
     /**
      * Method creates route for getting the weekly electricity data
-     *
-     * @returns {Promise<void>}
+     * @private
      */
     #getWeeklyData() {
         this.#app.get("/electricity/weekly", async (req, res) => {
             try {
                 const data = await this.#db.handleQuery({
                     query:
-                        "SELECT " +
-                        "time AS start, " +
-                        "YEARWEEK(time) AS week, " +
-                        "SUM(consumption / 4) AS consumption " +
-                        " FROM electricity " +
-                        "WHERE time BETWEEN ? AND ? " +
-                        "GROUP BY YEARWEEK(time) " +
-                        "ORDER BY time;",
+                        `SELECT 
+                         time AS start
+                         YEARWEEK(time) AS week
+                         SUM(consumption / 4) AS consumption
+                         FROM electricity 
+                         WHERE time BETWEEN ? AND ? 
+                         GROUP BY YEARWEEK(time) 
+                         ORDER BY time;`,
                     values: [this.#ELECTRA_START_DATETIME, this.#ELECTRA_END_DATETIME]
                 });
 

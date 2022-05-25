@@ -7,10 +7,12 @@
 import {NetworkManager} from "../framework/utils/networkManager.js";
 
 export class ElectricityRepository {
-    //# is a private field in Javascript
     #route
     #networkManager
 
+    /*
+     * Constructor for ElectricityRepository class
+     */
     constructor() {
         this.#route = "/electricity"
         this.#networkManager = new NetworkManager();
@@ -64,7 +66,12 @@ export class ElectricityRepository {
             })
     }
 
+    /**
+     * Async function to get the average electricity data via network manager
+     * @returns {Promise<*>}
+     */
     async getAverageData() {
-        return await this.#networkManager.doRequest(`${this.#route}/average`, 'GET');
+        return await this.#networkManager
+            .doRequest(`${this.#route}/average`, 'GET');
     }
 }

@@ -10,6 +10,9 @@ export class AreaConsumptionRepository {
     #route
     #networkManager
 
+    /**
+     * Constructor for Area Consumption Repository  class
+     */
     constructor() {
         this.#route = "/areas"
         this.#networkManager = new NetworkManager();

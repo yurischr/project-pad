@@ -20,8 +20,8 @@ export class SocketController extends Controller {
 
     /**
      * Constructor for the SocketController class
-     *
      * @param view - contains the view of the consumption page [<main>]
+     * @param env  - contains the environment of the application [<LOCAL>, <DEV>, <LIVE>]
      */
     constructor(view, env) {
         super();
@@ -30,7 +30,7 @@ export class SocketController extends Controller {
         (async () => {
             try {
                 // Initialize the socket connection
-                const socket = await io(this.#getBackendURL(env), {
+                const socket = io(this.#getBackendURL(env), {
                     transports: ['websocket']
                 });
 
@@ -45,26 +45,28 @@ export class SocketController extends Controller {
 
                 // if the socket connection is connected, show the connection message
                 this.#socket.on("connect", async () => {
+                    console.log("Socket connected");
                     await this.#socketConnection(this.#CONN_CONNECTED);
                 });
 
                 // if the socket connection is disconnected, show the disconnection message
                 this.#socket.on("disconnect", async () => {
+                    console.log("Socket disconnected");
+                    // this.#socket = null;
+                    // this.#socket.removeAllListeners();
                     await this.#socketConnection(this.#CONN_DISCONNECT);
                 });
             } catch (e) {
                 console.error(e);
             }
         })();
-
-
     }
 
     /**
      * Method returns the backend url based on the chosen environment
-     *
      * @param env        - the chosen environment - [<LOCAL_ENV>, <DEV_ENV>, <LIVE_ENV>]
      * @returns {string} - the backend url        - [<LOCAL_BACKEND_URL>, <DEV_BACKEND_URL>, <LIVE_BACKEND_URL>]
+     * @private
      */
     #getBackendURL(env) {
         switch (env) {
@@ -81,21 +83,20 @@ export class SocketController extends Controller {
 
     /**
      * Method to handle the socket connection message and show the message on the consumption page
-     *
      * @param type              - CONNECTED or DISCONNECTED
      * @returns {Promise<void>} - a promise that resolves when the message is shown
+     * @private
      */
     async #socketConnection(type) {
-        let template = this.#view.querySelector("#toast-template");
-        let clone = template.content.cloneNode(true);
-
-        let textColor = type === this.#CONN_DISCONNECT ? "text-danger" : "text-success";
-
         const current = new Date();
         const errTime = current.toLocaleTimeString("en-US");
 
-        clone.querySelector(".toast-type").innerHTML = type === this.#CONN_DISCONNECT ? "ERROR" : "SUCCES";
+        let template = this.#view.querySelector("#toast-template");
+        let clone = template.content.cloneNode(true);
+        let textColor = type === this.#CONN_DISCONNECT ? "text-danger" : "text-success";
+
         clone.querySelector(".toast-type").classList.add(textColor);
+        clone.querySelector(".toast-type").innerHTML = type === this.#CONN_DISCONNECT ? "ERROR" : "SUCCES";
         clone.querySelector(".toast-body").innerHTML = "server is " + (type === this.#CONN_DISCONNECT ? "offline" : "online");
         clone.querySelector(".toast-time").innerHTML = errTime;
 
@@ -107,5 +108,4 @@ export class SocketController extends Controller {
             });
         });
     }
-
 }

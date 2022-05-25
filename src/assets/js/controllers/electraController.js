@@ -70,6 +70,7 @@ export class ElectraController extends Controller {
             }
         }));
 
+        // When the info icon button is clicked the `handleModalClick` will be called
         this.#view.querySelectorAll(".modal-button").forEach(button =>
             button.addEventListener("click", async (event) => {
                 await this.#handleModalClick(event);
@@ -81,6 +82,7 @@ export class ElectraController extends Controller {
      * Method handles the click on the info  to show the modal
      * @param {object} event - The event object
      * @returns {Promise<void>}
+     * @private
      */
     async #handleModalClick(event) {
         const value = event.target.parentNode.value;
@@ -199,6 +201,7 @@ export class ElectraController extends Controller {
     /**
      * Function gets the electricity and gas data and adds the data to a doughnut chart
      * @param comparisonData - comparison data from selected period
+     * @private
      */
     #comparisonChart(comparisonData) {
         this.#view.querySelector('#chart').remove();

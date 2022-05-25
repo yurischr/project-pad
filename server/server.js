@@ -33,9 +33,19 @@ const io = require('socket.io')(http, {
     }
 })
 
-io.on("connection", socket => {
+let clients = {}
+
+io.on('connection', (socket) => {
+    clients[socket.id] = socket;
     console.log(socket.id)
+
+    // on disconnect remove the client from the list of clients
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+        delete clients[socket.id];
+    });
 })
+
 
 http.listen(SERVER_PORT, () => console.log(`\nPAD Framework server listening on port ${SERVER_PORT} for environment ${SERVER_ENVIRONMENT}!`));
 

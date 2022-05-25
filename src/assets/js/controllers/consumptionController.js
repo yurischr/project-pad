@@ -12,6 +12,9 @@ export class ConsumptionController extends Controller {
     #electricityRepository
     #consumptionView
 
+    /**
+     * Constructor for the consumption controller
+     */
     constructor() {
         super();
         this.#electricityRepository = new ElectricityRepository();
@@ -37,7 +40,7 @@ export class ConsumptionController extends Controller {
 
         await this.#handleDashboard();
 
-        // await new SocketController(this.#consumptionView, "LOCAL");
+        await new SocketController(this.#consumptionView, "LOCAL");
     }
 
     /**
@@ -86,6 +89,7 @@ export class ConsumptionController extends Controller {
 
     /**
      * Method calls the controller for the electra components and methods
+     * @returns {Promise<void>}
      * @private
      */
     async #handleDashboard() {
@@ -98,6 +102,7 @@ export class ConsumptionController extends Controller {
      * The Intersection Observer API observes changes in the intersection of a target element with an ancestor element
      * @returns {Promise<void>}
      * @private
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
      */
      #scrollEffect() {
         const rows = document.querySelectorAll('.scroll-effect');

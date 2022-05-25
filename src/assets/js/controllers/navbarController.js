@@ -13,10 +13,6 @@ export class NavbarController extends Controller {
     constructor() {
         super();
         this.#setupView();
-
-        console.log(App.getCurrentController())
-
-
     }
 
     /**
