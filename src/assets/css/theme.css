@@ -54,11 +54,13 @@
     --main-bg: #232F3F;
     --card-bg: #232F3F;
     --section-background: #232F3F;
-    --section-text-color: #ffffff;
-    --text-color: #ffffff;
+    --section-text-color: #849AA9;
     --shadow-color: rgba(0, 0, 0, 0.2);
     --table-row-bg-even: rgba(0, 80, 158, 0.2);
     --table-row-bg-odd: #222e3d;
-    --text-muted: #ffffff;
+    /*--text-color: #ffffff;*/
+    --text-color: #849AA9;
+    --header-text-color: #ffffff;
+    --text-muted: #849AA9;
 
 }

@@ -15,8 +15,11 @@
     border-radius: 10px;
     box-shadow: 0 5px 20px  rgba(0, 0, 0, 0.4);
     transform: rotateZ(5deg);
-    width: 55vw;
     z-index: 2;
+}
+
+.cu-dp-section {
+    margin-top: 5em;
 }
 
 .box-content {
@@ -37,18 +40,6 @@
     box-shadow: 0 5px 20px var(--shadow-color);
     width: 55vw;
     margin: auto;
-}
-
-@keyframes bgColorChange{
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
 }
 
 .input-date-1 {
@@ -125,4 +116,26 @@
 .negative {
     color: var(--card-low-percentage);
     font-weight: bold;
+}
+
+@keyframes bgColorChange{
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@media (max-width: 920px) {
+    .box-bottom {
+        width: 100%;
+    }
+
+    .datepicker-graph {
+        width: 100%;
+    }
 }

@@ -1,8 +1,18 @@
 body {
     background-color: var(--main-bg);
+    overflow-x: clip;
 }
 
-.nav-pills-box {
+.components-box {
+    height: 0;
+}
+
+.table-box {
+    height: 100vh;
+}
+
+.nav-pills-box,
+.charts-box{
     position: relative;
     z-index: -1;
 }
@@ -139,3 +149,4 @@ hr,
 #graph-section {
     scroll-margin: 15em;
 }
+

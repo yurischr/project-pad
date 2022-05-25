@@ -309,4 +309,8 @@ span.name {
     .left-section {
         margin-right: 0;
     }
+
+    .bm-card-number {
+        left: 210px;
+    }
 }

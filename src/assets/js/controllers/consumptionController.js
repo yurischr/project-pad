@@ -20,6 +20,8 @@ export class ConsumptionController extends Controller {
         this.#electricityRepository = new ElectricityRepository();
         this.#setupView();
 
+        document.title = "Verbruik | Het Scheepvaartmuseum";
+
         window.addEventListener('scroll', this.#scrollEffect);
     }
 
@@ -40,7 +42,18 @@ export class ConsumptionController extends Controller {
 
         await this.#handleDashboard();
 
-        await new SocketController(this.#consumptionView, "DEV");
+        // await new SocketController(this.#consumptionView, "DEV");
+    }
+
+    /**
+     * Method calls the controller for the electra components and methods
+     * @returns {Promise<void>}
+     * @private
+     */
+    async #handleDashboard() {
+        await this.#setupComponents();
+        App.setCurrentController("consumption");
+        new ElectraController(this.#consumptionView);
     }
 
     /**
@@ -85,17 +98,6 @@ export class ConsumptionController extends Controller {
         for (let modalButton of this.#consumptionView.querySelectorAll(".modal-button")) {
             await super.loadHtmlIntoCustomElement("html_views/components/modal-button.html", modalButton);
         }
-    }
-
-    /**
-     * Method calls the controller for the electra components and methods
-     * @returns {Promise<void>}
-     * @private
-     */
-    async #handleDashboard() {
-        await this.#setupComponents();
-        App.setCurrentController("consumption");
-        new ElectraController(this.#consumptionView);
     }
 
     /**

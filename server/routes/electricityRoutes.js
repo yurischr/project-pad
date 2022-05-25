@@ -54,8 +54,8 @@ class ElectricityRoutes {
                 const data = await this.#db.handleQuery({
                     query:
                         `SELECT 
-                         time AS start
-                         YEARWEEK(time) AS week
+                         time AS start,
+                         YEARWEEK(time) AS week,
                          SUM(consumption / 4) AS consumption
                          FROM electricity 
                          WHERE time BETWEEN ? AND ? 

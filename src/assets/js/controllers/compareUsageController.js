@@ -32,7 +32,16 @@ export class CompareUsageController extends Controller {
             css: [
                 'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.1.3/dist/index.css',
             ],
-            plugins: ['RangePlugin', 'LockPlugin'],
+            plugins: ['RangePlugin', 'LockPlugin', 'AmpPlugin'],
+            AmpPlugin: {
+                dropdown: {
+                    months: true,
+                    years: true,
+                    minYear: 2018
+                },
+                resetButton: true,
+                darkMode: false
+            },
             RangePlugin: {
                 tooltipNumber(num) {
                     return num - 1;

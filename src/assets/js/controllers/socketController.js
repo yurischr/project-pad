@@ -31,7 +31,7 @@ export class SocketController extends Controller {
             try {
                 // Initialize the socket connection
                 const socket = io(this.#getBackendURL(env), {
-                    resource: "/api/socket.io/",
+                    path: "/api/socket.io/",
                     transports: ['websocket']
                 });
 

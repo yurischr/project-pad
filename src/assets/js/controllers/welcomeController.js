@@ -17,6 +17,8 @@ export class WelcomeController extends Controller{
         super();
         this.#roomExampleRepository = new RoomsExampleRepository();
 
+        document.title = "Home | Het Scheepvaartmuseum";
+
         this.#setupView();
     }
 

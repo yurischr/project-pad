@@ -9,8 +9,6 @@ export class Controller {
     #navigationViewHtml
 
     constructor() {
-        document.title = "Home | Het Scheepvaartmuseum";
-
         //within the templateContent the HTML will be loaded
         this.#contentViewHtml = document.querySelector(".content");
         this.#navigationViewHtml = document.querySelector(".navigation");
