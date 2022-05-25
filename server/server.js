@@ -33,6 +33,7 @@ const io = require('socket.io')(http, {
     }
 })
 
+console.log(io)
 let clients = {}
 
 io.on('connection', (socket) => {
