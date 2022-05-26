@@ -241,34 +241,14 @@ export class ElectraController extends Controller {
         const graph = document.querySelector("#graph");
         const dailyData = this.#electricityRepository.getDailyData();
         let dailyConsumption = [];
+        let startOfDailyData = 1521;
+        let amountOfDays = 7;
 
-        dailyConsumption[0] = await dailyData.then(function (results) {
-                return results.data[1521].consumption;
-        });
-
-        dailyConsumption[1] = await dailyData.then(function (results) {
-            return results.data[1522].consumption;
-        });
-
-        dailyConsumption[2] = await dailyData.then(function (results) {
-            return results.data[1523].consumption;
-        });
-
-        dailyConsumption[3] = await dailyData.then(function (results) {
-            return results.data[1524].consumption;
-        });
-
-        dailyConsumption[4] = await dailyData.then(function (results) {
-            return results.data[1525].consumption;
-        });
-
-        dailyConsumption[5] = await dailyData.then(function (results) {
-            return results.data[1526].consumption;
-        });
-
-        dailyConsumption[6] = await dailyData.then(function (results) {
-            return results.data[1527].consumption;
-        });
+        for (let i = 0; i < amountOfDays; i++) {
+            dailyConsumption[i] = await dailyData.then(function (results) {
+                return results.data[i + startOfDailyData].consumption;
+            });
+        }
 
         const myChart = new Chart(graph, {
             type: 'line',
