@@ -256,7 +256,7 @@ export class ElectraController extends Controller {
                 labels: ['02-03-2022', '03-03-2022', '04-03-2022', '05-03-2022', '06-03-2022', '07-03-2022', '08-03-2022'],
                 datasets: [{
                     label: 'Verbruik (kWh)',
-                    data: [dailyConsumption[0], dailyConsumption[1], dailyConsumption[2], dailyConsumption[3], dailyConsumption[4], dailyConsumption[5], dailyConsumption[6]],
+                    data: dailyConsumption,
                     fill: true,
                     backgroundColor: [
                         'rgba(0,97,194,0.4)'
@@ -291,7 +291,7 @@ export class ElectraController extends Controller {
                 labels: ['2022 - Week 7', '2022 - Week 8', '2022 - Week 9', '2022 - Week 10'],
                 datasets: [{
                     label: 'Verbruik (kWh)',
-                    data: [weeklyConsumption[0], weeklyConsumption[1], weeklyConsumption[2], weeklyConsumption[3]],
+                    data: weeklyConsumption,
                     fill: true,
                     backgroundColor: [
                         'rgba(0,97,194,0.4)'
@@ -325,7 +325,7 @@ export class ElectraController extends Controller {
                 labels: ['January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021', 'June 2021', 'July 2021', 'August 2021', 'September 2021', 'October 2021', 'November 2021', 'December 2021'],
                 datasets: [{
                     label: 'Verbruik (kWh)',
-                    data: [monthlyConsumption[0], monthlyConsumption[1], monthlyConsumption[2], monthlyConsumption[3], monthlyConsumption[4], monthlyConsumption[5], monthlyConsumption[6], monthlyConsumption[7], monthlyConsumption[8], monthlyConsumption[9], monthlyConsumption[10], monthlyConsumption[11]],
+                    data: monthlyConsumption,
                     fill: true,
                     backgroundColor: [
                         'rgba(0,97,194,0.4)'
@@ -359,7 +359,7 @@ export class ElectraController extends Controller {
                 labels: ['2018', '2019', '2020', '2021'],
                 datasets: [{
                     label: 'Verbruik (kWh)',
-                    data: [yearlyConsumption[0], yearlyConsumption[1], yearlyConsumption[2], yearlyConsumption[3]],
+                    data: yearlyConsumption,
                     fill: true,
                     backgroundColor: [
                         'rgba(0,97,194,0.4)'
