@@ -32,7 +32,7 @@ export class SocketController extends Controller {
         (async () => {
             try {
                 // Initialize the socket connection
-                const socket = io(this.#getBackendURL(env), {
+                const socket = io(baseUrl, {
                     path: "/api/socket.io/",
                     transports: ['websocket']
                 });
