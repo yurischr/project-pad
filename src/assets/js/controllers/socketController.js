@@ -27,6 +27,8 @@ export class SocketController extends Controller {
         super();
         this.#view = view;
 
+        console.log(baseUrl);
+
         (async () => {
             try {
                 // Initialize the socket connection
