@@ -25,6 +25,7 @@ const app = require("./app");
 
 const http = require('http').Server(app)
 const io = require('socket.io')(http, {
+    path: "/socket-conn/",
     cors: {
         origin: [
             'http://localhost:63342',

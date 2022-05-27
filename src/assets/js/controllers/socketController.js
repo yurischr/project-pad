@@ -27,12 +27,14 @@ export class SocketController extends Controller {
         super();
         this.#view = view;
 
-        console.log(baseUrl);
-
         (async () => {
             try {
+                let url = baseUrl + "/socket.io/";
+
+                console.log(location.port)
                 // Initialize the socket connection
                 const socket = io(baseUrl, {
+                    path: "/socket-conn/",
                     transports: ['websocket']
                 });
 
