@@ -210,11 +210,18 @@ export class ElectraController extends Controller {
         const electricity = comparisonData.data['electricity'];
         const gas = comparisonData.data['gas'];
 
+
+        const co2EmissionFactorElectricity = 0.649;
+        const co2EmissionFactorGas = 1.89;
+
+        const co2ElectricityUsage = electricity * co2EmissionFactorElectricity;
+        const co2GasUsage = gas * co2EmissionFactorGas;
+
         const data = {
             labels: ['Elektriciteit', 'Gas'],
             datasets: [{
                 label: 'Verbruik',
-                data: [electricity, gas],
+                data: [co2ElectricityUsage, co2GasUsage],
                 backgroundColor: [
                     'rgba(0, 74, 143, 0.5)',
                     '#004A8F'
