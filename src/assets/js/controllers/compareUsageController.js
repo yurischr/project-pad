@@ -96,6 +96,7 @@ export class CompareUsageController extends Controller {
             dataArray[i] = data.data[i].consumption
         }
 
+
         this.#view.querySelector('#graph-datepicker').remove();
         this.#view.querySelector('.datepicker-graph').insertAdjacentHTML("beforeend", '<canvas id="graph-datepicker" width="400" height="175">' +
             '</canvas>');
@@ -115,8 +116,15 @@ export class CompareUsageController extends Controller {
                     borderColor: '#0063c3',
                     tension: 0.4,
                 }]
+            },
+            options:{
+                onClick: this.#graphClickEvent
             }
         });
+    }
+
+    #graphClickEvent(event, array){
+        console.log(event)
     }
 
     /**
