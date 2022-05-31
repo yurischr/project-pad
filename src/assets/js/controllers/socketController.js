@@ -10,13 +10,6 @@ export class SocketController extends Controller {
     #socket
     #CONN_DISCONNECT = "DISCONNECTED";
     #CONN_CONNECTED = "CONNECTED";
-    #LOCAL_ENV = "LOCAL";
-    #DEV_ENV = "DEV";
-    #LIVE_ENV = "LIVE";
-    //! REPLACE URLS TO A DOTENV FILE
-    #LOCAL_BACKEND_URL = "http://localhost:3000";
-    #DEV_BACKEND_URL = "https://dev-svm-3.hbo-ict.cloud";
-    #LIVE_BACKEND_URL = "https://svm-3.hbo-ict.cloud/api/";
 
     /**
      * Constructor for the SocketController class
@@ -30,12 +23,11 @@ export class SocketController extends Controller {
         (async () => {
             try {
                 // Initialize the socket connection
-                const socket = io("https://localhost:8080", {
-                    path: "/socket-conn/",
+                // TODO: create connection to the dev backend
+                const socket = io(baseUrl, {
+                    // path: "/api/socket-conn",
                     transports: ['websocket']
                 });
-
-                console.log(socket)
 
                 this.#socket = socket;
 
@@ -48,40 +40,17 @@ export class SocketController extends Controller {
 
                 // if the socket connection is connected, show the connection message
                 this.#socket.on("connect", async () => {
-                    console.log("Socket connected");
                     await this.#socketConnection(this.#CONN_CONNECTED);
                 });
 
                 // if the socket connection is disconnected, show the disconnection message
                 this.#socket.on("disconnect", async () => {
-                    console.log("Socket disconnected");
-                    // this.#socket = null;
-                    // this.#socket.removeAllListeners();
                     await this.#socketConnection(this.#CONN_DISCONNECT);
                 });
             } catch (e) {
                 console.error(e);
             }
         })();
-    }
-
-    /**
-     * Method returns the backend url based on the chosen environment
-     * @param env        - the chosen environment - [<LOCAL_ENV>, <DEV_ENV>, <LIVE_ENV>]
-     * @returns {string} - the backend url        - [<LOCAL_BACKEND_URL>, <DEV_BACKEND_URL>, <LIVE_BACKEND_URL>]
-     * @private
-     */
-    #getBackendURL(env) {
-        switch (env) {
-            case this.#LOCAL_ENV:
-                return this.#LOCAL_BACKEND_URL;
-            case this.#DEV_ENV:
-                return this.#DEV_BACKEND_URL;
-            case this.#LIVE_ENV:
-                return this.#LIVE_BACKEND_URL;
-            default:
-                return this.#LOCAL_BACKEND_URL;
-        }
     }
 
     /**

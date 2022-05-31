@@ -57,4 +57,30 @@ app.get("*", (req, res) => {
 
 //------- END ROUTES -------
 
-module.exports = app;
+function listen(port, callback) {
+    const server = app.listen(port, callback);
+
+    initializeSocketIO(server);
+}
+
+function initializeSocketIO(server) {
+    const io = require('socket.io').listen(server);
+
+        let clients = {}
+
+        io.on('connection', (socket) => {
+            clients[socket.id] = socket;
+            console.log(socket.id)
+
+            // on disconnect remove the client from the list of clients
+            socket.on('disconnect', () => {
+                console.log('user disconnected');
+                delete clients[socket.id];
+            });
+        });
+}
+
+
+module.exports = {
+    listen: listen
+};
