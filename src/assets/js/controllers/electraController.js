@@ -92,13 +92,11 @@ export class ElectraController extends Controller {
         if (chartType === "cc-chart") {
             this.#view.querySelector(".modal-content-custom").style.display = "none";
             this.#view.querySelector(".modal-explanation").style.display = "block";
-
-            this.#view.querySelector(".modal-explanation").innerHTML = "Wist je dat het scheepvaartmuseum bijna geen gas verbruikt!";
-        } else  {
+        } else {
             this.#view.querySelector(".modal-content-custom").style.display = "block";
             this.#view.querySelector(".modal-explanation").style.display = "none";
 
-            const treeCompensateCalc =  (value * this.#CO2_KG) / this.#CO2_TREE_CONSUMPTION_KG;
+            const treeCompensateCalc = (value * this.#CO2_KG) / this.#CO2_TREE_CONSUMPTION_KG;
 
             this.#view.querySelector(".modal-consumption-value").innerHTML = `${value} kWh`;
             this.#view.querySelector(".modal-tree-value").innerHTML = treeCompensateCalc.toFixed();
@@ -167,7 +165,7 @@ export class ElectraController extends Controller {
             for (let row in data.data) {
                 let clone = template.content.cloneNode(true);
 
-                let treeCompensateCalc =  (data.data[row]['consumption'] * this.#CO2_KG) / this.#CO2_TREE_CONSUMPTION_KG;
+                let treeCompensateCalc = (data.data[row]['consumption'] * this.#CO2_KG) / this.#CO2_TREE_CONSUMPTION_KG;
 
                 clone.querySelector(".time").textContent = data.data[row][selector];
                 clone.querySelector(".data").textContent = data.data[row]['consumption'];
@@ -210,11 +208,18 @@ export class ElectraController extends Controller {
         const electricity = comparisonData.data['electricity'];
         const gas = comparisonData.data['gas'];
 
+
+        const co2EmissionFactorElectricity = 0.649;
+        const co2EmissionFactorGas = 1.89;
+
+        const co2ElectricityUsage = electricity * co2EmissionFactorElectricity;
+        const co2GasUsage = gas * co2EmissionFactorGas;
+
         const data = {
             labels: ['Elektriciteit', 'Gas'],
             datasets: [{
                 label: 'Verbruik',
-                data: [electricity, gas],
+                data: [co2ElectricityUsage, co2GasUsage],
                 backgroundColor: [
                     'rgba(0, 74, 143, 0.5)',
                     '#004A8F'
