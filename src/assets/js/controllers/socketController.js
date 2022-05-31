@@ -30,7 +30,7 @@ export class SocketController extends Controller {
         (async () => {
             try {
                 // Initialize the socket connection
-                const socket = io("https://dev-svm-3.hbo-ict.cloud:8080", {
+                const socket = io("https://localhost:8080", {
                     path: "/api/socket-conn/",
                     transports: ['websocket']
                 });
