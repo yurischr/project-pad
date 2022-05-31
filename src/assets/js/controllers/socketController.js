@@ -15,7 +15,7 @@ export class SocketController extends Controller {
     #LIVE_ENV = "LIVE";
     //! REPLACE URLS TO A DOTENV FILE
     #LOCAL_BACKEND_URL = "http://localhost:3000";
-    #DEV_BACKEND_URL = "https://dev-svm-3.hbo-ict.cloud:8080";
+    #DEV_BACKEND_URL = "https://dev-svm-3.hbo-ict.cloud";
     #LIVE_BACKEND_URL = "https://svm-3.hbo-ict.cloud/api/";
 
     /**
@@ -29,12 +29,9 @@ export class SocketController extends Controller {
 
         (async () => {
             try {
-                let url = baseUrl + "/socket.io/";
-
-                console.log(location.port)
                 // Initialize the socket connection
-                const socket = io(baseUrl, {
-                    path: "/socket-conn/",
+                const socket = io("https://dev-svm-3.hbo-ict.cloud:8080", {
+                    path: "/api/socket-conn/",
                     transports: ['websocket']
                 });
 

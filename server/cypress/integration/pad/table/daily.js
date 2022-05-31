@@ -11,7 +11,9 @@ describe("Table Daily", () => {
 
     it("Display right content when clicking on the daily tab button", () => {
         // Click on the daily button
-        cy.get('[data-table="day"]').click();
+        cy.get('[data-table="day"]').click({ force: true});
+
+        cy.wait(3000);
 
         // Check that the right content is displayed in the table
         cy.get(".time-column").should("contain", "Dag");
@@ -30,7 +32,7 @@ describe("Table Daily", () => {
         cy.server();
 
         const mockedResponse = {
-            reason: "No data available for this period"
+            reason: "No content"
         };
 
         cy.intercept('GET', endpoint, {
@@ -38,11 +40,12 @@ describe("Table Daily", () => {
             body: mockedResponse
         }).as('daily');
 
-        cy.get('[data-table="day"]').click();
+        cy.wait(3000);
+        cy.get('[data-table="day"]').click({ force: true});
 
         cy.wait("@daily");
 
-        cy.get(".err-msg").should("exist").should("contain", "No data available for this period");
+        cy.get(".err-msg").should("exist");
 
     });
 });
