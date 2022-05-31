@@ -249,10 +249,17 @@ export class ElectraController extends Controller {
         this.#clearGraph();
         const graph = document.querySelector("#graph");
         const dailyData = this.#electricityRepository.getDailyData();
+        let days = [];
         let dailyConsumption = [];
 
         const dailyDataLength = await this.#electricityRepository.getDailyData();
         const startOfDailyData = dailyDataLength.data.length - this.#amountOfDaysGraph;
+
+        for (let i = 0; i < this.#amountOfDaysGraph; i++) {
+            days[i] = await dailyData.then(function (results) {
+                return results.data[i + startOfDailyData].day;
+            });
+        }
 
         for (let i = 0; i < this.#amountOfDaysGraph; i++) {
             dailyConsumption[i] = await dailyData.then(function (results) {
@@ -263,7 +270,7 @@ export class ElectraController extends Controller {
         const myChart = new Chart(graph, {
             type: 'line',
             data: {
-                labels: ['02-03-2022', '03-03-2022', '04-03-2022', '05-03-2022', '06-03-2022', '07-03-2022', '08-03-2022'],
+                labels: days,
                 datasets: [{
                     label: 'Verbruik (kWh)',
                     data: dailyConsumption,
@@ -285,10 +292,17 @@ export class ElectraController extends Controller {
         this.#clearGraph();
         const graph = document.querySelector("#graph");
         const weeklyData = this.#electricityRepository.getWeeklyData();
+        let weeks = [];
         let weeklyConsumption = [];
 
         const weeklyDataLength = await this.#electricityRepository.getWeeklyData();
         const startOfWeeklyData = weeklyDataLength.data.length - this.#amountOfWeeksGraph;
+
+        for (let i = 0; i < this.#amountOfWeeksGraph; i++) {
+            weeks[i] = await weeklyData.then(function (results) {
+                return results.data[i + startOfWeeklyData].week;
+            });
+        }
 
         for (let i = 0; i < this.#amountOfWeeksGraph; i++) {
             weeklyConsumption[i] = await weeklyData.then(function (results) {
@@ -299,7 +313,7 @@ export class ElectraController extends Controller {
         const myChart = new Chart(graph, {
             type: 'line',
             data: {
-                labels: ['2022 - Week 7', '2022 - Week 8', '2022 - Week 9', '2022 - Week 10'],
+                labels: weeks,
                 datasets: [{
                     label: 'Verbruik (kWh)',
                     data: weeklyConsumption,
@@ -321,10 +335,17 @@ export class ElectraController extends Controller {
         this.#clearGraph();
         const graph = document.querySelector("#graph");
         const monthlyData = this.#electricityRepository.getMonthlyData();
+        let months = [];
         let monthlyConsumption = [];
 
         const monthlyDataLength = await this.#electricityRepository.getMonthlyData();
         const startOfMonthlyData = monthlyDataLength.data.length - this.#amountOfMonthsGraph;
+
+        for (let i = 0; i < this.#amountOfMonthsGraph; i++) {
+            months[i] = await monthlyData.then(function (results) {
+                return "2021 - " + results.data[i].maand;
+            });
+        }
 
         for (let i = 0; i < this.#amountOfMonthsGraph; i++) {
             monthlyConsumption[i] = await monthlyData.then(function (results) {
@@ -335,7 +356,7 @@ export class ElectraController extends Controller {
         const myChart = new Chart(graph, {
             type: 'line',
             data: {
-                labels: ['January 2021', 'February 2021', 'March 2021', 'April 2021', 'May 2021', 'June 2021', 'July 2021', 'August 2021', 'September 2021', 'October 2021', 'November 2021', 'December 2021'],
+                labels: months,
                 datasets: [{
                     label: 'Verbruik (kWh)',
                     data: monthlyConsumption,
@@ -357,10 +378,17 @@ export class ElectraController extends Controller {
         this.#clearGraph();
         const graph = document.querySelector("#graph");
         const yearlyData = this.#electricityRepository.getYearlyData();
+        let years = [];
         let yearlyConsumption = [];
 
         const yearlyDataLength = await this.#electricityRepository.getYearlyData();
         const startOfYearlyData = yearlyDataLength.data.length - this.#amountOfYearsGraph;
+
+        for (let i = 0; i < this.#amountOfYearsGraph; i++) {
+            years[i] = await yearlyData.then(function (results) {
+                return results.data[i].year;
+            });
+        }
 
         for (let i = 0; i < this.#amountOfYearsGraph; i++) {
             yearlyConsumption[i] = await yearlyData.then(function (results) {
@@ -371,7 +399,7 @@ export class ElectraController extends Controller {
         const myChart = new Chart(graph, {
             type: 'line',
             data: {
-                labels: ['2018', '2019', '2020', '2021'],
+                labels: years,
                 datasets: [{
                     label: 'Verbruik (kWh)',
                     data: yearlyConsumption,
