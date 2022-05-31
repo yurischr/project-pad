@@ -33,34 +33,25 @@ export class RealtimeController extends Controller {
         const roundedMinutes = (Math.round(min / 15) * 15) % 60
 
         const formattedElectricityDate = `${yyyy}-${mm}-${dd} ${hh}:${roundedMinutes}`
-        const formattedGasDate = `${yyyy}-${mm}-${dd}`
 
         const electricityData = await this.#realtimeRepository.getElectricityData(formattedElectricityDate);
-        const gasData = await this.#realtimeRepository.getGassData(formattedGasDate)
-
-        this.#view.querySelector("#current-date").innerHTML = formattedGasDate
 
         this.#view.querySelector("#realtime-electra-data").innerHTML = electricityData.data[0]['consumption'] + "kWh";
-        this.#view.querySelector("#realtime-gas-data").innerHTML = gasData.data[0]['usage'] + "m³";
-
 
         const realtimeElectricity = electricityData.data[0]['consumption']
-        const realtimeGas = gasData.data[0]['usage']
 
         // Adds the electricity + gas data to the value of the realtime card button for electricity
         this.#view.querySelector(".rt-electra button").value = realtimeElectricity;
-        this.#view.querySelector(".rt-gas button").value = realtimeGas
 
         // set the dataset of consumption type to the buttons
-        this.#view.querySelector(".rt-gas button").dataset.consumption = "gas";
         this.#view.querySelector(".rt-electra button").dataset.consumption = "electricity";
 
-        this.#calculateDifference(realtimeElectricity, realtimeGas)
+        this.#calculateDifference(realtimeElectricity)
         this.#satisfactionPercentage(electricityData.data[0]['consumption'])
 
     }
 
-    async #calculateDifference(realtimeElectricity, realtimeGas) {
+    async #calculateDifference(realtimeElectricity) {
         const electricity = this.#view.querySelector(".electricity-difference")
         const average = await this.#electricityRepository.getAverageData()
 
