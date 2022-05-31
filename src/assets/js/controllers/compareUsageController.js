@@ -66,14 +66,6 @@ export class CompareUsageController extends Controller {
 
     }
 
-    // #getDaysArray = function(start, end) {
-    //     for(var arr=[],dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
-    //         arr.push(new Date(dt).toISOString().split('T')[0]);
-    //     }
-    //     // console.log(arr);
-    //     this.#graphDatepicker(arr);
-    // };
-
     /**
      * Creates a graph based on data from chosen dates in the datepicker
      * @param startDate - start date
