@@ -31,7 +31,7 @@ export class SocketController extends Controller {
             try {
                 // Initialize the socket connection
                 const socket = io("https://localhost:8080", {
-                    path: "/api/socket-conn/",
+                    path: "/socket-conn/",
                     transports: ['websocket']
                 });
 
