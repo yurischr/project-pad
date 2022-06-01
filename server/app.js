@@ -65,19 +65,19 @@ function listen(port, callback) {
 
 function initializeSocketIO(server) {
     const io = require('socket.io').listen(server);
+    let clients = {}
 
-        let clients = {}
+    io.on('connection', (socket) => {
+        clients[socket.id] = socket;
+        console.log(socket.id);
+        console.log(socket.handshake.headers.referer);
 
-        io.on('connection', (socket) => {
-            clients[socket.id] = socket;
-            console.log(socket.id)
-
-            // on disconnect remove the client from the list of clients
-            socket.on('disconnect', () => {
-                console.log('user disconnected');
-                delete clients[socket.id];
-            });
+        // on disconnect remove the client from the list of clients
+        socket.on('disconnect', () => {
+            console.log('user disconnected');
+            delete clients[socket.id];
         });
+    });
 }
 
 
