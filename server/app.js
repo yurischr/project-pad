@@ -70,7 +70,6 @@ function initializeSocketIO(server) {
     io.on('connection', (socket) => {
         clients[socket.id] = socket;
         console.log(socket.id);
-        console.log(socket.handshake.headers.referer);
 
         // on disconnect remove the client from the list of clients
         socket.on('disconnect', () => {
