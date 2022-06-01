@@ -29,7 +29,8 @@ export class SocketController extends Controller {
                 //     transports: ['websocket']
                 // });
 
-                const socket = io(socketUrl, { path: socketPath });
+                console.log(serverPort)
+                const socket = io("https://dev-svm-3.hbo-ict.cloud", { path: "/api/socket.io" });
 
                 this.#socket = socket;
 
