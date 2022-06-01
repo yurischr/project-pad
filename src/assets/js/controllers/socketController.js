@@ -24,10 +24,12 @@ export class SocketController extends Controller {
             try {
                 // Initialize the socket connection
                 // TODO: create connection to the dev backend
-                const socket = io(baseUrl, {
-                    // path: "/api/socket-conn",
-                    transports: ['websocket']
-                });
+                // const socket = io(baseUrl, {
+                //     // path: "/api/socket-conn",
+                //     transports: ['websocket']
+                // });
+
+                const socket = io(socketUrl, { path: socketPath });
 
                 this.#socket = socket;
 
