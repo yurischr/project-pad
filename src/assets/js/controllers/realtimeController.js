@@ -75,13 +75,15 @@ export class RealtimeController extends Controller {
         const iconsFolder = 'assets/images/icons';
 
         const averageElectricityData = await this.#electricityRepository.getAverageData();
-        let percentage = ((averageElectricityData.data[0]['averageConsumption'] / currentElectricityUsage) * 100).toFixed(0);
-        if (percentage > 100) {
-            percentage = 100;
+        let percentage = (( currentElectricityUsage / averageElectricityData.data[0]['averageConsumption']) * 100).toFixed(0);
+        if (percentage > 200) {
+            percentage = 200;
         }
-        const rotateDegree = 45 + (percentage * 1.8);
+        const rotateDegree = 45 + ((percentage / 2) * 1.8);
 
         percentageBar.style.transform = `rotate(${rotateDegree}deg)`;
+
+        const percentageDifference = ((currentElectricityUsage / averageElectricityData.data[0]['averageConsumption']) * 100) - 100;
         percentageCount.innerHTML = `${percentage}%`;
 
         if (percentage < 50) {
