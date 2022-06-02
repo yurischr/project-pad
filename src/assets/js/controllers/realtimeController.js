@@ -57,14 +57,16 @@ export class RealtimeController extends Controller {
 
         const electricityDifference = ((realtimeElectricity / average.data[0]['averageConsumption']) * 100) - 100;
 
+        electricity.classList.remove("positive", "negative")
+
         if (electricityDifference >= 0) {
             //changes result color to red
-            electricity.classList.add("positive");
+            electricity.classList.add("negative");
             electricity.innerHTML = "+" + Math.round(electricityDifference * 100) / 100 + "%"
             return;
         }
         //changes result color to green
-        electricity.classList.add("negative");
+        electricity.classList.add("positive");
         electricity.innerHTML = Math.round(electricityDifference * 100) / 100 + "%"
      }
 
