@@ -88,9 +88,9 @@ export class RealtimeController extends Controller {
         const percentageDifference = ((currentElectricityUsage / averageElectricityData.data[0]['averageConsumption']) * 100) - 100;
         percentageCount.innerHTML = `${percentage}%`;
 
-        if (percentage < 50) {
+        if (percentage > 125) {
             setSatisfactionIcon('sad-icon.png');
-        } else if (percentage >= 50 && percentage < 70) {
+        } else if (percentage >= 80 && percentage < 125) {
             setSatisfactionIcon('neutral-icon.png');
         } else {
             setSatisfactionIcon('happy-icon.png');
@@ -100,4 +100,6 @@ export class RealtimeController extends Controller {
             satisfactionIcon.src = `${iconsFolder}/${iconName}`;
         }
     }
+
+
 }
