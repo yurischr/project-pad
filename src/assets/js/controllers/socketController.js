@@ -25,8 +25,7 @@ export class SocketController extends Controller {
                 // Initialize the socket connection
                 let socket = io(socketUrl, {
                     path: socketPath,
-                    transports: ['websocket'],
-                    rejectUnauthorized: false
+                    transports: ['websocket']
                 });
                 // curl "https://dev-svm-3.hbo-ict.cloud/api/socket.io/?EIO=4&transport=polling"
 
