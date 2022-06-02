@@ -25,7 +25,8 @@ export class SocketController extends Controller {
                 // Initialize the socket connection
                 let socket = io(socketUrl, {
                     path: socketPath,
-                    transports: ['websocket']
+                    transports: ['websocket'],
+                    rejectUnauthorized: false
                 });
                 // curl "https://dev-svm-3.hbo-ict.cloud/api/socket.io/?EIO=4&transport=polling"
 
@@ -39,7 +40,7 @@ export class SocketController extends Controller {
                 }, 3000);
 
                 this.#socket.on('connect_error', (err) => {
-                    console.log('you have been reconnected ' + err);
+                    console.log(err);
                 });
 
                 this.#socket.on("error", (err) => {
