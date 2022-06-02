@@ -42,6 +42,9 @@ export class SocketController extends Controller {
                     console.log('you have been reconnected ' + err);
                 });
 
+                this.#socket.on("error", (err) => {
+                    console.log(err);
+                });
 
                 // if the socket connection is connected, show the connection message
                 this.#socket.on("connect", async () => {

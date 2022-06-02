@@ -67,6 +67,10 @@ function initializeSocketIO(server) {
     const io = require('socket.io').listen(server);
     let clients = {}
 
+    io.on("error", (err) => {
+        console.log(err);
+    });
+
     io.on('connection', (socket) => {
         clients[socket.id] = socket;
         console.log(socket)
@@ -75,7 +79,6 @@ function initializeSocketIO(server) {
         io.to(socket.id).emit('user connected', {
             id: socket.id
         });
-
 
         // socket.emit('user connected', {
         //     id: socket.id
