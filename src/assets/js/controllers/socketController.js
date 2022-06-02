@@ -36,15 +36,21 @@ export class SocketController extends Controller {
                     if (!this.#socket.connected) {
                         await this.#socketConnection(this.#CONN_DISCONNECT);
                     }
-                }, 1000);
+                }, 3000);
 
                 // if the socket connection is connected, show the connection message
                 this.#socket.on("connect", async () => {
+                    console.log("Socket connected");
+                    socket.on('user connected', (data) => {
+                        console.table(data);
+                    });
+
                     await this.#socketConnection(this.#CONN_CONNECTED);
                 });
 
                 // if the socket connection is disconnected, show the disconnection message
                 this.#socket.on("disconnect", async () => {
+                    console.log("Socket disconnected");
                     await this.#socketConnection(this.#CONN_DISCONNECT);
                 });
             } catch (e) {
