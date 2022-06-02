@@ -20,11 +20,4 @@ export class RealtimeRepository {
             });
     }
 
-    async getGassData(currentDay) {
-        return await this.#networkManager
-            .doRequest(`${this.#route}/gas`, "POST", {
-                "realtime" : currentDay
-            })
-    }
-
 }
