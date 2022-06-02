@@ -23,31 +23,6 @@ global.wwwrootPath = process.env.WWWROOT || "../src/";
 
 const app = require("./app");
 
-// const http = require('http').Server(app)
-// const io = require('socket.io')(http, {
-//     path: "/socket-conn/",
-//     cors: {
-//         origin: [
-//             'http://localhost:63342',
-//             'https://dev-svm-3.hbo-ict.cloud'
-//         ]
-//     }
-// })
-//
-// let clients = {}
-//
-// io.on('connection', (socket) => {
-//     clients[socket.id] = socket;
-//     console.log(socket.id)
-//
-//     // on disconnect remove the client from the list of clients
-//     socket.on('disconnect', () => {
-//         console.log('user disconnected');
-//         delete clients[socket.id];
-//     });
-// })
-
-
 app.listen(SERVER_PORT, () => console.log(`\nPAD Framework server listening on port ${SERVER_PORT} for environment ${SERVER_ENVIRONMENT}!`));
 
 

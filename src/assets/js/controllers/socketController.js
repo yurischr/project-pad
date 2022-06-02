@@ -26,7 +26,6 @@ export class SocketController extends Controller {
                 let socket = io(socketUrl, {
                     path: socketPath
                 });
-                // curl "https://dev-svm-3.hbo-ict.cloud/api/socket.io/?EIO=4&transport=polling"
 
                 this.#socket = socket;
 
@@ -37,28 +36,13 @@ export class SocketController extends Controller {
                     }
                 }, 3000);
 
-                this.#socket.on('connect_error', (err) => {
-                    console.log(err);
-                });
-
-                this.#socket.on("error", (err) => {
-                    console.log(err);
-                });
-
                 // if the socket connection is connected, show the connection message
                 this.#socket.on("connect", async () => {
-                    console.log("Socket connected");
-
-                    socket.on('user connected', (data) => {
-                        console.table(data);
-                    });
-
                     await this.#socketConnection(this.#CONN_CONNECTED);
                 });
 
                 // if the socket connection is disconnected, show the disconnection message
                 this.#socket.on("disconnect", async () => {
-                    console.log("Socket disconnected");
                     await this.#socketConnection(this.#CONN_DISCONNECT);
                 });
             } catch (e) {
