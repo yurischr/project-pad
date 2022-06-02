@@ -38,8 +38,8 @@ export class SocketController extends Controller {
                     }
                 }, 3000);
 
-                this.#socket.on('reconnect', () => {
-                    console.log('you have been reconnected');
+                this.#socket.on('connect_error', (err) => {
+                    console.log('you have been reconnected ' + err);
                 });
 
 
