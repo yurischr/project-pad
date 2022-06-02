@@ -24,7 +24,7 @@ export class SocketController extends Controller {
             try {
                 // Initialize the socket connection
                 let socket = io(socketUrl, {
-                    path: socketPath ,
+                    path: socketPath,
                     transports: ['websocket']
                 });
                 // curl "https://dev-svm-3.hbo-ict.cloud/api/socket.io/?EIO=4&transport=polling"
@@ -37,6 +37,11 @@ export class SocketController extends Controller {
                         await this.#socketConnection(this.#CONN_DISCONNECT);
                     }
                 }, 3000);
+
+                this.#socket.on('reconnect', () => {
+                    console.log('you have been reconnected');
+                });
+
 
                 // if the socket connection is connected, show the connection message
                 this.#socket.on("connect", async () => {
