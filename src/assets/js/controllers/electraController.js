@@ -338,9 +338,6 @@ export class ElectraController extends Controller {
         let months = [];
         let monthlyConsumption = [];
 
-        const monthlyDataLength = await this.#electricityRepository.getMonthlyData();
-        const startOfMonthlyData = monthlyDataLength.data.length - this.#amountOfMonthsGraph;
-
         for (let i = 0; i < this.#amountOfMonthsGraph; i++) {
             months[i] = await monthlyData.then(function (results) {
                 return "2021 - " + results.data[i].maand;
@@ -380,9 +377,6 @@ export class ElectraController extends Controller {
         const yearlyData = this.#electricityRepository.getYearlyData();
         let years = [];
         let yearlyConsumption = [];
-
-        const yearlyDataLength = await this.#electricityRepository.getYearlyData();
-        const startOfYearlyData = yearlyDataLength.data.length - this.#amountOfYearsGraph;
 
         for (let i = 0; i < this.#amountOfYearsGraph; i++) {
             years[i] = await yearlyData.then(function (results) {
