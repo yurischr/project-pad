@@ -24,8 +24,7 @@ export class SocketController extends Controller {
             try {
                 // Initialize the socket connection
                 let socket = io(socketUrl, {
-                    path: socketPath,
-                    transports: ['websocket']
+                    path: socketPath
                 });
                 // curl "https://dev-svm-3.hbo-ict.cloud/api/socket.io/?EIO=4&transport=polling"
 
@@ -49,6 +48,7 @@ export class SocketController extends Controller {
                 // if the socket connection is connected, show the connection message
                 this.#socket.on("connect", async () => {
                     console.log("Socket connected");
+
                     socket.on('user connected', (data) => {
                         console.table(data);
                     });
