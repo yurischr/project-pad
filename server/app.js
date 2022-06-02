@@ -76,13 +76,8 @@ function initializeSocketIO(server) {
             id: socket.id
         });
 
-
         // on disconnect remove the client from the list of clients
         socket.on('disconnect', () => {
-            socket.emit('user disconnected', {
-                message: "user left"
-            });
-
             console.log('user disconnected');
             delete clients[socket.id];
         });
