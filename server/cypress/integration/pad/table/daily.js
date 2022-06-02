@@ -13,7 +13,7 @@ describe("Table Daily", () => {
         // Click on the daily button
         cy.get('[data-table="day"]').click({ force: true});
 
-        cy.wait(3000);
+        // cy.wait(3000);
 
         // Check that the right content is displayed in the table
         cy.get(".time-column").should("contain", "Dag");
