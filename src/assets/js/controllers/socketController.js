@@ -14,9 +14,8 @@ export class SocketController extends Controller {
     /**
      * Constructor for the SocketController class
      * @param view - contains the view of the consumption page [<main>]
-     * @param env  - contains the environment of the application [<LOCAL>, <DEV>, <LIVE>]
      */
-    constructor(view, env) {
+    constructor(view) {
         super();
         this.#view = view;
 

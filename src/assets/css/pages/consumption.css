@@ -150,3 +150,8 @@ hr,
     scroll-margin: 15em;
 }
 
+@media (max-width: 920px) {
+    .side-nav-main-box {
+        display: none;
+    }
+}
