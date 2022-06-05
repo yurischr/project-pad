@@ -46,7 +46,7 @@ export class ElectraController extends Controller {
             }
         })();
 
-        // Selecting all the the period tab links
+        // Selecting all the  period tab links
         const tabs = this.#view.querySelectorAll("button.tab-link");
 
         // When a specific tab is clicked the `handleTableView` will be called

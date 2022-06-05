@@ -20,35 +20,30 @@ export class SocketController extends Controller {
         super();
         this.#view = view;
 
-        (async () => {
-            try {
-                // Initialize the socket connection
-                let socket = io(socketUrl, {
-                    path: socketPath
-                });
+        // Initialize the socket connection
+        const socket = io(socketUrl, {
+            path: socketPath
+        });
 
-                this.#socket = socket;
+        this.#socket = socket;
 
-                let clearTimeout = setTimeout(async () => {
-                    console.log(this.#socket)
-                    if (!this.#socket.connected) {
-                        await this.#socketConnection(this.#CONN_DISCONNECT);
-                    }
-                }, 3000);
-
-                // if the socket connection is connected, show the connection message
-                this.#socket.on("connect", async () => {
-                    await this.#socketConnection(this.#CONN_CONNECTED);
-                });
-
-                // if the socket connection is disconnected, show the disconnection message
-                this.#socket.on("disconnect", async () => {
-                    await this.#socketConnection(this.#CONN_DISCONNECT);
-                });
-            } catch (e) {
-                console.error(e);
+        let clearTimeout = setTimeout(async () => {
+            console.log(this.#socket)
+            if (!this.#socket.connected) {
+                await this.#socketConnection(this.#CONN_DISCONNECT);
             }
-        })();
+        }, 3000);
+
+        // if the socket connection is connected, show the connection message
+        this.#socket.on("connect", async () => {
+            await this.#socketConnection(this.#CONN_CONNECTED);
+        });
+
+        // if the socket connection is disconnected, show the disconnection message
+        this.#socket.on("disconnect", async () => {
+            await this.#socketConnection(this.#CONN_DISCONNECT);
+        });
+
     }
 
     /**
@@ -59,7 +54,7 @@ export class SocketController extends Controller {
      */
     async #socketConnection(type) {
         const current = new Date();
-        const errTime = current.toLocaleTimeString("en-US");
+        const errTime = current.toLocaleTimeString("nl-NL");
 
         let template = this.#view.querySelector("#toast-template");
         let clone = template.content.cloneNode(true);
