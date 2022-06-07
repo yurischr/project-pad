@@ -1,7 +1,8 @@
 //Context: Comparison Chart
 describe("ComparisonChart", () => {
-    const endpoint = "/comparison/weekly";
+    const ENDPOINT = "/comparison/daily";
     const CONSUMPTION_PAGE_URL = Cypress.env("CONSUMPTION_PAGE_URL");
+    const API_BASE_URL = Cypress.env("LOCAL_API_BASE_URL");
 
     //Run before each test in this context
     beforeEach(() => {
@@ -11,25 +12,36 @@ describe("ComparisonChart", () => {
 
     //Test: Validate UI
     it("Valid UI", () => {
-        cy.get('[data-table="week"]').should('exist');
+        cy.get('[data-table="day"]').should('exist');
         cy.get('#chart').should('exist');
     });
 
     //Test: Happy Call
-    it("Happy Call", () => {
-        cy.server();
-        const mockedResponse = {"data": [{"start": "2018-01-01T00:00:00.000Z", "week": 201753, "consumption": 10824.1}]}
+    it("Make sure the request gets data", () => {
+        // Check if the status code is 200
+        cy.request(API_BASE_URL + ENDPOINT).its('status').should('be.equal', 200);
 
-        cy.intercept('GET', endpoint, {
-            statusCode: 200,
-            body : mockedResponse
-        }).as('comparisonData')
-
-        cy.get('[data-table="week"]').click({force: true});
-        cy.wait('@comparisonData');
     });
 
     //Test: Unhappy Call
-    it("Unhappy Call", () => {
+    it("Bad Request Call", () => {
+        cy.server()
+
+        const mockedResponse = {
+            reason: "Bad Request"
+        };
+
+        cy.intercept('GET', ENDPOINT, {
+            statusCode: 400,
+            body: mockedResponse
+        }).as('error');
+
+        cy.wait(3000);
+        cy.get('[data-table="day"]').click({ force: true});
+
+        cy.wait("@error");
+
+        cy.get(".err-msg").should("exist");
+
     });
 });

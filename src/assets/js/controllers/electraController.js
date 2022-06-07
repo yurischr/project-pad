@@ -70,6 +70,11 @@ export class ElectraController extends Controller {
                         reason: "No data available for this period",
                         code: 204
                     });
+                } else if (e.code === 400) {
+                    await super.loadErrAlertIntoCustomElement(this.#view.querySelector(".error-box-nav-pills"), {
+                        reason: "Er is iets misgegaan, probeer het opnieuw",
+                        code: 400
+                    });
                 }
             }
         }));
