@@ -70,24 +70,33 @@ export class RealtimeController extends Controller {
         electricity.innerHTML = Math.round(electricityDifference * 100) / 100 + "%"
      }
 
+    /**
+     * Function to calculate the satisfaction of the current electricity usage. Gets called every 15 minutes.
+     * @param currentElectricityUsage - the current electricity usage
+     * @returns {Promise<void>} - Returns a promise that resolves to void
+     * @async - async function to await the repository
+     * @private
+     */
     async #satisfactionPercentage(currentElectricityUsage) {
         const percentageBar = this.#view.querySelector('.percentage-bar');
         const percentageCount = this.#view.querySelector('.percentage-count');
         const satisfactionIcon = this.#view.querySelector('.satisfaction-icon');
         const iconsFolder = 'assets/images/icons';
 
+        //Get and calculate the percentage of the electricity usage.
         const averageElectricityData = await this.#electricityRepository.getAverageData();
         let percentage = (( currentElectricityUsage / averageElectricityData.data[0]['averageConsumption']) * 100).toFixed(0);
+        //If percentage is higher then 200, make it 200.
         if (percentage > 200) {
             percentage = 200;
         }
+        //Calculate the rotate degree ( / 2 so 100% is in the middle), *1.8 because (100 * 1.8) is 180 degrees.
         const rotateDegree = 45 + ((percentage / 2) * 1.8);
 
         percentageBar.style.transform = `rotate(${rotateDegree}deg)`;
-
-        const percentageDifference = ((currentElectricityUsage / averageElectricityData.data[0]['averageConsumption']) * 100) - 100;
         percentageCount.innerHTML = `${percentage}%`;
 
+        //Change icon according to the percentage.
         if (percentage > 125) {
             setSatisfactionIcon('sad-icon.png');
         } else if (percentage >= 80 && percentage < 125) {

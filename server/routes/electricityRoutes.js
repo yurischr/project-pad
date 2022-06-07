@@ -150,6 +150,10 @@ class ElectricityRoutes {
         })
     }
 
+    /**
+     * Electricity route for getting the average electricity consumption
+     * @private
+     */
     #getAverageDate() {
         this.#app.get("/electricity/average", async (req, res) => {
             try {

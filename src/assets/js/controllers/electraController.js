@@ -203,22 +203,24 @@ export class ElectraController extends Controller {
     /**
      * Function gets the electricity and gas data and adds the data to a doughnut chart
      * @param comparisonData - comparison data from selected period
+     * @returns {Promise<void>} - Returns a promise that resolves to void
      * @private
      */
     #comparisonChart(comparisonData) {
+        //Replace canvas each time the function is called.
         this.#view.querySelector('#chart').remove();
         this.#view.querySelector('.comparison-chart').insertAdjacentHTML("beforeend", '<canvas id="chart">' +
             '</canvas>');
         const electricity = comparisonData.data['electricity'];
         const gas = comparisonData.data['gas'];
-
-
         const co2EmissionFactorElectricity = 0.649;
         const co2EmissionFactorGas = 1.89;
 
+        //Calculate the co2 usage from electricity and gas.
         const co2ElectricityUsage = electricity * co2EmissionFactorElectricity;
         const co2GasUsage = gas * co2EmissionFactorGas;
 
+        //Create the chart data
         const data = {
             labels: ['Elektriciteit', 'Gas'],
             datasets: [{
@@ -236,9 +238,11 @@ export class ElectraController extends Controller {
             data
         };
 
+        //Create the doughnut chart
         const comparisonChart = this.#view.querySelector('#chart');
         const doughnutChart = new Chart(comparisonChart, config);
 
+        //Add dataset type to the info button
         this.#view.querySelector(".cc-value button").dataset.type = "cc-chart";
     }
 
