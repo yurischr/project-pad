@@ -1,3 +1,7 @@
+/**
+ * Class realtimeRoutes contains ExpressJS routes specific for the realtime data.
+ * @author Yuri Schrieken
+ */
 class RealtimeRoutes {
 
     #app
@@ -8,14 +12,17 @@ class RealtimeRoutes {
         this.#db = require("../framework/utils/databaseHelper")
         this.#errCodes = require("../framework/utils/httpErrorCodes")
         this.#getRealtimeElectricityData()
-        this.#getRealtimeGasData()
     }
 
+    /**
+     * realtime route for getting the realtime data
+     * @private
+     */
     #getRealtimeElectricityData() {
         this.#app.post(`/realtime/electricity`, async (req, res) => {
             try {
                     let data = await this.#db.handleQuery({
-                    query: "SELECT * FROM electricity WHERE time = " + "\"" + req.body.realtime + "\""
+                    query: "SELECT * FROM electricity WHERE time = " + "\"" + req.body.realtime + "\"",
                 })
 
                 if (data.length > 0) {
@@ -31,25 +38,7 @@ class RealtimeRoutes {
         })
     }
 
-    #getRealtimeGasData() {
-        this.#app.post(`/realtime/gas`, async (req, res) => {
-            try {
-                let data = await this.#db.handleQuery({
-                    query: "SELECT * FROM gas WHERE time = " + "\"" + req.body.realtime + "\""
-                })
 
-                if (data.length > 0) {
-                    res.status(this.#errCodes.HTTP_OK_CODE).json({data: data})
-                } else {
-                    res.status(this.#errCodes.NO_CONTENT).json({reason: "Data not found"})
-                }
-
-            } catch (e) {
-                console.log(e)
-                res.status(this.#errCodes.BAD_REQUEST_CODE).json({reason: e});
-            }
-        })
-    }
 
 }
 

@@ -23,16 +23,18 @@ export class CompareUsageController extends Controller {
      * @returns {number}
      */
     setupDatePickers() {
+        //get current date and set max date
         const currentDate = new Date("Date.now()");
         const maxDate = new Date("2022/03/07")
-        const formattedDate = `${currentDate.getFullYear()}/${currentDate.getMonth() + 1}/${currentDate.getDate()}`;
 
+        //makes datepicker
         const picker = new easepick.create({
             element: document.getElementById('datepicker'),
             css: [
                 'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.1.3/dist/index.css',
             ],
             plugins: ['RangePlugin', 'LockPlugin', 'AmpPlugin'],
+            //dropDown menu for selecting months and years
             AmpPlugin: {
                 dropdown: {
                     months: true,
@@ -42,10 +44,12 @@ export class CompareUsageController extends Controller {
                 resetButton: true,
                 darkMode: false
             },
+            //plugin for selecting a range
             RangePlugin: {
                 tooltipNumber(num) {
                     return num - 1;
                 },
+                //adds amount of nights to datepicker
                 locale: {
                     one: 'night',
                     other: 'nights',
@@ -55,9 +59,10 @@ export class CompareUsageController extends Controller {
                 maxDate: maxDate
             },
             setup: (picker) => {
+                //event listener when hiding datepicker
                 picker.on('hide', () => {
+                    //sends start date and end date to methods
                     this.#getData(picker.getStartDate(), picker.getEndDate())
-                    // this.#getDaysArray(picker.getStartDate(), picker.getEndDate());
                     this.#graphDatepicker(picker.getStartDate(), picker.getEndDate())
                 });
                 picker.setDate(maxDate)
@@ -73,16 +78,18 @@ export class CompareUsageController extends Controller {
      */
     async #graphDatepicker(startDate, endDate) {
 
+        //formats start and end date for API call
         const newStartDate = startDate.toISOString().split('T')[0]
         const newEndDate = endDate.toISOString().split('T')[0]
 
+        //gets data from API
         const data = await this.#electricityRepository.getData(newStartDate, newEndDate)
 
-        console.log(data)
-
+        //arrays for the data and days
         let dayArray = []
         let dataArray = []
 
+        //fills arrays with the data and date
         for (let i = 0; i < data.data.length; i++) {
             dayArray[i] = data.data[i].day
             dataArray[i] = data.data[i].consumption

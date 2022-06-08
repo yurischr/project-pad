@@ -1,3 +1,8 @@
+/**
+ * Realtime controller for realtime cards
+ * @author Yuri Schrieken, Jordy Mol
+ */
+
 import {Controller} from "./controller.js";
 import {CompareUsageRepository} from "../repositories/compareUsageRepository.js";
 import {ElectricityRepository} from "../repositories/electricityRepository.js";
@@ -23,7 +28,12 @@ export class RealtimeController extends Controller {
         }, 1000 * 60 * 15)
     }
 
+    /**
+     * Function for getting and displaying realtime data
+     * @returns {Promise<void>}
+     */
     async #calculateRealtimeData() {
+        //set current date into correct format
         const today = new Date()
         const yyyy = today.getFullYear() - 1
         const mm = today.getMonth() + 1
@@ -32,10 +42,13 @@ export class RealtimeController extends Controller {
         const min = today.getMinutes()
         const roundedMinutes = (Math.round(min / 15) * 15) % 60
 
+        //formats date for API
         const formattedElectricityDate = `${yyyy}-${mm}-${dd} ${hh}:${roundedMinutes}`
 
+        //Call to API
         const electricityData = await this.#realtimeRepository.getElectricityData(formattedElectricityDate);
 
+        //adds result from API to realtime electra card
         this.#view.querySelector("#realtime-electra-data").innerHTML = electricityData.data[0]['consumption'] + "kWh";
 
         const realtimeElectricity = electricityData.data[0]['consumption']
@@ -68,7 +81,7 @@ export class RealtimeController extends Controller {
         //changes result color to green
         electricity.classList.add("positive");
         electricity.innerHTML = Math.round(electricityDifference * 100) / 100 + "%"
-     }
+    }
 
     /**
      * Function to calculate the satisfaction of the current electricity usage. Gets called every 15 minutes.
@@ -85,7 +98,7 @@ export class RealtimeController extends Controller {
 
         //Get and calculate the percentage of the electricity usage.
         const averageElectricityData = await this.#electricityRepository.getAverageData();
-        let percentage = (( currentElectricityUsage / averageElectricityData.data[0]['averageConsumption']) * 100).toFixed(0);
+        let percentage = ((currentElectricityUsage / averageElectricityData.data[0]['averageConsumption']) * 100).toFixed(0);
         //If percentage is higher then 200, make it 200.
         if (percentage > 200) {
             percentage = 200;
